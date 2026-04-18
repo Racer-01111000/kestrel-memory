@@ -1,6 +1,7 @@
 # REASONING SUBSTRATE v0 — Specification
 
 **Status:** FINALIZED, ready for CC handoff
+**Revision:** v0.1 — adds operator authority promotion path (§9)
 **Target location in repo:** `docs/REASONING_SUBSTRATE_V0.md`
 **Depends on:** verify_claims v2 stable in production
 **Doctrine anchor:** Acquisition ≠ Evidence ≠ Sufficiency ≠ Promotion ≠ **Derivation** ≠ **Observation**
@@ -14,8 +15,9 @@ Kestrel's current pipeline is a **lookup** system: given a claim, find other doc
 - Detect that a new claim contradicts an existing canonical claim (no external source will flag this — the conflict is specific to Kestrel's corpus).
 - Produce implications that follow necessarily from canonical truths.
 - Distinguish a theoretical result corroborated by independent proofs from one corroborated by citational echo.
+- Handle material the operator already trusts on established grounds, which shouldn't need re-verification through a queue.
 
-v0 introduces a **reasoning substrate** — a structured-claim representation plus two reasoning layers (consistency and entailment) — alongside the verification pipeline, not replacing it.
+v0 introduces a **reasoning substrate** — a structured-claim representation plus two reasoning layers (consistency and entailment) — alongside the verification pipeline, not replacing it. It also formalizes a third promotion path (§9) so that operator authority is an explicit, audited mechanism rather than an ambiguous field in an ingest dropdown.
 
 ---
 
@@ -29,7 +31,21 @@ v0 adds:
 >
 > A claim being derivable from canonical truths is not the same as that claim being observed, measured, or externally corroborated. Derived claims are predictions. They earn their way to canonical status through external confirmation, exactly like any other claim. The substrate proposes; the world disposes.
 
-**Operational consequence of strict mode:** Layer 2 (the entailment engine) does not produce truths. It produces **candidate queries for the verification layer** — "Kestrel noticed this follows from canonical knowledge; here is something to look for in the world." This is more epistemically honest than letting derivations self-promote.
+**Operational consequence of strict mode:** Layer 2 (the entailment engine) does not produce truths. It produces **candidate queries for the verification layer** — "Kestrel noticed this follows from canonical knowledge; here is something to look for in the world."
+
+### 2.1 The three promotion modes
+
+Canonical status can be reached by exactly three paths, each visibly tracked on the canonical item via a `promotion_mode` field:
+
+| Mode | Source | Gate | Audit |
+|---|---|---|---|
+| `observation` | External sources verified by v2 | ≥2 distinct witness sources, Layer 1 consistency check, host approval at promotion gate | `verification_sources[]` |
+| `derivation` | Layer 2 entailment engine | Requires external corroboration via v2 matching (§8.4), then observation gate | `provenance` chain + `verification_sources[]` |
+| `authority` | Operator assertion (§9) | Operator rationale required, Layer 1 consistency check still runs, cannot be rubber-stamped in bulk | `authority_record` entry |
+
+A canonical item may additionally carry an `authority_endorsement` alongside any mode — i.e. an observation-promoted item that the operator personally vouches for. Endorsement is additive, not a substitute: it strengthens a canonical but does not replace its underlying promotion mode.
+
+**Doctrinal principle:** each promotion mode is honest about what it is. Observation claims it; derivation derived it; authority vouches for it. No mode launders itself as another.
 
 ---
 
@@ -46,7 +62,8 @@ v0 adds:
 
 - Hypothetical or abductive reasoning (Layers 3–4)
 - Automatic promotion of derived claims to canonical
-- Operator-direct acceptance of derivations as canonical (strict mode rules this out)
+- Bypass of Layer 1 consistency checking under any promotion mode
+- Bulk authority-promotion via keyboard shortcut or batch action (§9.5)
 - Natural-language query interface
 - Fuzzy or probabilistic reasoning
 - Cross-language support (English only)
@@ -62,6 +79,7 @@ Full level progression:
 ```
 claim → reinforced_claim → fact_candidate → canonical
                               derived_claim ↗
+                              [operator authority path] ↗
 ```
 
 `derived_claim` is produced internally by the entailment engine. It is NOT a fetched artifact. Like `fact_candidate`, it requires external witness corroboration + host approval to reach canonical. Unlike `fact_candidate`, it is not on any verification timer — it sits in `staged/` until independently observed externally.
@@ -88,7 +106,11 @@ claim → reinforced_claim → fact_candidate → canonical
 - `conditions` — list of preconditions. Empty list = unconditional.
 - `confidence` — `asserted | derived | disputed`. Defaults to `asserted` for externally-fetched items, `derived` for substrate-produced items.
 
-### 4.3 New field on derived claims: `provenance`
+### 4.3 New field on canonical items: `promotion_mode`
+
+Every canonical item carries exactly one `promotion_mode` value: `observation | derivation | authority`. REQUIRED. Determined by which gate the item passed through. Immutable after promotion — a reclassification requires retirement and re-promotion.
+
+### 4.4 New field on derived claims: `provenance`
 
 ```json
 {
@@ -103,6 +125,36 @@ claim → reinforced_claim → fact_candidate → canonical
 ```
 
 **Invariant:** if any claim in `from_claims` is retracted, every derived claim in its forward closure is automatically demoted to `review` with a reason note. Provenance is the audit trail that makes invalidation tractable.
+
+### 4.5 New field on authority-promoted items: `authority_record`
+
+```json
+{
+  "authority_record": {
+    "operator": "rick",
+    "asserted_at": "2026-04-18T10:14:00Z",
+    "rationale": "Well-cited IBM/Quantinuum documentation synthesis; author's own work",
+    "source_confidence": "established_documentation | peer_reviewed | author_known | other",
+    "endorsed_sources": ["IBM Qiskit docs", "Quantinuum docs", "arXiv error-mitigation review"]
+  }
+}
+```
+
+All fields REQUIRED when `promotion_mode: authority`. `rationale` must be at least 20 characters — a guard against empty-string rubber-stamping.
+
+### 4.6 New field (optional) on any canonical: `authority_endorsement`
+
+```json
+{
+  "authority_endorsement": {
+    "operator": "rick",
+    "endorsed_at": "2026-04-18T10:14:00Z",
+    "rationale": "Confirms this matches my reading of the primary source."
+  }
+}
+```
+
+Present on observation- or derivation-promoted canonicals where the operator has additionally vouched. Display in console alongside the existing mode badge.
 
 ---
 
@@ -149,6 +201,7 @@ Tables:
 - `derived_claims` — derived claims with provenance
 - `conflicts` — Layer 1 detected contradictions awaiting resolution
 - `retractions` — audit of retracted canonicals and their forward closure
+- `authority_records` — audit of all authority-promoted canonicals (§9)
 
 Rationale: 18→N canonicals will grow into thousands over time; file-per-claim does not scale, and relational queries for forward-closure invalidation benefit from indexed joins.
 
@@ -156,7 +209,7 @@ Rationale: 18→N canonicals will grow into thousands over time; file-per-claim 
 
 Path: `~/.kestrel-node/runtime/substrate/journal.jsonl`
 
-Every substrate write (new structured_claim, new derived_claim, conflict detected, retraction cascade) appends a single JSON line to this file. Atomic append, no edits, no deletes.
+Every substrate write (new structured_claim, new derived_claim, conflict detected, retraction cascade, authority promotion, authority endorsement) appends a single JSON line to this file. Atomic append, no edits, no deletes.
 
 **Purpose:** disaster recovery. DB is never sole source of truth. If the DB corrupts between git snapshots, recovery path is: last git snapshot + replay journal from snapshot timestamp forward.
 
@@ -181,7 +234,13 @@ Substrate scripts query SQLite directly for all runtime reads. Git snapshots are
 
 ### 7.1 Trigger
 
-Runs at exactly one gate: **`fact_candidate → canonical` promotion.** Not earlier. Not on staged-entry. Not periodically.
+Runs at every path into canonical:
+
+- `fact_candidate → canonical` (observation mode)
+- `derived_claim → canonical` after external corroboration (derivation mode)
+- Any item on the operator authority path (§9)
+
+Consistency checking is mode-independent. Authority promotion does NOT bypass Layer 1 — operator vouching for a source does not override a direct contradiction with existing canonical knowledge. Those conflicts still surface and still block.
 
 ### 7.2 Operation
 
@@ -196,7 +255,7 @@ For an item entering promotion:
 
 ### 7.3 Output
 
-- **No conflict** → promotion proceeds.
+- **No conflict** → promotion proceeds via its mode.
 - **Direct contradiction** → promotion BLOCKED. Conflict written to `conflicts` table and surfaced in operator console. Operator resolves by:
   - Reject new (old stays canonical)
   - Retire old (new promoted, old moved to `retired` with timestamp, cascade demotion of dependent derived_claims)
@@ -205,7 +264,7 @@ For an item entering promotion:
 
 ### 7.4 Integration
 
-Hook into existing `run_promotion_queue.sh` on NODE. Substrate consistency check runs *after* witness-count check and *before* items enter `promotion_gate.json`. Conflicts appear in the console's Reasoning panel.
+Hook into existing `run_promotion_queue.sh` on NODE for observation/derivation modes, and into the authority-promotion flow (§9.4) for authority mode. Conflicts appear in the console's Reasoning panel regardless of which path triggered them.
 
 ---
 
@@ -215,7 +274,7 @@ Hook into existing `run_promotion_queue.sh` on NODE. Substrate consistency check
 
 Two modes, both event-driven:
 
-- **On canonical addition** — when an item reaches canonical, try to derive new candidates combined with the existing canonical set.
+- **On canonical addition** — when an item reaches canonical (regardless of promotion mode), try to derive new candidates combined with the existing canonical set.
 - **Operator-requested** — console action "derive implications for X" runs engine against specific claim or subject.
 
 **No periodic timer.** Autonomous derivation is the failure mode to avoid.
@@ -253,27 +312,99 @@ Every derived claim gets:
 
 **One path only:** external corroboration by independent observation or independent assertion.
 
-When the verify_claims v2 loop stages a new claim, the substrate also checks: does this new claim's structured_claim match any existing derived_claim? If yes, the derived_claim gets its `verification_sources` populated from the external source. Once it has ≥2 distinct external witnesses (same rule as fact_candidate), it becomes eligible for canonical promotion — going through Layer 1 consistency check on the way in, same as any other candidate.
+When the verify_claims v2 loop stages a new claim, the substrate also checks: does this new claim's structured_claim match any existing derived_claim? If yes, the derived_claim gets its `verification_sources` populated from the external source. Once it has ≥2 distinct external witnesses (same rule as fact_candidate), it becomes eligible for canonical promotion — going through Layer 1 consistency check on the way in, same as any other candidate. On promotion, `promotion_mode` is set to `derivation`.
 
 A derived_claim with zero external witnesses stays as `derived_claim` indefinitely. That is correct behavior. Truth does not rot.
 
+**Note on authority interaction:** the operator may NOT authority-promote a `derived_claim`. Authority is for external-source material the operator vouches for; derivation is for internally-produced candidates that need the world's confirmation. Conflating them would undermine the doctrinal point that "Derivation ≠ Observation." If the operator is confident a derivation is correct and wants it canonical, they supply the external source themselves (via normal ingest), and the normal v2 matching path picks it up.
+
 ---
 
-## 9. LLM-assisted structured_claim extraction
+## 9. Operator Authority Path
 
-### 9.1 When
+The third promotion mode. Formalizes what was happening implicitly via an ambiguous "verified" option in the ingest dropdown.
 
-At promotion time (`fact_candidate → canonical`), operator invokes "Extract structured_claim" action in console.
+### 9.1 Purpose
 
-### 9.2 How
+Not every canonical claim should have to wait in the verify queue. Material from established primary sources (IBM Qiskit documentation, NIST standards, peer-reviewed papers the operator has read) is already as well-corroborated as any verifier can make it — re-verifying it through a generalized citation loop is theater, not epistemics. The operator is a legitimate source of authority for such claims, and the system should support that authority explicitly, with audit, rather than by offering an undocumented dropdown value.
 
-Console sends prose fields (title, claim_text, content) to Claude API via existing Kestrel infrastructure. Prompt template (stored at `~/kestrel-node/runtime/substrate/prompts/extract_structured_claim.md`) asks for:
+### 9.2 When an item qualifies for authority promotion
+
+The operator's judgment, with the following guard rails stated in the rationale field:
+
+- Primary-source material from an established authority in the field (vendor documentation, standards body publications, peer-reviewed papers)
+- Author-known material the operator has direct expertise or knowledge of
+- Material that synthesizes multiple established sources and whose assertions are cross-checkable against those sources
+
+Material that does NOT qualify:
+
+- Speculation, opinion pieces, informal blog posts (unless ingested as `hypothesis`, not canonical)
+- Items the operator has not actually read
+- Items whose primary claims the operator cannot point to concrete corroboration for
+
+### 9.3 Console action
+
+A new action in the staged-item view: **"Promote by authority"**. Presents a modal:
+
+- Full prose content of the item displayed
+- Proposed `structured_claim` (via LLM extraction, §10 — mandatory, same as observation-mode promotion)
+- `rationale` text field (minimum 20 characters, enforced)
+- `source_confidence` dropdown: `established_documentation | peer_reviewed | author_known | other`
+- `endorsed_sources` list — at minimum one entry
+- Cancel / Promote buttons
+
+On promote: Layer 1 consistency check runs. If clear, item moves to canonical with `promotion_mode: authority` and a complete `authority_record`. If contradiction, operator sees the conflict and resolves via standard Layer 1 workflow.
+
+### 9.4 Audit requirements
+
+Every authority promotion writes:
+
+1. A row in the `authority_records` table with the full record.
+2. A line to `journal.jsonl` (captured in nightly git snapshot).
+3. A log entry in `~/.kestrel-node/runtime/substrate/authority_promotions.log` (human-readable chronological log for operator review).
+
+Authority promotions are **always** visible as a distinct class in the console — marked with a badge (suggested: amber "AUTH") so observation-mode canonicals are never visually confused with authority-mode canonicals.
+
+### 9.5 Rate discipline (honor system, not throttle)
+
+No hard technical limit on authority promotions per day. But the console displays, at all times, the ratio of authority-mode to observation-mode canonicals in the corpus. If authority exceeds 30% of canonical, the indicator turns amber; at 50%, red. These are soft signals that the operator is essentially bypassing verification, and prompt reflection — not enforcement.
+
+**Bulk authority promotion is explicitly disallowed in v0.** Each authority promotion requires an individual modal with individual rationale. No "promote all selected" button. This is intentional friction, not UX debt.
+
+### 9.6 Authority endorsement (additive)
+
+Separately from authority promotion, any canonical item (regardless of its promotion mode) can receive an `authority_endorsement` via a "Endorse" action. This is a lighter-weight "I vouch for this" marker that displays alongside the existing mode badge. Purpose: lets the operator flag observation- or derivation-mode canonicals they have additionally personally reviewed and trust.
+
+Endorsements do not change `promotion_mode`. They do not bypass anything — the item was already canonical. They are pure metadata.
+
+### 9.7 Revocation
+
+Authority promotions can be revoked. The operator invokes "Revoke authority" on any authority-promoted canonical. On revocation:
+
+- Item moves from canonical back to `fact_candidate`
+- Authority record is marked `revoked_at: <timestamp>, reason: <text>` but not deleted
+- Any derived claims in the item's forward closure are demoted per the standard retraction cascade (§4.4)
+- Item re-enters the v2 verification queue — authority once revoked must be replaced by observation or the item retires
+
+Revocation is a recovery mechanism for mistakes, not a casual workflow.
+
+---
+
+## 10. LLM-assisted structured_claim extraction
+
+### 10.1 When
+
+At promotion time for any mode (`fact_candidate → canonical`, derived_claim external-match, or authority promotion), operator invokes "Extract structured_claim" action in console.
+
+### 10.2 How
+
+Console sends prose fields (title, claim_text, content) to Claude API via existing Kestrel infrastructure. Prompt template (stored at `~/.kestrel-node/runtime/substrate/prompts/extract_structured_claim.md`) asks for:
 
 - One predicate from the current vocabulary (listed in the prompt — never ask LLM to invent predicates)
 - Subject, value, unit, conditions per the schema
 - Reasoning trace: which spans of prose the structured_claim was extracted from
 
-### 9.3 Operator review
+### 10.3 Operator review
 
 Console displays:
 
@@ -285,91 +416,107 @@ Console displays:
 
 Rejection kicks back to operator for manual extraction. Approval writes the structured_claim and records the extraction event in the audit log.
 
-### 9.4 Audit log
+### 10.4 Audit log
 
-Append-only, JSONL, at `~/kestrel-node/runtime/substrate/extraction_audit.jsonl`. Every extraction event logs:
+Append-only, JSONL, at `~/.kestrel-node/runtime/substrate/extraction_audit.jsonl`. Every extraction event logs:
 
 - Timestamp, canonical_id
 - LLM input (prose)
 - LLM full output (structured_claim + reasoning)
 - Operator edits (diff)
 - Final approved structured_claim
+- `promotion_mode` this extraction was for
 
 Included in the 3am git snapshot. If a structured_claim later proves malformed, this log is the trace.
 
 ---
 
-## 10. Failure modes and mitigations
+## 11. Failure modes and mitigations
 
 | Failure mode | Mitigation |
 |---|---|
-| **Loop closure** — derived claims feeding back as canonical without external verification | Strict mode: only external corroboration promotes derived_claim. No operator-bypass path. |
+| **Loop closure** — derived claims feeding back as canonical without external verification | Strict mode: only external corroboration promotes derived_claim. Authority path explicitly forbidden for derived_claims (§8.4). |
+| **Authority inflation** — operator bypassing verification by default | Authority-mode ratio indicator in console (§9.5), bulk promotion disabled, 20-char rationale minimum |
+| **Ambiguous epistemic levels** — legacy "verified" dropdown creating confusion | Deliverable §15 retires console dropdown values not in canonical vocabulary; only the three modes (§2.1) produce canonical |
 | **Predicate drift** — vocabulary sprawl and semantic overlap | One predicate per PR, rationale required, existing predicates reviewed before adding |
 | **Unit confusion** — values without units | `unit` field REQUIRED for numeric predicates; schema validation rejects missing |
 | **Condition collapse** — claims valid in different conditions reasoned as unconditional | `conditions` field participates in consistency checking; different conditions = not contradictory |
 | **Orphan derived claims** — reference retracted canonicals | Retraction triggers cascade demotion of forward closure; tracked in `retractions` table |
+| **Authority-promoted contradiction** — operator vouches for item that contradicts existing canonical | Layer 1 runs on authority path too (§7.1); no bypass |
 | **LLM hallucination in extraction** — invented predicates or wrong subjects | Prompt constrains to vocabulary; operator approval is mandatory, not optional; audit log preserves trace |
 | **DB corruption between git snapshots** | Append-only journal replays from last snapshot forward; DB is never sole source of truth |
 | **Git snapshot failure** | Journal not truncated until commit succeeds; Telegram alert fires on failure |
 
 ---
 
-## 11. Testing plan
+## 12. Testing plan
 
-### 11.1 Layer 1 unit tests
+### 12.1 Layer 1 unit tests
 
 - Two claims with same predicate/subject/incompatible values → conflict flagged.
 - Two claims with same predicate/subject/same values → no conflict.
 - Two claims with same predicate/subject/compatible values but different conditions → refinement, no conflict.
 - Two claims with same predicate/subject/same value/different units → unit mismatch flag.
+- Authority-path item with same predicate/subject/incompatible values as existing canonical → blocked identically to observation path.
 
-### 11.2 Layer 2 unit tests
+### 12.2 Layer 2 unit tests
 
 - Each derivation rule exercised with fixture canonical set.
 - Provenance chain validated: derived claim references correct source claims, derivation_type matches rule.
 - Retraction test: retract source canonical, confirm full forward closure demoted.
 - External-match test: stage a claim that matches an existing derived_claim, confirm derived_claim acquires `verification_sources` entry.
+- Authority-of-derived-claim test: attempt authority promotion on a derived_claim, confirm rejected.
 
-### 11.3 Storage tests
+### 12.3 Authority-path unit tests
+
+- Authority promotion with valid rationale (>20 chars) → canonical with `promotion_mode: authority`.
+- Authority promotion with empty or <20 char rationale → rejected at form validation.
+- Authority promotion with Layer 1 contradiction → blocked, conflict surfaced.
+- Revocation of authority promotion → item returns to fact_candidate, dependent derivations demoted.
+- Endorsement on observation-mode canonical → `authority_endorsement` added, `promotion_mode` unchanged.
+- Authority-ratio indicator test: seed corpus with varying ratios, confirm amber at 30%, red at 50%.
+
+### 12.4 Storage tests
 
 - Write to DB, write to journal, confirm both consistent.
 - Simulate DB corruption mid-day, replay journal from last snapshot, confirm recovery.
 - Force git snapshot, confirm JSON dumps match DB state, confirm journal truncation only after commit succeeds.
 
-### 11.4 LLM extraction tests
+### 12.5 LLM extraction tests
 
 - Run extraction on 3–5 existing fact_candidates manually, review output quality before enabling in console.
 - Adversarial test: feed prose with ambiguous or missing values, confirm LLM asks for clarification rather than inventing.
 
-### 11.5 Shadow run
+### 12.6 Shadow run
 
 Run full substrate against backfilled canonical set. Expected: zero contradictions initially (corpus is too small yet), small number of derived claims, zero automatic promotions.
 
 ---
 
-## 12. Backfill
+## 13. Backfill
 
-### 12.1 Scope
+### 13.1 Scope
 
-All current canonical items get structured_claim populated before substrate goes live. Today this is 1 item (IBM trapped-ion fact). By the time substrate ships, it will likely be 15–20 (current 18 fact_candidates + any new canonicals added in the interim).
+All current canonical items get structured_claim populated before substrate goes live. Today this is 1 item (IBM trapped-ion fact). By the time substrate ships, it will likely be 15–20 (current 18 fact_candidates + any new canonicals added in the interim, minus any retired during Layer 1 review).
 
-### 12.2 Procedure
+### 13.2 Procedure
 
 For each existing canonical:
 
-1. Operator invokes LLM extraction (§9) against the canonical's prose.
+1. Operator invokes LLM extraction (§10) against the canonical's prose.
 2. Operator reviews and approves structured_claim.
 3. structured_claim written to DB, associated with canonical_id.
+4. `promotion_mode` set based on how the item originally reached canonical — existing items default to `observation` unless operator identifies them as authority material during backfill review.
 
 Items lacking a suitable predicate in the current vocabulary get flagged for vocabulary expansion or deferred.
 
-### 12.3 Prerequisite
+### 13.3 Prerequisite
 
-LLM extraction pipeline (§9) must be working before backfill begins. Backfill is not a migration script; it is a sequence of operator-reviewed extractions.
+LLM extraction pipeline (§10) must be working before backfill begins. Backfill is not a migration script; it is a sequence of operator-reviewed extractions.
 
 ---
 
-## 13. Integration with existing pipeline
+## 14. Integration with existing pipeline
 
 ```
                     ┌─────────────────────────────────────┐
@@ -386,6 +533,7 @@ LLM extraction pipeline (§9) must be working before backfill begins. Backfill i
                      consistency)   │          │
                                     ▼          │
                                 canonical ◄────┘
+                                (mode: observation)
                                     │
                     (Layer 2        │
                      entailment)    │
@@ -400,6 +548,26 @@ LLM extraction pipeline (§9) must be working before backfill begins. Backfill i
                                     │
                                     ▼
                                 canonical
+                                (mode: derivation)
+
+
+  ┌─────────────────────────────────────────────────┐
+  │  Operator authority path (§9)                   │
+  │                                                 │
+  │  staged item ──► "Promote by authority"         │
+  │       │                                         │
+  │       ▼                                         │
+  │  (LLM extract structured_claim)                 │
+  │       │                                         │
+  │       ▼                                         │
+  │  (authority_record: rationale, sources)         │
+  │       │                                         │
+  │       ▼                                         │
+  │  (Layer 1 consistency)                          │
+  │       │                                         │
+  │       ▼                                         │
+  │  canonical (mode: authority, badge: AUTH)       │
+  └─────────────────────────────────────────────────┘
 ```
 
 Substrate lives on NODE at `~/.kestrel-node/runtime/substrate/`:
@@ -409,8 +577,10 @@ substrate/
 ├── substrate.db               # SQLite primary store
 ├── journal.jsonl              # append-only recovery log
 ├── extraction_audit.jsonl     # LLM extraction audit
+├── authority_promotions.log   # human-readable authority-promotion log
 ├── consistency_check.sh       # Layer 1
 ├── entailment_engine.sh       # Layer 2
+├── authority_promote.sh       # §9 authority-path helper (called by console)
 ├── snapshot_to_git.sh         # nightly cron target
 ├── prompts/
 │   └── extract_structured_claim.md
@@ -419,53 +589,70 @@ substrate/
 │   ├── predicates.sql         # seed vocabulary
 │   ├── structured_claim.sh    # validation helpers
 │   ├── provenance.sh          # provenance chain helpers
+│   ├── authority_record.sh    # §9 authority_record helpers
 │   └── llm_extract.sh         # calls Claude API
 └── tests/
     ├── test_layer1.sh
     ├── test_layer2.sh
+    ├── test_authority.sh
     ├── test_storage.sh
     └── test_extraction.sh
 ```
 
-Host console gains a **Reasoning** panel: derived_claims, conflicts awaiting resolution, derivation chains, extraction review queue.
+Host console gains a **Reasoning** panel: derived_claims, conflicts awaiting resolution, derivation chains, extraction review queue, authority-ratio indicator.
 
 ---
 
-## 14. Deliverables
+## 15. Deliverables
 
 - [ ] `docs/REASONING_SUBSTRATE_V0.md` — this spec, committed to repo
-- [ ] `~/.kestrel-node/runtime/substrate/lib/schema.sql` — DB schema
+- [ ] `~/.kestrel-node/runtime/substrate/lib/schema.sql` — DB schema (includes `authority_records` table)
 - [ ] `~/.kestrel-node/runtime/substrate/lib/predicates.sql` — seed vocabulary (15 predicates)
 - [ ] `~/.kestrel-node/runtime/substrate/lib/structured_claim.sh` — validation + write helpers
 - [ ] `~/.kestrel-node/runtime/substrate/lib/provenance.sh` — provenance chain helpers
+- [ ] `~/.kestrel-node/runtime/substrate/lib/authority_record.sh` — authority_record helpers
 - [ ] `~/.kestrel-node/runtime/substrate/lib/llm_extract.sh` — Claude API caller
 - [ ] `~/.kestrel-node/runtime/substrate/prompts/extract_structured_claim.md` — extraction prompt
 - [ ] `~/.kestrel-node/runtime/substrate/consistency_check.sh` — Layer 1
 - [ ] `~/.kestrel-node/runtime/substrate/entailment_engine.sh` — Layer 2
+- [ ] `~/.kestrel-node/runtime/substrate/authority_promote.sh` — §9 authority-path helper
 - [ ] `~/.kestrel-node/runtime/substrate/snapshot_to_git.sh` — nightly snapshot
 - [ ] 7 derivation rules seeded in `rules` table
-- [ ] `~/.kestrel-node/runtime/substrate/tests/` — full test suite per §11
-- [ ] Integration hook in `run_promotion_queue.sh` for Layer 1
-- [ ] Integration hook for canonical-addition trigger of Layer 2
+- [ ] `~/.kestrel-node/runtime/substrate/tests/` — full test suite per §12
+- [ ] Integration hook in `run_promotion_queue.sh` for Layer 1 (observation + derivation modes)
+- [ ] Integration hook in authority_promote.sh for Layer 1 (authority mode)
+- [ ] Integration hook for canonical-addition trigger of Layer 2 (all modes)
 - [ ] Integration hook in v2 verifier for derived_claim external-match detection
 - [ ] Systemd timer for 03:00 NODE-local git snapshot
 - [ ] Console panel: Reasoning
 - [ ] Console action: Extract structured_claim (invokes LLM, displays review form)
+- [ ] Console action: Promote by authority (modal per §9.3, disabled until substrate live)
+- [ ] Console action: Endorse (per §9.6)
+- [ ] Console action: Revoke authority (per §9.7)
+- [ ] Console indicator: authority-mode ratio (green / amber @ 30% / red @ 50%)
+- [ ] Console badge: AUTH marker on authority-mode canonicals
+- [ ] Console dropdown cleanup: retire `verified`, `hypothesis`, `disputed` as ingest epistemic_level values; dropdown should only offer `claim | fact_candidate` on ingest (authority and canonical are not ingest-time values — they are promotion outcomes)
 - [ ] Schema migration: add `derived_claim` to allowed epistemic levels
+- [ ] Schema migration: add `promotion_mode` field to canonical schema, backfilled as `observation` for existing canonical
 - [ ] Backfill structured_claim for all current canonicals (deliverable completed, not merely enabled)
 
 ---
 
-## 15. Prerequisites before starting build
+## 16. Prerequisites before starting build
 
 1. verify_claims v2 must be in production and stable for at least one week.
-2. LLM extraction pipeline (§9) must be working end-to-end before backfill (§12) begins.
+2. LLM extraction pipeline (§10) must be working end-to-end before backfill (§13) begins.
 3. Backfill must complete before Layer 2 goes live — entailment engine with zero structured canonicals has nothing to reason over.
+4. Console dropdown cleanup (§15 deliverable) should be done EARLY in the build, independently of the rest of the substrate, so the schema drift stops spreading. This is the one deliverable that can happen before the week-stability gate.
 
-**Do not start substrate build while v2 is still shadow-testing.** One doctrine-layer change at a time.
+**Do not start substrate build while v2 is still shadow-testing.** One doctrine-layer change at a time. The console cleanup is the sole exception — it's a bug fix for existing drift, not a doctrine addition.
 
 ---
 
-## 16. Handoff note to Claude Code
+## 17. Handoff note to Claude Code
 
-This spec has been operator-reviewed and all open questions resolved. Build in deliverable order from §14. Stop after each major component (DB + schema, LLM extraction, Layer 1, Layer 2, snapshot, console panel) for operator review. Do not enable hooks into production paths until explicitly approved.
+This spec has been operator-reviewed. v0.1 adds the operator authority promotion path (§9) and the three-mode promotion model (§2.1) that resolves the ambiguous "verified" epistemic level currently present in the console ingest dropdown.
+
+Build in deliverable order from §15. The console dropdown cleanup (retire `verified | hypothesis | disputed`) may proceed immediately as a small pre-substrate fix. All other deliverables wait for the §16 stability gate.
+
+Stop after each major component (DB + schema, LLM extraction, Layer 1, Layer 2, authority path, snapshot, console panel) for operator review. Do not enable hooks into production paths until explicitly approved.
