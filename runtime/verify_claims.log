@@ -1,0 +1,221 @@
+[2026-04-18T05:27:38Z] ════════════════════════════════════════════════════════
+[2026-04-18T05:27:38Z] verify_claims.sh started
+[2026-04-18T05:27:38Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-04-18T05:27:38Z] ════════════════════════════════════════════════════════
+[2026-04-18T05:27:38Z] 
+[2026-04-18T05:27:38Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-04-18T05:27:38Z] 
+[2026-04-18T05:27:38Z] FILE: grb_qdl_results_conclusion_excerpt.entry.json
+[2026-04-18T05:27:38Z]   Title: GRB QDL paper results and conclusions excerpt
+[2026-04-18T05:27:38Z]   Level: claim
+[2026-04-18T05:27:38Z]   Search 1: classical capacity operator staged excerpt preserving
+[2026-04-18T05:27:39Z]     CORROBORATED (4 term hits, 3748 chars): https://html.duckduckgo.com/html/?q=classical%20capacity%20operator%20staged%20excerpt%20preserving
+[2026-04-18T05:27:39Z]   Search 2: grb qdl paper results and conclusions excerpt excerpt preserving comparative claims
+[2026-04-18T05:27:40Z]     CORROBORATED (7 term hits, 3278 chars): https://html.duckduckgo.com/html/?q=grb%20qdl%20paper%20results%20and%20conclusions%20excerpt%20excerpt%20preserving%20comparative%20claims
+[2026-04-18T05:27:40Z]   Corroborating sources: 2/2 required
+[2026-04-18T05:27:40Z]   PROMOTED: claim → reinforced_claim
+[2026-04-18T05:27:40Z]   Sources logged: https://html.duckduckgo.com/html/?q=classical%20capacity%20operator%20staged%20excerpt%20preserving|https://html.duckduckgo.com/html/?q=grb%20qdl%20paper%20results%20and%20conclusions%20excerpt%20excerpt%20preserving%20comparative%20claims
+[2026-04-18T05:27:40Z] 
+[2026-04-18T05:27:40Z] FILE: ibm_and_trapped_ion_technology_essay.entry.json
+[2026-04-18T05:27:40Z]   Title: IBM and Trapped-Ion Technology Essay
+[2026-04-18T05:27:40Z]   Level: claim
+[2026-04-18T05:27:41Z]   Search 1: trapped main commercial quantum hardware superconducting
+[2026-04-18T05:27:41Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=trapped%20main%20commercial%20quantum%20hardware%20superconducting
+[2026-04-18T05:27:41Z]   Search 2: ibm and trapped ion technology essay hardware superconducting transmon relationship
+[2026-04-18T05:27:42Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=ibm%20and%20trapped%20ion%20technology%20essay%20hardware%20superconducting%20transmon%20relationship
+[2026-04-18T05:27:42Z]   Corroborating sources: 0/2 required
+[2026-04-18T05:27:42Z]   NOT_PROMOTED: insufficient corroboration
+[2026-04-18T05:27:42Z] 
+[2026-04-18T05:27:42Z] FILE: ingest__20260417_064833.json
+[2026-04-18T05:27:42Z]   Title: Identity and location
+[2026-04-18T05:27:42Z]   Level: claim
+[2026-04-18T05:27:42Z]   Search 1: vietnam preferred name rick wife pronounced
+[2026-04-18T05:27:43Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=vietnam%20preferred%20name%20rick%20wife%20pronounced
+[2026-04-18T05:27:43Z]   Search 2: identity and location wife pronounced vietnamese lives
+[2026-04-18T05:27:44Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=identity%20and%20location%20wife%20pronounced%20vietnamese%20lives
+[2026-04-18T05:27:44Z]   Corroborating sources: 0/2 required
+[2026-04-18T05:27:44Z]   NOT_PROMOTED: insufficient corroboration
+[2026-04-18T05:27:44Z] 
+[2026-04-18T05:27:44Z] FILE: ingest__20260417_064834.json
+[2026-04-18T05:27:44Z]   Title: Response and collaboration preferences
+[2026-04-18T05:27:44Z]   Level: claim
+[2026-04-18T05:27:44Z]   Search 1: command changes prefers time detailed explanations
+[2026-04-18T05:27:45Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=command%20changes%20prefers%20time%20detailed%20explanations
+[2026-04-18T05:27:45Z]   Search 2: response and collaboration preferences detailed explanations translations definitions
+[2026-04-18T05:27:45Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=response%20and%20collaboration%20preferences%20detailed%20explanations%20translations%20definitions
+[2026-04-18T05:27:45Z]   Corroborating sources: 0/2 required
+[2026-04-18T05:27:45Z]   NOT_PROMOTED: insufficient corroboration
+[2026-04-18T05:27:46Z] 
+[2026-04-18T05:27:46Z] FILE: ingest__20260417_064835.json
+[2026-04-18T05:27:46Z]   Title: Technical environment
+[2026-04-18T05:27:46Z]   Level: claim
+[2026-04-18T05:27:46Z]   Search 1: heavy linux user debian gnome xfce
+[2026-04-18T05:27:46Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=heavy%20linux%20user%20debian%20gnome%20xfce
+[2026-04-18T05:27:46Z]   Search 2: technical environment gnome xfce prefers terminal
+[2026-04-18T05:27:47Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=technical%20environment%20gnome%20xfce%20prefers%20terminal
+[2026-04-18T05:27:47Z]   Corroborating sources: 0/2 required
+[2026-04-18T05:27:47Z]   NOT_PROMOTED: insufficient corroboration
+[2026-04-18T05:27:47Z] 
+[2026-04-18T05:27:47Z] FILE: ingest__20260417_064836.json
+[2026-04-18T05:27:47Z]   Title: OpenClaw and Kestrel workflow context
+[2026-04-18T05:27:47Z]   Level: claim
+[2026-04-18T05:27:47Z]   Search 1: configuration token actively working openclaw gateway
+[2026-04-18T05:27:48Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=configuration%20token%20actively%20working%20openclaw%20gateway
+[2026-04-18T05:27:48Z]   Search 2: openclaw and kestrel workflow context openclaw gateway provider manual
+[2026-04-18T05:27:49Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=openclaw%20and%20kestrel%20workflow%20context%20openclaw%20gateway%20provider%20manual
+[2026-04-18T05:27:49Z]   Corroborating sources: 0/2 required
+[2026-04-18T05:27:49Z]   NOT_PROMOTED: insufficient corroboration
+[2026-04-18T05:27:49Z] 
+[2026-04-18T05:27:49Z] FILE: ingest__20260417_064837.json
+[2026-04-18T05:27:49Z]   Title: Accessibility Guardian
+[2026-04-18T05:27:49Z]   Level: claim
+[2026-04-18T05:27:49Z]   Search 1: first extension local code project tied
+[2026-04-18T05:27:50Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=first%20extension%20local%20code%20project%20tied
+[2026-04-18T05:27:50Z]   Search 2: accessibility guardian project tied echocorelabs static
+[2026-04-18T05:27:50Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=accessibility%20guardian%20project%20tied%20echocorelabs%20static
+[2026-04-18T05:27:50Z]   Corroborating sources: 0/2 required
+[2026-04-18T05:27:50Z]   NOT_PROMOTED: insufficient corroboration
+[2026-04-18T05:27:51Z] 
+[2026-04-18T05:27:51Z] FILE: ingest__20260417_064838.json
+[2026-04-18T05:27:51Z]   Title: EchoCore and EchoCoreLabs
+[2026-04-18T05:27:51Z]   Level: claim
+[2026-04-18T05:27:51Z]   Search 1: broader operating ecosystem focused integrity trust
+[2026-04-18T05:27:51Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=broader%20operating%20ecosystem%20focused%20integrity%20trust
+[2026-04-18T05:27:51Z]   Search 2: echocore and echocorelabs integrity trust ledgers manifestos
+[2026-04-18T05:27:52Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=echocore%20and%20echocorelabs%20integrity%20trust%20ledgers%20manifestos
+[2026-04-18T05:27:52Z]   Corroborating sources: 0/2 required
+[2026-04-18T05:27:52Z]   NOT_PROMOTED: insufficient corroboration
+[2026-04-18T05:27:52Z] 
+[2026-04-18T05:27:52Z] FILE: ingest__20260417_064839.json
+[2026-04-18T05:27:52Z]   Title: FireBrand-IPsec
+[2026-04-18T05:27:52Z]   Level: claim
+[2026-04-18T05:27:52Z]   Search 1: boot modular custom linux distribution project
+[2026-04-18T05:27:53Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=boot%20modular%20custom%20linux%20distribution%20project
+[2026-04-18T05:27:53Z]   Search 2: firebrand ipsec distribution project emphasizing hardened
+[2026-04-18T05:27:54Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=firebrand%20ipsec%20distribution%20project%20emphasizing%20hardened
+[2026-04-18T05:27:54Z]   Corroborating sources: 0/2 required
+[2026-04-18T05:27:54Z]   NOT_PROMOTED: insufficient corroboration
+[2026-04-18T05:27:54Z] 
+[2026-04-18T05:27:54Z] FILE: ingest__20260417_064840.json
+[2026-04-18T05:27:54Z]   Title: Project SIGNAL
+[2026-04-18T05:27:54Z]   Level: claim
+[2026-04-18T05:27:54Z]   Search 1: continuity long running conceptual technical project
+[2026-04-18T05:27:55Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=continuity%20long%20running%20conceptual%20technical%20project
+[2026-04-18T05:27:55Z]   Search 2: project signal technical project tied cognition
+[2026-04-18T05:27:55Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=project%20signal%20technical%20project%20tied%20cognition
+[2026-04-18T05:27:55Z]   Corroborating sources: 0/2 required
+[2026-04-18T05:27:55Z]   NOT_PROMOTED: insufficient corroboration
+[2026-04-18T05:27:56Z] 
+[2026-04-18T05:27:56Z] FILE: ingest__20260417_064841.json
+[2026-04-18T05:27:56Z]   Title: SentinelNet
+[2026-04-18T05:27:56Z]   Level: claim
+[2026-04-18T05:27:56Z]   Search 1: monitoring future follow project scraper network
+[2026-04-18T05:27:56Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=monitoring%20future%20follow%20project%20scraper%20network
+[2026-04-18T05:27:56Z]   Search 2: sentinelnet scraper network behavior vigilance
+[2026-04-18T05:27:57Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=sentinelnet%20scraper%20network%20behavior%20vigilance
+[2026-04-18T05:27:57Z]   Corroborating sources: 0/2 required
+[2026-04-18T05:27:57Z]   NOT_PROMOTED: insufficient corroboration
+[2026-04-18T05:27:57Z] 
+[2026-04-18T05:27:57Z] FILE: ingest__20260417_064842.json
+[2026-04-18T05:27:57Z]   Title: Quantum and secure networking interests
+[2026-04-18T05:27:57Z]   Level: claim
+[2026-04-18T05:27:57Z]   Search 1: quantum transfer interested ready concepts secure
+[2026-04-18T05:27:58Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=quantum%20transfer%20interested%20ready%20concepts%20secure
+[2026-04-18T05:27:58Z]   Search 2: quantum and secure networking interests concepts secure packet checking
+[2026-04-18T05:27:59Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=quantum%20and%20secure%20networking%20interests%20concepts%20secure%20packet%20checking
+[2026-04-18T05:27:59Z]   Corroborating sources: 0/2 required
+[2026-04-18T05:27:59Z]   NOT_PROMOTED: insufficient corroboration
+[2026-04-18T05:27:59Z] 
+[2026-04-18T05:27:59Z] FILE: ingest__20260417_064843.json
+[2026-04-18T05:27:59Z]   Title: Server and licensing context
+[2026-04-18T05:27:59Z]   Level: claim
+[2026-04-18T05:27:59Z]   Search 1: worked server authoritative licensing payment workflows
+[2026-04-18T05:28:02Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=worked%20server%20authoritative%20licensing%20payment%20workflows
+[2026-04-18T05:28:02Z]   Search 2: server and licensing context payment workflows namecheap digitalocean
+[2026-04-18T05:28:02Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=server%20and%20licensing%20context%20payment%20workflows%20namecheap%20digitalocean
+[2026-04-18T05:28:03Z]   Corroborating sources: 0/2 required
+[2026-04-18T05:28:03Z]   NOT_PROMOTED: insufficient corroboration
+[2026-04-18T05:28:03Z] 
+[2026-04-18T05:28:03Z] FILE: ingest__20260417_064844.json
+[2026-04-18T05:28:03Z]   Title: Automotive context
+[2026-04-18T05:28:03Z]   Level: claim
+[2026-04-18T05:28:03Z]   Search 1: owns 1999 daewoo matiz recurring topics
+[2026-04-18T05:28:03Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=owns%201999%20daewoo%20matiz%20recurring%20topics
+[2026-04-18T05:28:03Z]   Search 2: automotive context recurring topics idle instability
+[2026-04-18T05:28:04Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=automotive%20context%20recurring%20topics%20idle%20instability
+[2026-04-18T05:28:04Z]   Corroborating sources: 0/2 required
+[2026-04-18T05:28:04Z]   NOT_PROMOTED: insufficient corroboration
+[2026-04-18T05:28:04Z] 
+[2026-04-18T05:28:04Z] FILE: ingest__20260417_064845.json
+[2026-04-18T05:28:04Z]   Title: Important memory management expectations
+[2026-04-18T05:28:04Z]   Level: claim
+[2026-04-18T05:28:04Z]   Search 1: project memory wants important state retained
+[2026-04-18T05:28:05Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=project%20memory%20wants%20important%20state%20retained
+[2026-04-18T05:28:05Z]   Search 2: important memory management expectations state retained across chats
+[2026-04-18T05:28:06Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=important%20memory%20management%20expectations%20state%20retained%20across%20chats
+[2026-04-18T05:28:06Z]   Corroborating sources: 0/2 required
+[2026-04-18T05:28:06Z]   NOT_PROMOTED: insufficient corroboration
+[2026-04-18T05:28:06Z] 
+[2026-04-18T05:28:06Z] FILE: ingest__20260417_064847.json
+[2026-04-18T05:28:06Z]   Title: Quantum corpus ingest: hardware bottlenecks and scaling constraints
+[2026-04-18T05:28:06Z]   Level: claim
+[2026-04-18T05:28:06Z]   Search 1: bottlenecks quantum limits nature scaling source
+[2026-04-18T05:28:07Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=bottlenecks%20quantum%20limits%20nature%20scaling%20source
+[2026-04-18T05:28:07Z]   Search 2: quantum corpus ingest hardware bottlenecks and scaling constraints scaling source constraints overhead
+[2026-04-18T05:28:08Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=quantum%20corpus%20ingest%20hardware%20bottlenecks%20and%20scaling%20constraints%20scaling%20source%20constraints%20overhead
+[2026-04-18T05:28:08Z]   Corroborating sources: 0/2 required
+[2026-04-18T05:28:08Z]   NOT_PROMOTED: insufficient corroboration
+[2026-04-18T05:28:08Z] 
+[2026-04-18T05:28:08Z] FILE: ingest__20260418_052000.json
+[2026-04-18T05:28:08Z]   Title: [2403.02240] Quantum Computing: Vision and Challenges
+[2026-04-18T05:28:08Z]   Level: claim
+[2026-04-18T05:28:08Z]   Search 1: arxiv logo cornell university 2403 02240
+[2026-04-18T05:28:09Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=arxiv%20logo%20cornell%20university%202403%2002240
+[2026-04-18T05:28:09Z]   Search 2: 2403 02240 quantum computing vision and challenges 2403 02240 help search
+[2026-04-18T05:28:09Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=2403%2002240%20quantum%20computing%20vision%20and%20challenges%202403%2002240%20help%20search
+[2026-04-18T05:28:09Z]   Corroborating sources: 0/2 required
+[2026-04-18T05:28:09Z]   NOT_PROMOTED: insufficient corroboration
+[2026-04-18T05:28:09Z] 
+[2026-04-18T05:28:09Z] FILE: ingest_quantum_error_correction_overview_2026_20260417_064846.json
+[2026-04-18T05:28:09Z]   Title: Quantum Error Correction Overview 2026
+[2026-04-18T05:28:09Z]   Level: claim
+[2026-04-18T05:28:09Z]   Search 1: surface code thresholds improved fidelity recent
+[2026-04-18T05:28:10Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=surface%20code%20thresholds%20improved%20fidelity%20recent
+[2026-04-18T05:28:10Z]   Search 2: quantum error correction overview 2026 fidelity recent hardware demonstrations
+[2026-04-18T05:28:11Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=quantum%20error%20correction%20overview%202026%20fidelity%20recent%20hardware%20demonstrations
+[2026-04-18T05:28:11Z]   Corroborating sources: 0/2 required
+[2026-04-18T05:28:11Z]   NOT_PROMOTED: insufficient corroboration
+[2026-04-18T05:28:11Z] 
+[2026-04-18T05:28:11Z] Pass 1 complete: 1/18 promoted to reinforced_claim
+[2026-04-18T05:28:11Z] 
+[2026-04-18T05:28:11Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-04-18T05:28:11Z] 
+[2026-04-18T05:28:11Z] FILE: grb_qdl_results_conclusion_excerpt.entry.json
+[2026-04-18T05:28:11Z]   Title: GRB QDL paper results and conclusions excerpt
+[2026-04-18T05:28:11Z]   Level: reinforced_claim
+[2026-04-18T05:28:11Z]   Search 1: grb qdl paper results and conclusions excerpt
+[2026-04-18T05:28:12Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=grb%20qdl%20paper%20results%20and%20conclusions%20excerpt
+[2026-04-18T05:28:12Z]   Search 2: quantum ml astrophysics results comparative claims quantum autoencoders outperform
+[2026-04-18T05:28:13Z]     REJECTED (too short: 148 chars): https://html.duckduckgo.com/html/?q=quantum%20ml%20astrophysics%20results%20comparative%20claims%20quantum%20autoencoders%20outperform
+[2026-04-18T05:28:13Z]   Corroborating sources: 0/2 required
+[2026-04-18T05:28:13Z]   NOT_PROMOTED: insufficient corroboration
+[2026-04-18T05:28:13Z] 
+[2026-04-18T05:28:13Z] Pass 2 complete: 0/1 promoted to fact_candidate
+[2026-04-18T05:28:13Z] 
+[2026-04-18T05:28:13Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-04-18T05:28:13Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 0
+Total eligible_items now : 0
+
+Nothing new to queue.
+[2026-04-18T05:28:13Z] 
+[2026-04-18T05:28:13Z] ════════════════════════════════════════════════════════
+[2026-04-18T05:28:13Z] verify_claims.sh complete
+[2026-04-18T05:28:13Z]   Pass 1: 1/18 claim → reinforced_claim
+[2026-04-18T05:28:13Z]   Pass 2: 0/1 reinforced_claim → fact_candidate
+[2026-04-18T05:28:13Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-04-18T05:28:13Z] ════════════════════════════════════════════════════════
