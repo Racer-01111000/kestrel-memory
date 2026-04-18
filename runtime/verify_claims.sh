@@ -1,185 +1,154 @@
 #!/usr/bin/env bash
-# verify_claims.sh
-# Two-pass claim verification via bounded w3m searches.
+# verify_claims.sh v2
+# Two-pass claim verification with witness/discovery separation.
 #
-# Pass 1: claim         → reinforced_claim
-# Pass 2: reinforced_claim → fact_candidate
-# Sources tried per query: arxiv, wikipedia, scholar (+ source_url fallback)
-# Corroboration threshold: ≥2 sources each returning ≥MIN_CONTENT_CHARS with ≥MIN_TERM_HITS
+# Discovery (non-voting): OpenAlex, Semantic Scholar
+# Witness (voting):       arXiv API, Crossref, INSPIRE-HEP, NIST/CSRC
+#
+# Pass 1: claim            → reinforced_claim   (≥1 distinct witness)
+# Pass 2: reinforced_claim → fact_candidate     (≥2 distinct witness sources)
+#
+# Same-run double-promotion is disallowed: Pass 2 skips items whose
+# last_verified_at matches the current run timestamp.
 
-set -euo pipefail
+set -uo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${SCRIPT_DIR}/lib/sources.sh"
 
 STAGED="$HOME/kestrel-memory/knowledge/staged"
 RUNTIME="$HOME/kestrel-memory/runtime"
 LOG="$RUNTIME/verify_claims.log"
 PROMOTE_SCRIPT="$RUNTIME/run_promotion_queue.sh"
 
-W3M_TIMEOUT=25
-MIN_TERM_HITS=2
-MIN_CORROBORATING=2
-MIN_CONTENT_CHARS=500
+DRY_RUN=false
+SHADOW_DIR=""
 
-TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --dry-run) DRY_RUN=true ;;
+    --shadow-dir) SHADOW_DIR="$2"; shift ;;
+    *) echo "Unknown arg: $1" >&2; exit 1 ;;
+  esac
+  shift
+done
 
-# ── logging ───────────────────────────────────────────────────────────────────
-log() { echo "[$(date -u +"%Y-%m-%dT%H:%M:%SZ")] $*" | tee -a "$LOG"; }
+if [ -n "$SHADOW_DIR" ]; then
+  STAGED="$SHADOW_DIR"
+  log_prefix="[SHADOW]"
+else
+  log_prefix=""
+fi
+
+RUN_TS=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+log() { echo "[$(date -u +"%Y-%m-%dT%H:%M:%SZ")]${log_prefix} $*" | tee -a "$LOG"; }
 
 log "════════════════════════════════════════════════════════"
-log "verify_claims.sh started"
+log "verify_claims.sh v2 started (dry_run=${DRY_RUN})"
 log "Staged dir : $STAGED"
+log "Run ts     : $RUN_TS"
 log "════════════════════════════════════════════════════════"
 
-# ── key-term extraction ───────────────────────────────────────────────────────
-extract_terms() {
-  local text="$1"
+# ── source tallies ────────────────────────────────────────────────────────────
+declare -A SRC_HITS SRC_ATTEMPTS
+for src in arxiv crossref inspire nist; do
+  SRC_HITS[$src]=0
+  SRC_ATTEMPTS[$src]=0
+done
+
+# ── query construction ────────────────────────────────────────────────────────
+build_query() {
+  local file="$1"
   python3 -c "
-import re, sys
-STOP = {
-    'that','this','with','from','have','does','will','about','into',
-    'than','more','also','some','been','they','their','which','where',
-    'when','what','while','would','could','should','these','those',
-    'were','been','being','each','both','after','before','other',
-    'over','under','only','very','just','then','than','even','well',
-    'much','many','most','such','used','uses','using','based','data',
-    'high','low','large','small','include','includes','including',
-    'provide','provides','provided','show','shows','showed','result',
-    'results','paper','study','research','model','models','system',
-    'systems','method','methods','approach','approaches','work','works',
-}
-text = sys.argv[1].lower()
-text = re.sub(r'[^a-z0-9 ]', ' ', text)
-words = [w for w in text.split() if len(w) >= 4 and w not in STOP]
-seen = {}
-for w in words:
-    seen[w] = seen.get(w, 0) + 1
-ordered = sorted(seen.keys(), key=lambda w: -seen[w])
-print(' '.join(ordered[:12]))
-" "$text"
+import json, sys, re
+try:
+    d = json.load(open(sys.argv[1]))
+    q = d.get('title') or ''
+    if not q:
+        raw = d.get('claim_text') or d.get('content') or d.get('text') or ''
+        q = re.split(r'[.!?]', raw.strip())[0][:200]
+    q = q.strip()
+    if q:
+        print(q)
+except:
+    pass
+" "$file" 2>/dev/null
 }
 
-# ── URL-encode ────────────────────────────────────────────────────────────────
-urlencode() {
-  python3 -c "import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1]))" "$1"
-}
+# ── run all witnesses for a query ─────────────────────────────────────────────
+# Prints matched {source,url,text} JSON lines to stdout.
+run_witnesses() {
+  local query="$1"
+  local combined="[]"
 
-# ── single w3m fetch + corroboration check ────────────────────────────────────
-# Returns 0 (corroborated) or 1 (not).
-check_source() {
-  local url="$1" terms="$2" out_file="$3" label="$4"
-  local tmpfile
-  tmpfile=$(mktemp /tmp/verify_claims_XXXXXX.txt)
+  for src in arxiv crossref inspire nist; do
+    SRC_ATTEMPTS[$src]=$((${SRC_ATTEMPTS[$src]} + 1))
+    local hits
+    case "$src" in
+      arxiv)    hits=$(witness_arxiv   "$query" || echo "[]") ;;
+      crossref) hits=$(witness_crossref "$query" || echo "[]") ;;
+      inspire)  hits=$(witness_inspire  "$query" || echo "[]") ;;
+      nist)     hits=$(witness_nist     "$query" || echo "[]") ;;
+    esac
+    hits="${hits:-[]}"
 
-  if ! timeout "$W3M_TIMEOUT" w3m -dump "$url" > "$tmpfile" 2>/dev/null; then
-    log "    [$label] FETCH_TIMEOUT: $url"
-    rm -f "$tmpfile"
-    return 1
-  fi
+    local count
+    count=$(echo "$hits" | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" 2>/dev/null || echo 0)
+    log "    [$src] $count result(s)"
 
-  local char_count
-  char_count=$(wc -c < "$tmpfile" 2>/dev/null || echo 0)
-  if [[ $char_count -lt $MIN_CONTENT_CHARS ]]; then
-    log "    [$label] REJECTED (too short: ${char_count} chars): $url"
-    rm -f "$tmpfile"
-    return 1
-  fi
-
-  local hits=0
-  for term in $terms; do
-    grep -qi "$term" "$tmpfile" 2>/dev/null && ((hits++)) || true
+    local matched=0
+    while IFS= read -r entry; do
+      local text
+      text=$(echo "$entry" | python3 -c "import json,sys; print(json.loads(sys.stdin.read()).get('text',''))" 2>/dev/null)
+      if match_corroboration "$query" "$text"; then
+        matched=1
+        echo "$entry"
+        SRC_HITS[$src]=$((${SRC_HITS[$src]} + 1))
+      fi
+    done < <(echo "$hits" | python3 -c "
+import json, sys
+hits = json.load(sys.stdin)
+for h in hits:
+    print(json.dumps(h))
+" 2>/dev/null)
+    [ $matched -eq 0 ] && log "    [$src] no corroborating match"
   done
-
-  rm -f "$tmpfile"
-
-  if [[ $hits -ge $MIN_TERM_HITS ]]; then
-    log "    [$label] CORROBORATED (${hits} term hits, ${char_count} chars): $url"
-    echo "$url" >> "$out_file"
-    return 0
-  else
-    log "    [$label] NOT_RELEVANT (${hits} term hits, ${char_count} chars): $url"
-    return 1
-  fi
 }
 
-# ── verify one file ───────────────────────────────────────────────────────────
-# Args: file  from_level  to_level  terms  source_url_fallback
-# Returns 0 if promoted, 1 if not.
-verify_and_promote() {
-  local file="$1" from_level="$2" to_level="$3"
-  local terms="$4" source_url="$5"
-  local sources_file
-  sources_file=$(mktemp /tmp/verify_sources_XXXXXX.txt)
+# ── mutate item on successful promotion ──────────────────────────────────────
+promote_item() {
+  local file="$1" new_level="$2"
+  shift 2
+  local sources_json="$*"
 
-  local q
-  q=$(urlencode "$terms")
-
-  local arxiv_url="https://arxiv.org/search/?searchtype=all&query=${q}"
-  local wiki_url="https://en.wikipedia.org/w/index.php?search=${q}"
-  local scholar_url="https://scholar.google.com/scholar?q=${q}"
-
-  local total_corr=0
-
-  log "  Terms: $terms"
-
-  check_source "$arxiv_url"  "$terms" "$sources_file" "arxiv"   && ((total_corr++)) || true
-  check_source "$wiki_url"   "$terms" "$sources_file" "wiki"    && ((total_corr++)) || true
-
-  if [[ $total_corr -lt $MIN_CORROBORATING ]]; then
-    check_source "$scholar_url" "$terms" "$sources_file" "scholar" && ((total_corr++)) || true
+  if $DRY_RUN; then
+    log "  [DRY-RUN] would promote to $new_level — sources: $sources_json"
+    return 0
   fi
 
-  # Fallback: fetch source_url directly from the artifact
-  if [[ $total_corr -lt $MIN_CORROBORATING && -n "$source_url" ]]; then
-    log "  Trying source_url fallback: $source_url"
-    check_source "$source_url" "$terms" "$sources_file" "source_url" && ((total_corr++)) || true
-  fi
-
-  log "  Corroborating sources: ${total_corr}/${MIN_CORROBORATING} required"
-
-  if [[ $total_corr -ge $MIN_CORROBORATING ]]; then
-    local sources_list now
-    sources_list=$(cat "$sources_file" | tr '\n' '|' | sed 's/|$//')
-    rm -f "$sources_file"
-    now=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-
-    FILE_PATH="$file" NEW_LEVEL="$to_level" SOURCES="$sources_list" TS="$now" \
-    python3 - << 'PYEOF'
-import json, os
-path = os.environ["FILE_PATH"]
-new_level = os.environ["NEW_LEVEL"]
-sources = os.environ["SOURCES"].split("|")
+  local tmp="${file}.tmp"
+  FILE="$file" LEVEL="$new_level" SOURCES="$sources_json" TS="$RUN_TS" \
+  python3 - << 'PYEOF'
+import json, os, sys
+path = os.environ["FILE"]
+new_level = os.environ["LEVEL"]
+sources = json.loads(os.environ["SOURCES"])
 ts = os.environ["TS"]
 with open(path) as f:
     d = json.load(f)
 d["epistemic_level"] = new_level
 d["verification_sources"] = d.get("verification_sources", []) + sources
 d["last_verified_at"] = ts
-with open(path, "w") as f:
+tmp = path + ".tmp"
+with open(tmp, "w") as f:
     json.dump(d, f, indent=2)
+os.rename(tmp, path)
 PYEOF
-    log "  PROMOTED: $from_level → $to_level"
-    log "  Sources: $sources_list"
-    return 0
-  else
-    rm -f "$sources_file"
-    log "  NOT_PROMOTED: insufficient corroboration"
-    return 1
-  fi
-}
-
-# ── extract source_url from a JSON file ──────────────────────────────────────
-get_source_url() {
-  python3 -c "
-import json, sys
-try:
-    d = json.load(open(sys.argv[1]))
-    print(d.get('source_url') or d.get('source') or '')
-except:
-    print('')
-" "$1"
 }
 
 # ══════════════════════════════════════════════════════════════════════════════
-# PASS 1: claim → reinforced_claim
+# PASS 1: claim → reinforced_claim (≥1 distinct witness)
 # ══════════════════════════════════════════════════════════════════════════════
 log ""
 log "── PASS 1: claim → reinforced_claim ──────────────────────"
@@ -189,57 +158,92 @@ pass1_promoted=0
 
 for f in "$STAGED"/*.json; do
   [[ -f "$f" ]] || continue
-
   level=$(python3 -c "
 import json,sys
-try:
-    d=json.load(open(sys.argv[1])); print(d.get('epistemic_level',''))
+try: print(json.load(open(sys.argv[1])).get('epistemic_level',''))
 except: print('')
 " "$f")
   [[ "$level" == "claim" ]] || continue
   ((pass1_total++)) || true
 
-  title=$(python3 -c "
-import json,sys
-try:
-    d=json.load(open(sys.argv[1])); print(d.get('title',''))
-except: print('')
-" "$f")
-
-  text=$(python3 -c "
-import json,sys
-try:
-    d=json.load(open(sys.argv[1])); print(d.get('text','')[:800])
-except: print('')
-" "$f")
-
-  source_url=$(get_source_url "$f")
   fname=$(basename "$f")
-  log ""
-  log "FILE: $fname"
-  log "  Title: $title"
-  log "  Level: claim"
-
-  if [[ -z "$text" ]]; then
-    log "  SKIP: empty text field"
+  query=$(build_query "$f")
+  if [[ -z "$query" ]]; then
+    log ""
+    log "FILE: $fname — SKIP: no query could be built"
     continue
   fi
 
-  all_terms=$(extract_terms "$text")
-  title_clean=$(echo "$title" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9 ]/ /g' | xargs)
-  terms="${title_clean} $(echo "$all_terms" | tr ' ' '\n' | head -6 | tr '\n' ' ')"
-  terms=$(echo "$terms" | xargs)
-  [[ -z "$terms" ]] && terms="$title_clean"
+  log ""
+  log "FILE: $fname"
+  log "  Query: $query"
+  log "  Discovery:"
 
-  verify_and_promote "$f" "claim" "reinforced_claim" "$terms" "$source_url" \
-    && ((pass1_promoted++)) || true
+  # Discovery phase (non-voting — logged only)
+  local_candidates=$(query_openalex "$query" 2>/dev/null || true; query_semantic_scholar "$query" 2>/dev/null || true)
+  candidate_count=$(echo "$local_candidates" | grep -c . 2>/dev/null || echo 0)
+  log "  Discovery candidates: $candidate_count URL(s)"
+
+  log "  Witnesses:"
+  matched_sources=()
+  while IFS= read -r entry; do
+    src=$(echo "$entry" | python3 -c "import json,sys; print(json.loads(sys.stdin.read()).get('source',''))" 2>/dev/null)
+    url=$(echo "$entry" | python3 -c "import json,sys; print(json.loads(sys.stdin.read()).get('url',''))" 2>/dev/null)
+    log "    MATCH [$src]: $url"
+    matched_sources+=("$entry")
+  done < <(run_witnesses "$query")
+
+  distinct_sources=$(printf '%s\n' "${matched_sources[@]}" | \
+    python3 -c "
+import json, sys
+names = set()
+for line in sys.stdin:
+    line = line.strip()
+    if line:
+        try: names.add(json.loads(line).get('source',''))
+        except: pass
+print(len(names))
+" 2>/dev/null || echo 0)
+
+  log "  Distinct witness sources: $distinct_sources"
+
+  if [[ ${#matched_sources[@]} -ge 1 ]]; then
+    sources_json=$(printf '%s\n' "${matched_sources[@]}" | python3 -c "
+import json, sys
+items = []
+for line in sys.stdin:
+    line = line.strip()
+    if line:
+        try:
+            d = json.loads(line)
+            items.append({'source': d.get('source',''), 'url': d.get('url',''), 'fetched_at': '$(date -u +"%Y-%m-%dT%H:%M:%SZ")'})
+        except: pass
+print(json.dumps(items))
+" 2>/dev/null)
+    promote_item "$f" "reinforced_claim" "$sources_json"
+    log "  PROMOTED: claim → reinforced_claim"
+    ((pass1_promoted++)) || true
+  else
+    log "  NOT_PROMOTED: no corroborating witness"
+  fi
 done
 
 log ""
+log "Pass 1 source tallies:"
+for src in arxiv crossref inspire nist; do
+  log "  $src: ${SRC_HITS[$src]} hits / ${SRC_ATTEMPTS[$src]} attempts"
+done
 log "Pass 1 complete: ${pass1_promoted}/${pass1_total} promoted to reinforced_claim"
 
+# Reset tallies for pass 2
+for src in arxiv crossref inspire nist; do
+  SRC_HITS[$src]=0
+  SRC_ATTEMPTS[$src]=0
+done
+
 # ══════════════════════════════════════════════════════════════════════════════
-# PASS 2: reinforced_claim → fact_candidate
+# PASS 2: reinforced_claim → fact_candidate (≥2 DISTINCT witness sources)
+# Items promoted in this same run (last_verified_at == RUN_TS) are SKIPPED.
 # ══════════════════════════════════════════════════════════════════════════════
 log ""
 log "── PASS 2: reinforced_claim → fact_candidate ─────────────"
@@ -249,78 +253,125 @@ pass2_promoted=0
 
 for f in "$STAGED"/*.json; do
   [[ -f "$f" ]] || continue
-
-  level=$(python3 -c "
+  read -r level last_verified < <(python3 -c "
 import json,sys
 try:
-    d=json.load(open(sys.argv[1])); print(d.get('epistemic_level',''))
-except: print('')
+    d=json.load(open(sys.argv[1]))
+    print(d.get('epistemic_level',''), d.get('last_verified_at',''))
+except: print('', '')
 " "$f")
+
   [[ "$level" == "reinforced_claim" ]] || continue
-  ((pass2_total++)) || true
 
-  title=$(python3 -c "
-import json,sys
-try:
-    d=json.load(open(sys.argv[1])); print(d.get('title',''))
-except: print('')
-" "$f")
-
-  text=$(python3 -c "
-import json,sys
-try:
-    d=json.load(open(sys.argv[1])); print(d.get('text','')[:800])
-except: print('')
-" "$f")
-
-  source_url=$(get_source_url "$f")
-  fname=$(basename "$f")
-  log ""
-  log "FILE: $fname"
-  log "  Title: $title"
-  log "  Level: reinforced_claim"
-
-  if [[ -z "$text" ]]; then
-    log "  SKIP: empty text field"
+  # Same-run gating: skip if promoted in this run
+  if [[ "$last_verified" == "$RUN_TS" ]]; then
+    log ""
+    log "FILE: $(basename $f) — SKIP: promoted in this run (same-run gating)"
     continue
   fi
 
-  all_terms=$(extract_terms "$text")
-  title_clean=$(echo "$title" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9 ]/ /g' | xargs)
-  domain=$(python3 -c "
+  ((pass2_total++)) || true
+
+  fname=$(basename "$f")
+  query=$(build_query "$f")
+  if [[ -z "$query" ]]; then
+    log ""
+    log "FILE: $fname — SKIP: no query could be built"
+    continue
+  fi
+
+  # Check existing distinct sources from prior verifications
+  existing_sources=$(python3 -c "
 import json,sys
 try:
-    d=json.load(open(sys.argv[1])); print(d.get('domain',''))
-except: print('')
-" "$f" | tr '_' ' ' | sed 's/[^a-z0-9 ]/ /g' | xargs)
+    d=json.load(open(sys.argv[1]))
+    names = {e.get('source','') for e in d.get('verification_sources',[]) if isinstance(e,dict)}
+    print(len(names))
+except: print(0)
+" "$f" 2>/dev/null || echo 0)
 
-  terms="${title_clean} ${domain} $(echo "$all_terms" | tr ' ' '\n' | head -5 | tr '\n' ' ')"
-  terms=$(echo "$terms" | xargs)
-  [[ -z "$terms" ]] && terms="$title_clean"
+  log ""
+  log "FILE: $fname"
+  log "  Query: $query"
+  log "  Existing distinct sources: $existing_sources"
 
-  verify_and_promote "$f" "reinforced_claim" "fact_candidate" "$terms" "$source_url" \
-    && ((pass2_promoted++)) || true
+  log "  Discovery:"
+  local_candidates=$(query_openalex "$query"; query_semantic_scholar "$query")
+  candidate_count=$(echo "$local_candidates" | grep -c . 2>/dev/null || echo 0)
+  log "  Discovery candidates: $candidate_count URL(s)"
+
+  log "  Witnesses:"
+  matched_sources=()
+  while IFS= read -r entry; do
+    src=$(echo "$entry" | python3 -c "import json,sys; print(json.loads(sys.stdin.read()).get('source',''))" 2>/dev/null)
+    url=$(echo "$entry" | python3 -c "import json,sys; print(json.loads(sys.stdin.read()).get('url',''))" 2>/dev/null)
+    log "    MATCH [$src]: $url"
+    matched_sources+=("$entry")
+  done < <(run_witnesses "$query")
+
+  # Count distinct sources across existing + new hits
+  all_source_names=$(python3 -c "
+import json, sys
+try:
+    d = json.load(open('$f'))
+    names = {e.get('source','') for e in d.get('verification_sources',[]) if isinstance(e,dict)}
+    print('\n'.join(names))
+except: pass
+" 2>/dev/null)
+  for entry in "${matched_sources[@]}"; do
+    src=$(echo "$entry" | python3 -c "import json,sys; print(json.loads(sys.stdin.read()).get('source',''))" 2>/dev/null)
+    all_source_names="${all_source_names}"$'\n'"${src}"
+  done
+
+  distinct_total=$(echo "$all_source_names" | grep -v '^$' | sort -u | wc -l | tr -d ' ')
+  log "  Total distinct witness sources (cumulative): $distinct_total"
+
+  if [[ $distinct_total -ge 2 ]]; then
+    sources_json=$(printf '%s\n' "${matched_sources[@]}" | python3 -c "
+import json, sys
+items = []
+for line in sys.stdin:
+    line = line.strip()
+    if line:
+        try:
+            d = json.loads(line)
+            items.append({'source': d.get('source',''), 'url': d.get('url',''), 'fetched_at': '$(date -u +"%Y-%m-%dT%H:%M:%SZ")'})
+        except: pass
+print(json.dumps(items))
+" 2>/dev/null)
+    promote_item "$f" "fact_candidate" "$sources_json"
+    log "  PROMOTED: reinforced_claim → fact_candidate"
+    ((pass2_promoted++)) || true
+  else
+    log "  NOT_PROMOTED: need ≥2 distinct witness sources, have $distinct_total"
+  fi
 done
 
 log ""
+log "Pass 2 source tallies:"
+for src in arxiv crossref inspire nist; do
+  log "  $src: ${SRC_HITS[$src]} hits / ${SRC_ATTEMPTS[$src]} attempts"
+done
 log "Pass 2 complete: ${pass2_promoted}/${pass2_total} promoted to fact_candidate"
 
 # ══════════════════════════════════════════════════════════════════════════════
-# PROMOTION QUEUE
+# PROMOTION QUEUE (skip in dry-run and shadow mode)
 # ══════════════════════════════════════════════════════════════════════════════
-log ""
-log "── Running run_promotion_queue.sh ────────────────────────"
-
-if [[ -f "$PROMOTE_SCRIPT" ]]; then
-  bash "$PROMOTE_SCRIPT" 2>&1 | tee -a "$LOG"
-else
-  log "ERROR: promotion script not found: $PROMOTE_SCRIPT"
+if ! $DRY_RUN && [ -z "$SHADOW_DIR" ]; then
+  log ""
+  log "── Running run_promotion_queue.sh ────────────────────────"
+  if [[ -f "$PROMOTE_SCRIPT" ]]; then
+    bash "$PROMOTE_SCRIPT" 2>&1 | tee -a "$LOG"
+  else
+    log "ERROR: promotion script not found: $PROMOTE_SCRIPT"
+  fi
 fi
 
 log ""
 log "════════════════════════════════════════════════════════"
-log "verify_claims.sh complete"
+log "verify_claims.sh v2 complete"
 log "  Pass 1: ${pass1_promoted}/${pass1_total} claim → reinforced_claim"
 log "  Pass 2: ${pass2_promoted}/${pass2_total} reinforced_claim → fact_candidate"
+log "  Dry run: ${DRY_RUN}"
 log "  Log: $LOG"
 log "════════════════════════════════════════════════════════"
