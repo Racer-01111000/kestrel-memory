@@ -60,7 +60,7 @@ def w3m_fetch(url: str) -> str:
 
 
 def merriam_webster_url(term: str) -> str:
-    return "https://www.merriam-webster.com/dictionary/" + quote(term.replace(" ", "%20"))
+    return "https://www.merriam-webster.com/dictionary/" + quote(term, safe="")
 
 
 def parse_merriam_webster(text: str, term: str) -> tuple[str, str]:
