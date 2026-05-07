@@ -1,0 +1,23 @@
+{
+  "id": "ingest_ad13c3886726314c",
+  "title": "Automotive context",
+  "text": "Owns a 1999 Daewoo Matiz. Recurring topics include idle instability, AC-related stalling, TPS/MAP/injector/ignition issues, parts sourcing in Vietnam, fuse box replacement planning, and Vietnamese garage/dispute phrasing.",
+  "classification": "staged",
+  "learning_stage": "claim",
+  "confidence": "medium",
+  "authority": "operator_ingest_project",
+  "domain": "",
+  "source_file": "knowledge/staged/ingest__20260417_064844.json",
+  "created_at": "20260417",
+  "review_status": "pending",
+  "epistemic_level": "fact_candidate",
+  "ingest_type": "project",
+  "ingest_hash": "ad13c3886726314c",
+  "verification_sources": [
+    "https://arxiv.org/search/?searchtype=all&query=automotive%20context%20owns%201999%20daewoo%20matiz%20recurring%20topics",
+    "https://en.wikipedia.org/w/index.php?search=automotive%20context%20owns%201999%20daewoo%20matiz%20recurring%20topics",
+    "https://en.wikipedia.org/w/index.php?search=automotive%20context%20owns%201999%20daewoo%20matiz%20recurring",
+    "https://scholar.google.com/scholar?q=automotive%20context%20owns%201999%20daewoo%20matiz%20recurring"
+  ],
+  "last_verified_at": "2026-04-18T06:41:32Z"
+}

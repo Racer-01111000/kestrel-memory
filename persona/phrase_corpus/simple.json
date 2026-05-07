@@ -1,0 +1,10 @@
+{
+  "term": "simple",
+  "source_list": "words",
+  "definition": "free from guile",
+  "usage_context": "Take our 3 question quiz on simple",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/simple",
+  "enriched_at": "2026-05-06T00:52:15.598187+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

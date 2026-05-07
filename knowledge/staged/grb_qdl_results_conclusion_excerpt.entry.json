@@ -1,0 +1,23 @@
+{
+  "id": "grb_qdl_results_conclusion_excerpt_2026_04_12",
+  "title": "GRB QDL paper results and conclusions excerpt",
+  "text": "Operator-provided staged excerpt preserving the paper's comparative claims that quantum autoencoders can outperform small classical models in low-resource settings while remaining inferior to high-capacity classical models at full capacity; includes parameter-count, MAPE, and runtime framing.",
+  "classification": "staged",
+  "learning_stage": "claim",
+  "confidence": "medium",
+  "authority": "operator_provided_paper_excerpt",
+  "project": "quantum",
+  "domain": "quantum_ml_astrophysics_results",
+  "source_file": "knowledge/staged/grb_qdl_results_conclusion_excerpt.md",
+  "created_at": "2026-04-12",
+  "review_status": "pending",
+  "notes": "Results/conclusions excerpt with some incomplete table cells in pasted plaintext; preserve as staged empirical paper-specific evidence.",
+  "epistemic_level": "fact_candidate",
+  "verification_sources": [
+    "https://html.duckduckgo.com/html/?q=classical%20capacity%20operator%20staged%20excerpt%20preserving",
+    "https://html.duckduckgo.com/html/?q=grb%20qdl%20paper%20results%20and%20conclusions%20excerpt%20excerpt%20preserving%20comparative%20claims",
+    "https://en.wikipedia.org/w/index.php?search=grb%20qdl%20paper%20results%20and%20conclusions%20excerpt%20quantum%20ml%20astrophysics%20results%20classical%20capacity%20operator%20staged%20excerpt",
+    "https://scholar.google.com/scholar?q=grb%20qdl%20paper%20results%20and%20conclusions%20excerpt%20quantum%20ml%20astrophysics%20results%20classical%20capacity%20operator%20staged%20excerpt"
+  ],
+  "last_verified_at": "2026-04-18T06:40:50Z"
+}

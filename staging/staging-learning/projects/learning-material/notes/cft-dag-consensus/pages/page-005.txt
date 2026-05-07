@@ -1,0 +1,63 @@
+undecided, the replica marks the current slot as undecided.                 Algorithm 1 Nemo-Nemo
+If the anchor is commit, the replica checks if it indirectly                1: leadersPerRound                             ⊲ A number between 1 and 2 𝑓 + 1
+references the target slot, that is, it checks whether there is a           2: waveLength = 2
+path between the anchor and the target skeleton slot. If it does,            3: procedure TryDecide(𝑟𝑐𝑜𝑚𝑚𝑖𝑡𝑡𝑒𝑑 , 𝑟ℎ𝑖𝑔ℎ𝑒𝑠𝑡 )
+the replica marks the target slot as commit. If it does not, the             4:    𝑆←[]                                                  ⊲ Holds decisions
+                                                                             5:    for 𝑟 ← 𝑟ℎ𝑖𝑔ℎ𝑒𝑠𝑡 down to 𝑟𝑐𝑜𝑚𝑚𝑖𝑡𝑡𝑒𝑑 + 1 do
+replica marks it as skip. This rule is formally described by                 6:        for 𝑙 ← leadersPerRound − 1 down to 0 do
+the function TryIndirectDecide in Algorithm 2. Section 5                     7:            𝑖 ← 𝑟 mod waveLength
+                                                                             8:            𝐷 ← Decider(𝑖, 𝑙 )
+shows that the direct and indirect decision rules are consistent:            9:            𝑤 ← 𝐷.WaveNumber(𝑟 )
+if one replica directly commits a block, no honest replicas will            10:             𝑠 ← 𝐷.TryDirectDecide(𝑤 )
+                                                                            11:             if 𝑠 = ⊥ then 𝑠 ← 𝐷.TryIndirectDecide(𝑤, 𝑆 )
+indirectly skip it (and vice versa).                                        12:             𝑆←𝑠 ∥ 𝑆
+                                                                            13:     return 𝑆
+   In this example, the replica fails to classify 𝑆2𝑏 , 𝑆1𝑎 , and
+𝑆0𝑏 using the direct decision rule and thus searches for their              14: procedure ExtendCommitSequence(𝑟𝑐𝑜𝑚𝑚𝑖𝑡𝑡𝑒𝑑 , 𝑟ℎ𝑖𝑔ℎ𝑒𝑠𝑡 )
+                                                                            15:    𝑆 ← TryDecide(𝑟𝑐𝑜𝑚𝑚𝑖𝑡𝑡𝑒𝑑 , 𝑟ℎ𝑖𝑔ℎ𝑒𝑠𝑡 )
+respective anchors. The status of the anchor of 𝑆2𝑏 is still                16:    𝑆𝑐𝑜𝑚𝑚𝑖𝑡 ← [ ]                                 ⊲ Holds committed blocks
+undecided; the replica thus marks 𝑆2𝑏 as undecided. Even-                   17:    for 𝑠 ∈ 𝑆 do
+                                                                            18:        if 𝑠 = ⊥ then break
+tually, the DAG will grow and a block with round 𝑅 ′ > 𝑅 + 3                19:        if 𝑠 = Commit (𝑏𝑙𝑒𝑎𝑑𝑒𝑟 ) then 𝑆𝑐𝑜𝑚𝑚𝑖𝑡 ← 𝑆𝑐𝑜𝑚𝑚𝑖𝑡 ∥ 𝑏𝑙𝑒𝑎𝑑𝑒𝑟
+will become the anchor for 𝑆2𝑏 . For the moment however, 𝑆2𝑏                20:    return LinearizeSubDags(𝑆𝑐𝑜𝑚𝑚𝑖𝑡 )             ⊲ Commit returned blocks
+remains undecided. 𝑆3𝑎 is the anchor for 𝑆1𝑎 ; since 𝑆3𝑎 has                5     Correctness
+a path to 𝑆1𝑎 (marked with thick arrows), the replica classifies
+𝑆1𝑎 as commit. The anchor of 𝑆0𝑏 is 𝑆2𝑎 which does not have                 In this section, we prove that Nemo-Nemo guarantees the
+a path to 𝑆0𝑏 . Thus, the replica classifies 𝑆0𝑏 as skip.                   properties of atomic broadcast.
+                                                                            5.1     Safety proofs
+Step 3: Skeleton slots sequence. After processing all slots, the
+replica derives an ordered sequence of the blocks contained in              Lemma 1. If in round 𝑅, 𝑓 + 1 blocks from distinct replicas
+the skeleton slots. It then iterates over this sequence, commit-            vote for a block 𝐵, then all blocks at future rounds 𝑅 ′ > 𝑅 will
+ting all slots marked as commit and skipping all slots marked               have a path to 𝐵.
+as skip. This process continues until the replica encounters                Proof. We prove the lemma by induction on 𝑅 ′ . The base
+the first undecided slot. As shown in Section 5 this commit                 case is 𝑅 ′ = 𝑅 + 1. Let 𝐵′ be a block at round 𝑅 ′ . Since 𝐵′
+sequence is safe, and eventually, all slots will be classified              points to 𝑓 + 1 blocks at round 𝑅, by quorum intersection, 𝐵′
+as either commit or skip. In the example shown in Figure 2,                 must point to at least one of the blocks that vote for 𝐵, and
+the skeleton block output by the replica is [𝑆0𝑎 , 𝑆1𝑎 , 𝑆1𝑏 ,              thus have a path to 𝐵.
+𝑆2𝑎 ]. Since 𝑆2𝑏 remains undecided, it is not included in the                  For the induction case, assume the lemma holds up to round
+sequence and 𝑆3𝑎 is also excluded.                                          𝑅 ′ and consider the case of round 𝑅 ′ + 1. Let 𝐵′ be a block
+                                                                            at round 𝑅 ′ + 1. By the induction hypothesis, 𝑓 + 1 blocks at
+Step 4: Commit sequence. Following the approach introduced                  round 𝑅 ′ have paths to 𝐵. Since 𝐵′ points to 𝑓 + 1 blocks from
+by DagRider [24], the replica determines a linear ordering                  round 𝑅 ′ , by quorum intersection, 𝐵′ must point to at least
+of all the blocks within the sub-DAG defined by each skele-                 one block that has a path to 𝐵.                               □
+ton block, including previously skipped skeleton blocks (if
+they are reachable), by performing a depth-first search. If a               Lemma 2. If a replica directly commits some block in a slot
+previous skeleton slot has already linearized a block, it is not            𝑆, then no other replica skips slot 𝑆.
+re-linearized. The replica processes skeleton slots sequen-
+tially, ensuring that all blocks are included in the final commit           Proof. Assume by contradiction that a replica 𝑁 directly
+sequence in the correct order, according to their causal depen-             commits block 𝐵 in slot 𝑆 while another replica 𝑁 ′ decides
+dencies. The procedure LinearizeSubDags of Algorithm 3                      to skip 𝑆. Let 𝑅 be the round of 𝑆. Since 𝑁 directly commits
+formally describes this linearization process.                              𝐵, there exist 𝑓 + 1 votes for 𝐵 at 𝑆. Therefore, by Lemma 1,
+                                                                            all blocks at rounds 𝑅 ′ > 𝑅, including the anchor of 𝑆, have
+   In this example, 𝑆0𝑎 and 𝑆0𝑏 do not define any sub-DAG                   a path to 𝐵 at 𝑆. Thus, 𝑁 ′ cannot decide to skip 𝑆 using the
+(because the example begins at round 𝑅) and are thus directly               indirect decision rule. We have reached a contradiction. □
+added to the commit sequence. Next, 𝑆1𝑎 defines the sub-
+DAG {𝐿 1𝑎 , 𝐵 ( 𝑁1 ,𝑅) , 𝐿 0𝑏 }, which is linearized as [𝐵 ( 𝑁1 ,𝑅) ,       Observation 1. If a slot 𝑆 is committed at two replicas, then
+𝑆0𝑏 , 𝑆1𝑎 ]. The replica continues this process for each skeleton,          𝑆 contains the same block at both replicas.
+linearizing the sub-DAGs defined by 𝑆1𝑏 as [𝑆1𝑏 ], since both
+𝑆0𝑎 and 𝐵 ( 𝑁1 ,𝑅) are already part of the commit sequence, and             Proof. This follows, by construction, from two facts: (1) the
+so forth. The final commit sequence is [ 𝑆0𝑎 , 𝐵 ( 𝑁1 ,𝑅) , 𝑆1𝑎 ,           sequence of skeleton slots is predetermined and known to all
+𝑆1𝑏 , 𝐵 ( 𝑁0 ,𝑅+1) , 𝑆2𝑎 ].                                                 replicas, (2) replicas propose at most one block per slot. □
+
+
+                                                                        5

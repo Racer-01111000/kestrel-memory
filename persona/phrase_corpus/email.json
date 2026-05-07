@@ -1,0 +1,10 @@
+{
+  "term": "email",
+  "source_list": "words",
+  "definition": "a means or system for transmitting messages electronically (as between",
+  "usage_context": "computers on a network)",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/email",
+  "enriched_at": "2026-05-06T00:39:13.038993+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

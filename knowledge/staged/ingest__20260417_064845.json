@@ -1,0 +1,23 @@
+{
+  "id": "ingest_f03d38b92e13abd8",
+  "title": "Important memory management expectations",
+  "text": "Wants important project state retained across chats, machine-ingestable exports, curated memory/training artifacts rather than noisy raw history, and comprehensive memory builds that do not omit major project details.",
+  "classification": "staged",
+  "learning_stage": "claim",
+  "confidence": "medium",
+  "authority": "operator_ingest_priority",
+  "domain": "",
+  "source_file": "knowledge/staged/ingest__20260417_064845.json",
+  "created_at": "20260417",
+  "review_status": "pending",
+  "epistemic_level": "fact_candidate",
+  "ingest_type": "priority",
+  "ingest_hash": "f03d38b92e13abd8",
+  "verification_sources": [
+    "https://arxiv.org/search/?searchtype=all&query=important%20memory%20management%20expectations%20project%20memory%20wants%20important%20state%20retained",
+    "https://en.wikipedia.org/w/index.php?search=important%20memory%20management%20expectations%20project%20memory%20wants%20important%20state%20retained",
+    "https://en.wikipedia.org/w/index.php?search=important%20memory%20management%20expectations%20project%20memory%20wants%20important%20state",
+    "https://scholar.google.com/scholar?q=important%20memory%20management%20expectations%20project%20memory%20wants%20important%20state"
+  ],
+  "last_verified_at": "2026-04-18T06:41:35Z"
+}

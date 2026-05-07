@@ -1,0 +1,10 @@
+{
+  "term": "she",
+  "source_list": "words",
+  "definition": "that female one who is neither speaker nor hearer",
+  "usage_context": "she is my wife",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/she",
+  "enriched_at": "2026-05-06T00:52:01.432086+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

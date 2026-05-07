@@ -1,0 +1,22 @@
+=== OPAQUE QUERY RUN ===
+Question : what is quantum error correction
+Timestamp: 20260417T130058Z
+Key terms: quantum error correction
+Run dir  : /home/rick/kestrel-memory/staging/opaque/20260417T130058Z
+
+Fetch 1/4: https://html.duckduckgo.com/html/?q=what%20is%20quantum%20error%20correction
+  -> USABLE (3945 chars, 3 term hits, domain=html.duckduckgo.com)
+Fetch 2/4: https://en.wikipedia.org/wiki/what_is_quantum_error_correction
+  -> USABLE (3083 chars, 3 term hits, domain=en.wikipedia.org)
+Fetch 3/4: https://www.google.com/search?q=what%20is%20quantum%20error%20correction&num=5
+  -> REJECTED (too short: 204 chars)
+Fetch 4/4: https://search.yahoo.com/search?p=what%20is%20quantum%20error%20correction
+  -> USABLE (8352 chars, 3 term hits, domain=search.yahoo.com)
+
+Usable / attempted : 3 / 4
+Relevant matched   : 3
+Distinct domains   : 3
+
+OUTCOME: SUFFICIENT_FOR_RESPONSE
+REASON : 3 relevant artifacts from 3 distinct domains
+

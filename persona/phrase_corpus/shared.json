@@ -1,0 +1,10 @@
+{
+  "term": "shared",
+  "source_list": "words",
+  "definition": "used, done, belonging to, or experienced by two or more individuals",
+  "usage_context": "a dormitory with a shared living area",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/shared",
+  "enriched_at": "2026-05-06T00:51:55.556296+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

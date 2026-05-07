@@ -1,0 +1,23 @@
+{
+  "id": "ingest_25027f1aa9f08a8c",
+  "title": "OpenClaw and Kestrel workflow context",
+  "text": "Actively working on OpenClaw gateway/model/provider configuration, token/manual auth style providers, Telegram integration, exec approval handling, and strong handoff continuity. Wants optional direct node-level execution for some commands, reduced token/model usage, transparent routing, removed Gemini fallback in at least one path, and flexible IP configuration for future home-network use.",
+  "classification": "staged",
+  "learning_stage": "claim",
+  "confidence": "medium",
+  "authority": "operator_ingest_project",
+  "domain": "",
+  "source_file": "knowledge/staged/ingest__20260417_064836.json",
+  "created_at": "20260417",
+  "review_status": "pending",
+  "epistemic_level": "fact_candidate",
+  "ingest_type": "project",
+  "ingest_hash": "25027f1aa9f08a8c",
+  "verification_sources": [
+    "https://arxiv.org/search/?searchtype=all&query=openclaw%20and%20kestrel%20workflow%20context%20configuration%20token%20actively%20working%20openclaw%20gateway",
+    "https://en.wikipedia.org/w/index.php?search=openclaw%20and%20kestrel%20workflow%20context%20configuration%20token%20actively%20working%20openclaw%20gateway",
+    "https://en.wikipedia.org/w/index.php?search=openclaw%20and%20kestrel%20workflow%20context%20configuration%20token%20actively%20working%20openclaw",
+    "https://scholar.google.com/scholar?q=openclaw%20and%20kestrel%20workflow%20context%20configuration%20token%20actively%20working%20openclaw"
+  ],
+  "last_verified_at": "2026-04-18T06:41:09Z"
+}

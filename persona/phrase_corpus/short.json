@@ -1,0 +1,10 @@
+{
+  "term": "short",
+  "source_list": "words",
+  "definition": "having little length",
+  "usage_context": "a short vacation",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/short",
+  "enriched_at": "2026-05-06T00:52:04.334363+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

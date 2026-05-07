@@ -1,0 +1,10 @@
+{
+  "term": "country",
+  "source_list": "words",
+  "definition": "an indefinite usually extended expanse of land",
+  "usage_context": "miles of open country",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/country",
+  "enriched_at": "2026-05-06T00:37:35.808259+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

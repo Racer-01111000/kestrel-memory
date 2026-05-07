@@ -1,0 +1,10 @@
+{
+  "term": "hold",
+  "source_list": "words",
+  "definition": "to have possession or ownership of or have at one's disposal",
+  "usage_context": "holds property worth millions",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/hold",
+  "enriched_at": "2026-05-06T00:42:50.832481+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

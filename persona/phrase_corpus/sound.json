@@ -1,0 +1,10 @@
+{
+  "term": "sound",
+  "source_list": "words",
+  "definition": "a particular auditory impression",
+  "usage_context": "in a material medium (such as air) and is the objective cause of hearing",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/sound",
+  "enriched_at": "2026-05-06T00:53:03.316722+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

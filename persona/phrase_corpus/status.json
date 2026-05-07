@@ -1,0 +1,10 @@
+{
+  "term": "status",
+  "source_list": "words",
+  "definition": "position or rank when compared to others in a society, organization, group,",
+  "usage_context": "the book's best-seller status",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/status",
+  "enriched_at": "2026-05-06T00:53:31.279158+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

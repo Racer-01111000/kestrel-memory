@@ -1,0 +1,10 @@
+{
+  "term": "This cannot be ignored",
+  "source_list": "phrases",
+  "definition": "(not found in Merriam-Webster)",
+  "usage_context": "",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/This%2520cannot%2520be%2520ignored",
+  "enriched_at": "2026-05-06T00:24:55.288093+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

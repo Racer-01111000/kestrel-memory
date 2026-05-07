@@ -1,0 +1,69 @@
+   We also implement a benchmark framework to simulate
+performance under a random asynchronous network model.                                     1,600                             Nemo-Nemo
+                                                                                                                             QuePaxa
+The framework forces each consensus instance to gather a                                   1,400                             Multi-Paxos
+
+
+
+
+                                                                         Median latency (ms)
+randomly selected quorum to commit rather than rely on                                     1,200                             EPaxos
+whichever majority returns first. This shifts performance                                                                    Rabia
+away from the quickest or geographically closest replicas
+                                                                                           1,000                             SADL-RACS
+and instead drives execution through a random message-                                       800
+delivery schedule that removes any bias toward low-latency                                   600
+quorums. We use this framework only in Section 7.7 and                                       400
+rely on standard communication patterns for the rest of our
+                                                                                             200
+evaluation in Section 7. To the best of our knowledge, this is the
+first work to introduce an evaluation framework for measuring                                  0 0      200k      400k     600k      800k
+protocol performance under the random asynchronous model,                                                 Throughput (cmd/sec)
+and we present this evaluation setup as a novel contribution of           Figure 3: Performance under normal case WAN execution.
+independent interest. We will open-source our Nemo-Nemo
+                                                                         two state-of-the-art DAG-based, partially synchronous BFT
+implementation upon acceptance to support reproducibility
+                                                                         consensus protocols: Bullshark [46] and Mysticeti [5]. We
+and enable further research in this area.
+                                                                         select these two BFT protocols because they share key ar-
+7     Evaluation                                                         chitectural features with Nemo-Nemo and because both are
+                                                                         widely deployed in production systems [8, 48].
+Our evaluation compares performance, scalability, and re-
+source efficiency to existing CFT consensus protocols. We                7.2                   Experimental setup
+experiment across a range of execution conditions, includ-               We deploy replicas on Amazon EC2 virtual machines [4]
+ing favorable (fault-free, timely communication), crash-fault            of type c5.4xlarge. Each machine provides 10 Gbps of
+scenarios, and both normal and unstable network conditions.              bandwidth, 16 virtual CPUs on a 2.5 GHz Intel Xeon Plat-
+                                                                         inum 8124M, 32 GB memory, and runs Ubuntu Linux
+7.1    Baselines
+                                                                         22.04 LTS [56]. We select these machines because they
+We compare the performance of Nemo-Nemo against state-of-                provide decent performance, are in the price range of
+the-art CFT protocols: Multi-Paxos [27, 50], EPaxos [35, 36],            “commodity servers”, and are in line with recent related
+QuePaxa [51, 52], Rabia [41, 42], and SADL-RACS [53]                     work [5, 23]. We conducted experiments in a wide-area net-
+   We select these baselines for their contrasting designs, en-          work (WAN) with replicas distributed across multiple AWS re-
+suring coverage of a broad spectrum of protocol architectures.           gions: Cape Town (af-south-1), Hyderabad (ap-south-2),
+Multi-Paxos uses a classic leader-based approach that chan-              Jakarta (ap-southeast-3), Osaka (ap-northeast-3), and
+nels all requests through a single leader. EPaxos adopts a               Milan (eu-south-1).
+multi-leader design in which every replica can propose and                  We instantiate several geo-distributed benchmark clients
+commit commands concurrently under dependency constraints.               collocated with each replica, submitting transactions in an
+EPaxos produces only a partial order, a weaker abstraction               open loop model [45], at a fixed rate. We experimentally
+than the total order that Nemo-Nemo enforces. QuePaxa rep-               increase the submission rate and record the throughput and
+resents the current state of the art in randomized consensus:            latency of commits. As a result, all plots illustrate the steady-
+it matches Multi-Paxos under synchronous conditions and                  state latency of all systems under load, as well as the maximal
+switches to a fallback mode that preserves throughput under              throughput they can provide, after which latency increases
+asynchrony, which makes it well suited for wide-area deploy-             rapidly. We verified that the CPU, memory, bandwidth, and
+ments. Rabia uses randomized techniques to optimize for                  storage resources are sufficient to host both the replica and
+low-latency local-area settings; we include it for complete-             client for all protocols under test.
+ness. SADL-RACS achieves high throughput by separating                      Following prior studies [42, 52] and production systems [9],
+command dissemination from the consensus critical path. We               we set the command size to 18 bytes. We set the timeouts at
+include QuePaxa, Multi-Paxos, EPaxos, and Nemo-Nemo in                   5 sec in each protocol. For each protocol, we measure end-to-
+all subsequent experiments. Due to page-limit constraints,               end commit latency. Throughput is measured in commands
+we report only best-case evaluations for SADL-RACS and                   per second (cmd/sec), where one command corresponds to a
+Rabia. We observed that the existing EPaxos codebase [35]                single 18-byte request. All protocols use batching to amortize
+does not support more than five replicas, an implementation              network latency.
+limitation noted by prior work [52, 53]. Therefore, we omit
+using EPaxos in the scalability experiment in Section 7.4.               7.3                   Normal case WAN performance
+Nemo-Nemo is designed for crash fault-tolerant systems; how-             We evaluate the normal-case performance of Nemo-Nemo in
+ever, for completeness, we also compare Nemo-Nemo against                a WAN under favorable (“synchronous”) network conditions.
+
+
+                                                                     8

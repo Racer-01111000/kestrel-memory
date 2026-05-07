@@ -1,0 +1,63 @@
+   Beyond a DAG-based mempool alone, the second lesson                   smoothly despite temporary leader disruptions.
+is that consensus protocols can be embedded directly into
+                                                                         Implementing Nemo-Nemo. To validate our vision, we wanted
+the DAG structure by pre-designating a skeleton of leader
+                                                                         to employ mature code and optimize it for low latency. We
+proposals and treating blocks that reference those proposals as
+                                                                         started with Mysticeti, a BFT protocol deployed in production
+protocol votes [6]. In this view, much of the logic of traditional
+                                                                         by multiple blockchains [13, 22, 48].
+consensus protocols collapses into simple structural rules on
+                                                                            Applying Mysticeti to CFT involved both obvious modifica-
+the DAG. For example, simple and direct commit logic can be
+                                                                         tions and structural opportunities that fundamentally improve
+realized by 𝑓 + 1 blocks referencing a leader proposal [31, 47].
+                                                                         performance, including the following: (i) changing quorum
+Overview of Nemo-Nemo. For the DAG-mempool, a key de-                    thresholds from 2 𝑓 + 1 to 𝑓 + 1, (ii) eliminating an entire
+sign choice concerns whether DAG blocks must be explicitly               communication round and simplifying commit rules to enable
+certified for availability by a quorum before insertion [1].             Nemo-Nemo to commit on a DAG in just two network hops,
+Several BFT DAGs, such as Tusk [14] and Bullshark [46], use              like existing CFT systems, (iii) simplifying authentication by
+certified blocks, motivated by the need for non-equivocation             removing signatures and integrity checks, thus streamlining
+and data availability in adversarial environments. However,              command ingestion without Byzantine peer concerns.
+pre-certifying each block adds communication rounds on top               Unstable Network Testing. Finally, in addition to evaluating
+of those required for consensus, increasing latency. Alternative         performance under standard, partial synchrony conditions, we
+BFT DAGs, including Cordial Miners [25] and Mysticeti [5],               address an existing gap in the evaluation methodology for CFT
+avoid pre-certification to reduce latency.                               consensus systems. Existing CFT systems are designed to cope
+   Prioritizing low latency, Nemo-Nemo uses non-certified                with a minority of stragglers, progressing rather well with a
+blocks. Note that in CFT settings, equivocation is not a concern,        stable, well-connected majority. However, they suffer a perfor-
+hence the benefit of pre-certification is diminished whereas             mance degradation when network conditions are unstable and
+admitting non-certified blocks enables extremely low-latency.            the fast majority is constantly “shifting”. To address this, in
+   The DAG direct commit rule of Nemo-Nemo is straight-                  addition to traditional evaluations, we developed a framework
+forward: a skeleton block becomes directly committed if                  to evaluate protocols under a recently proposed random asyn-
+referenced by 𝑓 + 1 blocks in the next round (see Figure 1).             chronous model, which assumes message delivery delays are
+The crux is maintaining safety against failures across replicas,         random but not adversarially controlled. This model captures
+each distinctly evolving the DAG due to network scheduling               realistic network variability—where packets may be delayed or
+and omissions. When a skeleton slot is not directly committed,           reordered—without assuming malicious nodes. Importantly,
+it can become indirectly committed by a future skeleton slot             this model reveals performance characteristics invisible under
+using the (causally ordered) DAG structure itself (see Figure 2).        standard partial synchrony assumptions, where protocols are
+Notably, there is no explicit view-change by which a future              typically evaluated with stable, low-latency networks. We
+leader may reinstate the proposed block. Rather, a DAG rule,             detail how we simulate this network model in Section 6
+which is somewhat subtle, is employed to indirectly commit or               Our evaluations demonstrate that existing CFT protocols
+skip the undecided slot; it is detailed in the body of the paper.        behave quite differently under randomized network delays
+   This design enhances state-of-the-art CFT consensus in                compared to stable networks. Nemo-Nemo, by contrast, main-
+several non-obvious respects. First, each round can inject new           tains robust performance across both settings.This validates
+proposals in the same round as voting, without waiting for               our motivating insight: by decoupling block propagation from
+confirmation that earlier proposals have committed. Second,              consensus, Nemo-Nemo remains robust under the random
+each round can rotate leaders while preserving the same struc-           asynchronous model as the DAG continues to grow even in the
+ture and latency as a stable-leader regime, without requiring            absence of commits. It contrasts with traditional CFT proto-
+an explicit leader-replacement (view-change) protocol. Third,            cols, which couple these processes, forcing block production
+each round may include multiple skeleton slots for proposals,            to halt until consensus is achieved.
+enabling greater flexibility and throughput (see Figure 2).              Contributions. We summarize our contributions as follows:
+   An additional advantage becomes apparent under unstable
+conditions, such as transient network delays. Consensus pro-                • We present Nemo-Nemo, the first DAG-based CFT con-
+tocols face a well-known tradeoff when configuring leader                     sensus protocol. Nemo-Nemo achieves the best perfor-
+timeouts: timeouts that are too short risk discarding correct                 mance among known CFT protocols in WAN settings
+leader proposals, while timeouts that are too long can stall                  under both partial synchrony and random asynchronous
+the system upon leader failure or hang-up. Nemo-Nemo miti-                    network models.
+gates this tradeoff by enabling shorter leader timeouts without
+compromising fairness or throughput. Leader proposals are                   • We show how, unlike traditional CFT protocols that re-
+never dropped; instead, they are deferred, typically to the im-               quire explicit view-change mechanisms, Nemo-Nemo
+mediately succeeding round, allowing the system to progress                   integrates leader rotation and multi-proposer rounds di-
+
+
+                                                                     2

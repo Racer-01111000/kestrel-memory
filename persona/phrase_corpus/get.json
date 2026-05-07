@@ -1,0 +1,10 @@
+{
+  "term": "get",
+  "source_list": "words",
+  "definition": "to gain possession of",
+  "usage_context": "got a new bicycle",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/get",
+  "enriched_at": "2026-05-06T00:41:46.191860+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

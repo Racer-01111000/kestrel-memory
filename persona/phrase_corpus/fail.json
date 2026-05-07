@@ -1,0 +1,10 @@
+{
+  "term": "fail",
+  "source_list": "words",
+  "definition": "to lose strength",
+  "usage_context": "her health was failing",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/fail",
+  "enriched_at": "2026-05-06T00:40:07.474988+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

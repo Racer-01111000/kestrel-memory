@@ -1,0 +1,23 @@
+{
+  "id": "ingest_540c2668494562e4",
+  "title": "Server and licensing context",
+  "text": "Has worked on server-authoritative licensing and payment workflows using Namecheap DNS, DigitalOcean droplets, Ubuntu servers, Nginx reverse proxy, Certbot, PM2-managed Node apps, PostgreSQL, Resend email delivery, and PayPal business/webhook flows.",
+  "classification": "staged",
+  "learning_stage": "claim",
+  "confidence": "medium",
+  "authority": "operator_ingest_project",
+  "domain": "",
+  "source_file": "knowledge/staged/ingest__20260417_064843.json",
+  "created_at": "20260417",
+  "review_status": "pending",
+  "epistemic_level": "fact_candidate",
+  "ingest_type": "project",
+  "ingest_hash": "540c2668494562e4",
+  "verification_sources": [
+    "https://arxiv.org/search/?searchtype=all&query=server%20and%20licensing%20context%20worked%20server%20authoritative%20licensing%20payment%20workflows",
+    "https://en.wikipedia.org/w/index.php?search=server%20and%20licensing%20context%20worked%20server%20authoritative%20licensing%20payment%20workflows",
+    "https://en.wikipedia.org/w/index.php?search=server%20and%20licensing%20context%20worked%20server%20authoritative%20licensing%20payment",
+    "https://scholar.google.com/scholar?q=server%20and%20licensing%20context%20worked%20server%20authoritative%20licensing%20payment"
+  ],
+  "last_verified_at": "2026-04-18T06:41:29Z"
+}

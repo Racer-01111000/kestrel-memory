@@ -1,0 +1,10 @@
+{
+  "term": "offline",
+  "source_list": "words",
+  "definition": "not connected to or served by a system and especially a computer or",
+  "usage_context": "telecommunications system",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/offline",
+  "enriched_at": "2026-05-06T00:47:24.429101+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

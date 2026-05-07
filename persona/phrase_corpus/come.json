@@ -1,0 +1,10 @@
+{
+  "term": "come",
+  "source_list": "words",
+  "definition": "to move toward something",
+  "usage_context": "Come here.",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/come",
+  "enriched_at": "2026-05-06T00:36:44.943014+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

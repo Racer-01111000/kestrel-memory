@@ -1,0 +1,10 @@
+{
+  "term": "join",
+  "source_list": "words",
+  "definition": "to put or bring together so as to form a unit",
+  "usage_context": "join two blocks of wood with glue",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/join",
+  "enriched_at": "2026-05-06T00:43:57.442969+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

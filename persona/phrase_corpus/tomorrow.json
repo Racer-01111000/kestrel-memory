@@ -1,0 +1,10 @@
+{
+  "term": "tomorrow",
+  "source_list": "words",
+  "definition": "on or for the day after today",
+  "usage_context": "will do it tomorrow",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/tomorrow",
+  "enriched_at": "2026-05-06T00:55:30.872625+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

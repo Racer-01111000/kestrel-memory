@@ -1,0 +1,23 @@
+{
+  "id": "ingest_62681f640ed4cee3",
+  "title": "SentinelNet",
+  "text": "Future follow-on project for scraper monitoring and network behavior vigilance. Intended as a defensive, non-aggressive monitoring layer potentially useful for LLM provider defense contexts.",
+  "classification": "staged",
+  "learning_stage": "claim",
+  "confidence": "medium",
+  "authority": "operator_ingest_project",
+  "domain": "",
+  "source_file": "knowledge/staged/ingest__20260417_064841.json",
+  "created_at": "20260417",
+  "review_status": "pending",
+  "epistemic_level": "fact_candidate",
+  "ingest_type": "project",
+  "ingest_hash": "62681f640ed4cee3",
+  "verification_sources": [
+    "https://arxiv.org/search/?searchtype=all&query=sentinelnet%20monitoring%20future%20follow%20project%20scraper%20network",
+    "https://en.wikipedia.org/w/index.php?search=sentinelnet%20monitoring%20future%20follow%20project%20scraper%20network",
+    "https://en.wikipedia.org/w/index.php?search=sentinelnet%20monitoring%20future%20follow%20project%20scraper",
+    "https://scholar.google.com/scholar?q=sentinelnet%20monitoring%20future%20follow%20project%20scraper"
+  ],
+  "last_verified_at": "2026-04-18T06:41:23Z"
+}

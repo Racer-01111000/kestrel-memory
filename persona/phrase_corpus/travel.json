@@ -1,0 +1,10 @@
+{
+  "term": "travel",
+  "source_list": "words",
+  "definition": "to go on or as if on a trip or tour",
+  "usage_context": "the news traveled fast",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/travel",
+  "enriched_at": "2026-05-06T00:55:48.918592+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

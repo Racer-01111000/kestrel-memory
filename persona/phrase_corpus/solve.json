@@ -1,0 +1,10 @@
+{
+  "term": "solve",
+  "source_list": "words",
+  "definition": "to find a solution, explanation, or answer for",
+  "usage_context": "solve a problem",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/solve",
+  "enriched_at": "2026-05-06T00:52:49.623222+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

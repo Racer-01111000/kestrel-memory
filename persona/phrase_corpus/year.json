@@ -1,0 +1,10 @@
+{
+  "term": "year",
+  "source_list": "words",
+  "definition": "the period of about 365^1/[4] solar days required for one revolution of the",
+  "usage_context": "earth around the sun",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/year",
+  "enriched_at": "2026-05-06T00:58:12.018417+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

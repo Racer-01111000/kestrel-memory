@@ -1,0 +1,23 @@
+{
+  "id": "ingest_eb9e427711adbb61",
+  "title": "Project SIGNAL",
+  "text": "Long-running conceptual and technical project tied to AI continuity and cognition. Includes Storacha/w3up space named Signal, a provided DID, Objective Reduction / Penrose-inspired theory, recursive learning milestones, and both personal and build-focused continuity.",
+  "classification": "staged",
+  "learning_stage": "claim",
+  "confidence": "medium",
+  "authority": "operator_ingest_project",
+  "domain": "",
+  "source_file": "knowledge/staged/ingest__20260417_064840.json",
+  "created_at": "20260417",
+  "review_status": "pending",
+  "epistemic_level": "fact_candidate",
+  "ingest_type": "project",
+  "ingest_hash": "eb9e427711adbb61",
+  "verification_sources": [
+    "https://arxiv.org/search/?searchtype=all&query=project%20signal%20continuity%20long%20running%20conceptual%20technical%20project",
+    "https://en.wikipedia.org/w/index.php?search=project%20signal%20continuity%20long%20running%20conceptual%20technical%20project",
+    "https://en.wikipedia.org/w/index.php?search=project%20signal%20continuity%20long%20running%20conceptual%20technical",
+    "https://scholar.google.com/scholar?q=project%20signal%20continuity%20long%20running%20conceptual%20technical"
+  ],
+  "last_verified_at": "2026-04-18T06:41:20Z"
+}

@@ -1,0 +1,10 @@
+{
+  "term": "two",
+  "source_list": "words",
+  "definition": "being one more than one in number",
+  "usage_context": "section two of the instructions",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/two",
+  "enriched_at": "2026-05-06T00:56:06.282302+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

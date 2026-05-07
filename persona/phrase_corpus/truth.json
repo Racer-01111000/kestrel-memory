@@ -1,0 +1,10 @@
+{
+  "term": "truth",
+  "source_list": "words",
+  "definition": "the body of real things, events, and facts",
+  "usage_context": "actions guided by truth",
+  "moral_weight": "moral/ethical weight present",
+  "source_url": "https://www.merriam-webster.com/dictionary/truth",
+  "enriched_at": "2026-05-06T00:56:00.840269+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

@@ -1,0 +1,10 @@
+{
+  "term": "shallow",
+  "source_list": "words",
+  "definition": "having little depth",
+  "usage_context": "shallow water",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/shallow",
+  "enriched_at": "2026-05-06T00:51:50.269580+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

@@ -1,0 +1,23 @@
+{
+  "id": "ingest_a100188c8b6ca658",
+  "title": "Response and collaboration preferences",
+  "text": "Prefers one command at a time, detailed explanations for translations/definitions, explicit approval for broader system changes, clear separation of project-scoped actions from general system changes, meaningful collaboration, continuity across chats, accurate recall, handoffs, command sheets, memory builds, structured runbooks, and copy-paste-ready outputs.",
+  "classification": "staged",
+  "learning_stage": "claim",
+  "confidence": "medium",
+  "authority": "operator_ingest_preferences",
+  "domain": "",
+  "source_file": "knowledge/staged/ingest__20260417_064834.json",
+  "created_at": "20260417",
+  "review_status": "pending",
+  "epistemic_level": "fact_candidate",
+  "ingest_type": "preferences",
+  "ingest_hash": "a100188c8b6ca658",
+  "verification_sources": [
+    "https://arxiv.org/search/?searchtype=all&query=response%20and%20collaboration%20preferences%20command%20changes%20prefers%20time%20detailed%20explanations",
+    "https://en.wikipedia.org/w/index.php?search=response%20and%20collaboration%20preferences%20command%20changes%20prefers%20time%20detailed%20explanations",
+    "https://en.wikipedia.org/w/index.php?search=response%20and%20collaboration%20preferences%20command%20changes%20prefers%20time%20detailed",
+    "https://scholar.google.com/scholar?q=response%20and%20collaboration%20preferences%20command%20changes%20prefers%20time%20detailed"
+  ],
+  "last_verified_at": "2026-04-18T06:41:01Z"
+}

@@ -1,0 +1,10 @@
+{
+  "term": "memory",
+  "source_list": "words",
+  "definition": "the power or process of reproducing or recalling what has been learned and",
+  "usage_context": "retained especially through associative mechanisms",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/memory",
+  "enriched_at": "2026-05-06T00:45:48.482140+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

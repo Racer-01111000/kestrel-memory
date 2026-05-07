@@ -1,0 +1,10 @@
+{
+  "term": "which",
+  "source_list": "words",
+  "definition": "being what one or ones out of a group",
+  "usage_context": "which tie should I wear",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/which",
+  "enriched_at": "2026-05-06T00:57:34.165255+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

@@ -1,0 +1,73 @@
+7.9     Resource utilization                                                      network messages to commit a batch of commands, resulting
+                                                                                  in high latency overhead (see in Figure 3). In contrast, Nemo-
+We measure the CPU utilization of Nemo-Nemo and follow
+                                                                                  Nemo embeds command dissemination directly into the DAG,
+Matte et al. [33], who use CPU utilization as a proxy for
+                                                                                  avoiding extra message hops and achieving lower latency and
+resource consumption. We record per-replica CPU utilization
+                                                                                  higher throughput.
+once per second with Go’s “gopsutil” tool [16], aggregate
+the readings across replicas, and report the mean per-replica                     DAG-based protocols. DAG-based consensus protocols are
+utilization in Figure 9.                                                          recent advancements in Byzantine fault-tolerance (BFT), but
+   Figure 9 shows that Nemo-Nemo uses only 1% CPU at                              have not been explored in the context of crash fault-tolerant
+100k cmd/sec, compared to 9%, 15%, and 7% for Multi-Paxos,                        (CFT) systems. Existing BFT DAG-based protocols can be
+QuePaxa, and EPaxos.4 The same pattern holds at 10k and                           classified into two categories: certified DAGs [14, 46] and
+200k cmd/sec. Multi-Paxos, QuePaxa, and EPaxos consume                            uncertified DAGs [5, 23, 25]. Nemo-Nemo is the first CFT
+more CPU because they process more messages: Nemo-Nemo                            protocol to adopt a DAG-based architecture, specifically using
+broadcasts one message per block, while existing protocols                        an uncertified DAG design.
+require at least two propose–vote rounds to commit a batch.                          DAG-Rider [24], Tusk [14], Bullshark [46], and Dumbo-
+This extra communication directly increases their CPU cost,                       NG [19] are representative certified DAG protocols that use
+whereas Nemo-Nemo avoids it.                                                      consistent broadcast to explicitly certify each DAG block [44].
+                                                                                  Fides [60] is a TEE-assisted BFT DAG protocol that also
+8     Related Work                                                                uses certified blocks, achieving certification in two rounds
+                                                                                  without signatures by leveraging TEE guarantees. Explicit
+Leader-based protocols. Most deployed consensus protocols
+                                                                                  certification ensures that equivocating blocks cannot exist,
+rely on a leader to order requests and achieve one-round-trip
+                                                                                  simplifying the commit rule. However, certification adds at
+normal-case commit latency [27, 39, 40]. While simple and
+                                                                                  least 3 message delays per DAG round and increases latency, as
+efficient in favorable conditions, leader-based protocols suffer
+                                                                                  seen in Bullshark’s results in Figure 8. It also raises bandwidth
+from two fundamental limitations: all client requests must
+                                                                                  and CPU costs, since replicas must disseminate, receive, and
+funnel through a single leader, limiting throughput scalability,
+                                                                                  verify cryptographic certificates. To avoid these drawbacks,
+and performance degrades significantly under asynchronous
+                                                                                  Nemo-Nemo employs an uncertified DAG architecture.
+or poor network conditions when the leader or its closest
+                                                                                     Cordial Miners [25], Mysticeti [5], Mahi-Mahi [23], and
+quorum experiences delays. As shown in Figures 3 to 5
+                                                                                  BlueBottle [58] operate over uncertified DAGs, where each
+and 7, Nemo-Nemo outperforms leader-based protocols in
+                                                                                  block is disseminated using best-effort to all replicas. Nemo-
+both throughput and latency by distributing load evenly across
+                                                                                  Nemo also builds on an uncertified DAG, but differs funda-
+replicas, providing robustness under network randomization.
+                                                                                  mentally from these BFT protocols in two key ways. First,
+Multi-leader protocols. To address the leader bottleneck,                         by targeting crash faults instead of Byzantine faults, Nemo-
+several protocols enable multiple concurrent leaders. Men-                        Nemo’s protocol structure requires one less DAG-round to
+cius [32] statically partitions the replicated log across replicas,               commit, reducing message delays from 3 to 2. Second, Nemo-
+but its main drawback is that SMR progress depends on the                         Nemo avoids expensive cryptographic operations such as
+slowest replica. In contrast, Nemo-Nemo progresses at the                         signature generation and verification, and hash computation
+speed of the majority. Generalized Paxos [28] and EPaxos [36]                     and verification. The combination of fewer message delays and
+support multi-leaders by exploiting request dependencies and                      zero cryptographic overhead enables Nemo-Nemo to achieve
+allowing partial order of commands. Under low load, EPaxos                        significantly lower latency than Mysticeti (see in Figure 8).
+achieves lower latency than Nemo-Nemo, but under high load,                       Orthogonal goals. Nemo-Nemo focuses on high-performance,
+the dependency-checking overhead becomes a bottleneck, de-                        simple consensus, but does not address several other important
+grading performance. Fast Paxos [29] and Multi-coordinated                        goals: e.g., scalability via partitioning commands and state [2,
+Paxos [11] also permit multiple leaders but deliver suboptimal                    18, 36, 43], shrinking quorum sizes [2, 21], exploiting WAN
+performance in practice [36].                                                     locality [2, 38], storage optimization with erasure coding [57,
+Parallel dissemination. SADL-RACS [53] takes a different                          59], or reducing replica load by outsourcing work [61]. We
+approach by decoupling command dissemination from the                             plan to explore how techniques from these complementary
+consensus critical path, following a design similar to Nar-                       efforts can integrate with Nemo-Nemo in future work.
+whal [14]. Unlike Nemo-Nemo, SADL-RACS does not build
+a DAG; instead, it uses the SADL overlay to maintain a per-
+replica chain of blocks, which are committed when the next
+RACS block is committed. This separation requires at least 5
+    4 QuePaxa adopts a gRPC-based multi-threaded design, while Multi-Paxos
+
+uses a single-threaded one, which increases QuePaxa’s CPU usage.
+
+
+                                                                             12

@@ -1,0 +1,10 @@
+{
+  "term": "always",
+  "source_list": "words",
+  "definition": "at all times",
+  "usage_context": "always smiling",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/always",
+  "enriched_at": "2026-05-06T00:34:07.065720+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

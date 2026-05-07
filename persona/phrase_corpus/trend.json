@@ -1,0 +1,10 @@
+{
+  "term": "trend",
+  "source_list": "words",
+  "definition": "a prevailing tendency or inclination",
+  "usage_context": "current trends in education",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/trend",
+  "enriched_at": "2026-05-06T00:55:51.794420+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

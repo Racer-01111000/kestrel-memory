@@ -1,0 +1,10 @@
+{
+  "term": "somewhere",
+  "source_list": "words",
+  "definition": "in, at, from, or to a place unknown or unspecified",
+  "usage_context": "mentions it somewhere",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/somewhere",
+  "enriched_at": "2026-05-06T00:52:58.045375+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

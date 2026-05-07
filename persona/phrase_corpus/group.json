@@ -1,0 +1,10 @@
+{
+  "term": "group",
+  "source_list": "words",
+  "definition": "a number of individuals assembled together or having some unifying",
+  "usage_context": "relationship or action",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/group",
+  "enriched_at": "2026-05-06T00:42:03.699050+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

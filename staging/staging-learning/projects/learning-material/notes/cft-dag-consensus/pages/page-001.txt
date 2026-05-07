@@ -1,0 +1,59 @@
+                                                            Finding Nemo-Nemo: CFT DAG-based Consensus in the WAN
+
+                                                            Rithwik Kerur∗                  Pasindu Tennage∗                            Philipp Jovanovic
+                                                                UCSB                    Digital Asset and EPFL                       Mysten Labs and UCL
+                                                          rkerur@ucsb.edu             pasindu.tennage@gmail.com                      p.jovanovic@ucl.ac.uk
+
+                                                              Dahlia Malkhi                       Alberto Sonnino                          Igor Zablotchi
+                                                                 UCSB                          Mysten Labs and UCL                          Mysten Labs
+                                                         dahliamalkhi@ucsb.edu                alberto@mystenlabs.com                   igor@mystenlabs.com
+arXiv:2604.08914v1 [cs.DC] 10 Apr 2026
+
+
+
+
+                                                                     Abstract                                      1. DAG-based architecture: We can boost performance
+                                                                                                                      and alleviate network and failure-induced hiccups by
+                                         This paper introduces Nemo-Nemo, a practical crash-fault
+                                                                                                                      adopting the DAG-based approach, which provides a
+                                         tolerant (CFT) consensus protocol designed to outperform
+                                                                                                                      self-regulating mempool and seamless failure recovery.
+                                         existing protocols in wide-area networks by bridging de-
+                                         sign principles from the CFT and Byzantine-fault tolerant                 2. Battle-tested implementations: Rather than building
+                                         (BFT) worlds. By structuring command propagation through                     from scratch, we can adapt production-grade BFT code-
+                                         a causally ordered DAG, Nemo-Nemo allows all consensus                       bases to CFT settings.
+                                         replicas to propose commands with a naturally self-regulating
+                                         communication regime. By exploiting multi-leader architec-                3. Unstable network testing: Even without Byzantine repli-
+                                         ture, Nemo-Nemo avoids the performance bottleneck inherent                   cas, we must test CFT systems under unstable network
+                                         to single-leader protocols. By separating command dissemina-                 conditions, such as shifting connected majorities and
+                                         tion from consensus logic, Nemo-Nemo handles challenging                     leaders, which partial synchrony alone does not capture.
+                                         network conditions even when consensus commits are stalled.
+                                         Moreover, leader proposals that miss a deadline are never                 This paper presents Nemo-Nemo, the first DAG-based CFT
+                                         dropped, but deterministically deferred and executed later,             protocol. Nemo-Nemo applies these principles to achieve the
+                                         preserving throughput under transient network delays. And               best performance among known CFT protocols in wide-area
+                                         by enabling Nemo-Nemo to commit on a DAG in just two                    network settings under both partial synchrony [17] and random
+                                         network hops, it matches the latency of existing CFT systems,           asynchronous network [15] models.
+                                         while achieving significantly higher throughput. The result is
+                                         a robust, deployable system: the first DAG-based CFT con-               Vision and motivation. Modern DAG-based BFT consensus
+                                         sensus protocol proven to exceed state-of-the-art wide-area             systems offer two central lessons that form the foundation of
+                                         network performance in both speed and resilience.                       Nemo-Nemo. The first is the value of a causally ordered, and
+                                                                                                                 self-regulating mempool A mempool functions as a transport
+                                         1     Introduction                                                      layer for disseminating transaction requests, allowing replicas
+                                         Byzantine fault-tolerant (BFT) consensus systems have                   to inject transactions in parallel. In a DAG-based mempool,
+                                         seen significant advances, driven by a multi-trillion dollar            transactions are bundled into blocks that maintain causal
+                                         blockchain industry. These advances have yielded powerful               order. This design achieves three goals: (1) it induces a
+                                         techniques, notably DAG-based consensus architectures, that             self-regulating, round-based communication pattern where
+                                         enable high throughput, low latency, and graceful handling              replicas wait for a threshold of blocks before advancing rounds;
+                                         of both failures and network instabilities (e.g., [5, 14, 25, 46]       (2) each block automatically carries its causal history, ensuring
+                                         and others). Meanwhile, crash fault-tolerant (CFT) consensus            consistent DAG views across correct replicas; and (3) progress
+                                         remains the workhorse for traditional distributed systems, yet          continues seamlessly despite leader failures, enabling rapid
+                                         has not benefited equally from these innovations.                       recovery when new leaders are promoted.
+                                            This paper bridges that gap. We argue that CFT systems                  In principle, any consensus protocol can sit atop such a
+                                         designed to operate in the WAN can and should adopt lessons             DAG mempool, and many BFT protocols leverage this idea:
+                                         from modern BFT consensus, while adapting them to exploit               Narwhal-HS [14] integrates HotStuff [62] with a DAG and
+                                         the simpler model of crash-only failures. Specifically:                 achieves roughly a 50× performance gain over bare HotStuff,
+                                                                                                                 while Autobahn [20] integrates PBFT [12] with a DAG and
+                                             ∗ Equal contribution.                                               similarly attains significant throughput improvements.
+
+
+                                                                                                             1

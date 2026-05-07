@@ -1,0 +1,10 @@
+{
+  "term": "nine",
+  "source_list": "words",
+  "definition": "a number that is one more than eight see Table of Numbers",
+  "usage_context": "wears a nine",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/nine",
+  "enriched_at": "2026-05-06T00:46:55.188717+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

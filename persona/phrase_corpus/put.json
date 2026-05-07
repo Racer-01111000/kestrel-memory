@@ -1,0 +1,10 @@
+{
+  "term": "put",
+  "source_list": "words",
+  "definition": "to place in a specified position or relationship",
+  "usage_context": "put the book on the table",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/put",
+  "enriched_at": "2026-05-06T00:49:43.651300+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

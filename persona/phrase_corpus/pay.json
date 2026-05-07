@@ -1,0 +1,10 @@
+{
+  "term": "pay",
+  "source_list": "words",
+  "definition": "to make due return to for services rendered or property delivered",
+  "usage_context": "paid the pizza deliverer",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/pay",
+  "enriched_at": "2026-05-06T00:48:34.273972+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

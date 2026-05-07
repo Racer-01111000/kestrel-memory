@@ -1,0 +1,91 @@
+[                    ]
+ 
+[what is quantum erro] [Search]
+[All Regions     ]
+[Any Time  ]
+Quantum error correction
+
+Quantum error correction comprises a set of techniques used in quantum memory
+and quantum computing to protect quantum information from errors arising from
+decoherence and other sources of quantum noise. QEC schemes that employ
+codewords stabilized by a set of commuting operators are known as stabilizer
+codes, and the corresponding codewords are referred to as quantum
+error-correcting codes. More at “Wikipedia”
+
+Quantum error correction - Wikipedia
+
+● en.wikipedia.org/wiki/Quantum_error_correction
+Quantum error correction (QEC) comprises a set of techniques used in quantum
+memory and quantum computing to protect quantum information from errors arising
+from decoherence and other sources of quantum noise.
+
+What Is Quantum Error Correction & How Does It Work
+
+● thequantuminsider.com/2026/03/16/
+understanding-quantum-error-correction-physical-logical-qubits/
+Quantum error correction is the essential engineering challenge standing
+between today's noisy quantum computers and tomorrow's fault-tolerant machines
+capable of solving commercially valuable problems beyond the reach of classical
+supercomputers.
+
+[1907.11157] Quantum Error Correction: An Introductory Guide
+
+● arxiv.org/abs/1907.11157
+In this review, we provide an introductory guide to the theory and
+implementation of quantum error correction codes. Where possible, fundamental
+concepts are described using the simplest examples of detection and correction
+codes, the working of which can be verified by hand.
+
+PDF Quantum Error Correction: An Introductory Guide
+
+● iontrap.duke.edu/files/2025/03/arxiv_sub_v2.pdf
+In this review, we provide an introductory guide to the theory and
+implementation of quantum error correction codes. Where possible, fundamental
+concepts are described using the simplest examples of detection and correction
+codes, the working of which can be verified by hand.
+
+What is quantum error correction? - TechTarget
+
+● www.techtarget.com/searchCIO/feature/What-is-quantum-error-correction
+What is quantum error correction, and why is it important? Quantum error 
+correction (QEC) is the process of detecting quantum information errors in
+qubits caused by noise and decoherence and applying techniques to correct and
+prevent them. This helps produce more reliable quantum computing systems. Why
+do quantum errors occur?
+
+What is Quantum Error Correction (QEC) - QuEra
+
+● www.quera.com/glossary/quantum-error-correction
+QEC refers to a set of techniques used to protect quantum information from 
+errors due to decoherence and other quantum noise.
+
+What is quantum error correction (QEC)? | Live Science
+
+● www.livescience.com/technology/computing/what-is-quantum-error-correction-qec
+Quantum computers can one day be vastly more powerful than the most powerful
+supercomputers on the planet — but only if scientists find ways to fix the
+extremely high error rate in qubits.
+
+Quantum Errors and Quantum Error Correction (QEC) Methods
+
+● postquantum.com/quantum-computing/quantum-error-correction/
+Quantum error correction (QEC) is therefore critical for enabling large-scale
+or fault-tolerant quantum computing. Fault tolerance means a quantum computer
+can continue to operate correctly even when individual operations or qubits 
+error out.
+
+Quantum Error Correction: the grand challenge - Riverlane
+
+● www.riverlane.com/quantum-error-correction
+Quantum error correction is a set of techniques to protect the information
+stored in qubits from errors and decoherence caused by noise. Understand its
+importance in quantum computing.
+
+Quantum Error Correction: Codes & Concepts - Philip Metzger
+
+● philipmetzger.com/quantum-error-correction-codes-concepts/
+Quantum error correction explained with practical insights into codes, fault
+tolerance, and the challenges of scaling quantum systems.
+[Next] 
+Feedback
+[sl_h]

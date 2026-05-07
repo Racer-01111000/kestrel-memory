@@ -1,0 +1,10 @@
+{
+  "term": "believe",
+  "source_list": "words",
+  "definition": "to consider to be true or honest",
+  "usage_context": "believe the reports",
+  "moral_weight": "moral/ethical weight present",
+  "source_url": "https://www.merriam-webster.com/dictionary/believe",
+  "enriched_at": "2026-05-06T00:35:05.218116+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

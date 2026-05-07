@@ -1,0 +1,10 @@
+{
+  "term": "This is the root cause",
+  "source_list": "phrases",
+  "definition": "(not found in Merriam-Webster)",
+  "usage_context": "",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/This%2520is%2520the%2520root%2520cause",
+  "enriched_at": "2026-05-06T00:27:41.582172+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

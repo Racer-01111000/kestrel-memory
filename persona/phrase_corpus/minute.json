@@ -1,0 +1,10 @@
+{
+  "term": "minute",
+  "source_list": "words",
+  "definition": "the 60th part of an hour of time",
+  "usage_context": "Its latitude is 41 degrees 55 minutes north.",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/minute",
+  "enriched_at": "2026-05-06T00:45:59.857324+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

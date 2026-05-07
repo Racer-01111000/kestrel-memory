@@ -1,0 +1,2 @@
+- 2026-04-12: Added operator-approved ethics and morality layer to core/principles.md and core/boundaries.md.
+- 2026-04-12: Replaced ingest policy with final merged version resolving classification, operator-truth, speculative-placement, and protected-file conflicts.

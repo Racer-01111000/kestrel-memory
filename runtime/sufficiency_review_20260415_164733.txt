@@ -1,0 +1,28 @@
+=== Sufficiency Review ===
+Run at: 2026-04-15T09:47:33Z
+Staged dir: /home/rick/kestrel-memory/knowledge/staged
+
+## JSON entries
+  [PASS] grb_qdl_results_conclusion_excerpt.entry.json  review_status=pending  epistemic_level=claim
+  [PASS] ibm_and_trapped_ion_technology_essay.entry.json  review_status=pending  epistemic_level=claim
+
+## Markdown entries
+  [PASS] arxiv_2403_02240_excerpt_algorithms_crypto_scaling.md  classification=staged  epistemic_level=claim
+  [PASS] arxiv_2403_02240_source_record.md  classification=staged  epistemic_level=claim
+  [FAIL] candidate_claims.md  missing: CLASSIFICATION
+  [PASS] grb_qdl_anomaly_detection_excerpt.md  classification=staged  epistemic_level=claim
+  [PASS] grb_qdl_claim_extraction_note.md  classification=- Classification: staged  epistemic_level=claim
+  [PASS] grb_qdl_results_conclusion_excerpt.md  classification=staged  epistemic_level=claim
+  [FAIL] hypotheses.md  missing: CLASSIFICATION
+  [PASS] ibm_and_trapped_ion_technology_essay.md  classification=staged  epistemic_level=claim
+  [PASS] quantum_thesis_2026_03_28_v1.md  classification=staged  epistemic_level=claim
+  [FAIL] review_queue.md  missing: CLASSIFICATION
+  [FAIL] unresolved_items.md  missing: CLASSIFICATION
+
+## Summary
+  PASS: 9
+  WARN: 0
+  FAIL: 4
+  Total: 13
+
+STATUS: INSUFFICIENT — 4 item(s) require attention before promotion.

@@ -1,0 +1,10 @@
+{
+  "term": "file",
+  "source_list": "words",
+  "definition": "a tool usually of hardened steel with cutting ridges for forming or smoothing",
+  "usage_context": "surfaces especially of metal",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/file",
+  "enriched_at": "2026-05-06T00:40:35.668275+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

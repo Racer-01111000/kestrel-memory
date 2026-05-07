@@ -1,0 +1,10 @@
+{
+  "term": "goal",
+  "source_list": "words",
+  "definition": "the end toward which effort is directed",
+  "usage_context": "achieve/accomplish/reach/realize a goal",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/goal",
+  "enriched_at": "2026-05-06T00:41:54.824607+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

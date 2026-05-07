@@ -1,0 +1,10 @@
+{
+  "term": "dangerous",
+  "source_list": "words",
+  "definition": "involving possible injury, pain, harm, or loss",
+  "usage_context": "a dangerous job",
+  "moral_weight": "moral/ethical weight present",
+  "source_url": "https://www.merriam-webster.com/dictionary/dangerous",
+  "enriched_at": "2026-05-06T00:37:50.486782+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

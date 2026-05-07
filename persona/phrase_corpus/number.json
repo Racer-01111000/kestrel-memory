@@ -1,0 +1,10 @@
+{
+  "term": "number",
+  "source_list": "words",
+  "definition": "a sum of units",
+  "usage_context": "the number of people in the hall",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/number",
+  "enriched_at": "2026-05-06T00:47:13.479793+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

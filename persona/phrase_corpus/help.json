@@ -1,0 +1,10 @@
+{
+  "term": "help",
+  "source_list": "words",
+  "definition": "to give assistance or support to (someone)",
+  "usage_context": "something that is useful or necessary in achieving an end",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/help",
+  "enriched_at": "2026-05-06T00:42:31.754043+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

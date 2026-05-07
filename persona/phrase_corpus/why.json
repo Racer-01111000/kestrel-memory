@@ -1,0 +1,10 @@
+{
+  "term": "why",
+  "source_list": "words",
+  "definition": "for what cause, reason, or purpose",
+  "usage_context": "why did you do it?",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/why",
+  "enriched_at": "2026-05-06T00:57:43.485375+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

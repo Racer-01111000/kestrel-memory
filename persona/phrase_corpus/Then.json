@@ -1,0 +1,10 @@
+{
+  "term": "Then",
+  "source_list": "phrases",
+  "definition": "at that time",
+  "usage_context": "walked to the door, then turned",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/Then",
+  "enriched_at": "2026-05-06T00:24:00.228545+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

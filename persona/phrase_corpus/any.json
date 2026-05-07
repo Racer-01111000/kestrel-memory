@@ -1,0 +1,10 @@
+{
+  "term": "any",
+  "source_list": "words",
+  "definition": "one or some indiscriminately of whatever kind",
+  "usage_context": "Ask any man you meet.",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/any",
+  "enriched_at": "2026-05-06T00:34:20.371693+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

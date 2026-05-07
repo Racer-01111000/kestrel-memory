@@ -1,0 +1,23 @@
+{
+  "id": "ingest_5d78295e772cca77",
+  "title": "Identity and location",
+  "text": "Preferred name Rick. Wife Kim. Cat Gio pronounced Yo / Vietnamese dz\u00f4. Lives in Vietnam, long-term base in Da Lat, frequently travels to Nha Trang, has lived in Vietnam for six years.",
+  "classification": "staged",
+  "learning_stage": "claim",
+  "confidence": "medium",
+  "authority": "operator_ingest_memory",
+  "domain": "",
+  "source_file": "knowledge/staged/ingest__20260417_064833.json",
+  "created_at": "20260417",
+  "review_status": "pending",
+  "epistemic_level": "fact_candidate",
+  "ingest_type": "memory",
+  "ingest_hash": "5d78295e772cca77",
+  "verification_sources": [
+    "https://arxiv.org/search/?searchtype=all&query=identity%20and%20location%20vietnam%20preferred%20name%20rick%20wife%20pronounced",
+    "https://en.wikipedia.org/w/index.php?search=identity%20and%20location%20vietnam%20preferred%20name%20rick%20wife%20pronounced",
+    "https://en.wikipedia.org/w/index.php?search=identity%20and%20location%20vietnam%20preferred%20name%20rick%20wife",
+    "https://scholar.google.com/scholar?q=identity%20and%20location%20vietnam%20preferred%20name%20rick%20wife"
+  ],
+  "last_verified_at": "2026-04-18T06:40:58Z"
+}

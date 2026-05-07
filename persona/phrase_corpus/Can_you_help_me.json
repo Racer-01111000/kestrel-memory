@@ -1,0 +1,10 @@
+{
+  "term": "Can you help me",
+  "source_list": "phrases",
+  "definition": "(not found in Merriam-Webster)",
+  "usage_context": "",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/Can%2520you%2520help%2520me",
+  "enriched_at": "2026-05-06T00:05:35.792854+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

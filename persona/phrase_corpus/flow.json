@@ -1,0 +1,10 @@
+{
+  "term": "flow",
+  "source_list": "words",
+  "definition": "to issue or move in a stream",
+  "usage_context": "rivers flowing into the sea",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/flow",
+  "enriched_at": "2026-05-06T00:41:02.121913+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

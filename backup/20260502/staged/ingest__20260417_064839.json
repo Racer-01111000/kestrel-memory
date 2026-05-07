@@ -1,0 +1,23 @@
+{
+  "id": "ingest_77b7ac61dc53fc95",
+  "title": "FireBrand-IPsec",
+  "text": "Custom Linux distribution project emphasizing hardened base, modular layers, AI integration, self-healing, integrity verification, ISO building, minimal footprint, optional first-boot wizard, BusyBox/lightweight direction, post-boot package install, security hardening, TPM/hashing concepts, modular desktop/browser choices, GitHub automation, QEMU boot testing, and subtle FireBrand branding.",
+  "classification": "staged",
+  "learning_stage": "claim",
+  "confidence": "medium",
+  "authority": "operator_ingest_project",
+  "domain": "",
+  "source_file": "knowledge/staged/ingest__20260417_064839.json",
+  "created_at": "20260417",
+  "review_status": "pending",
+  "epistemic_level": "fact_candidate",
+  "ingest_type": "project",
+  "ingest_hash": "77b7ac61dc53fc95",
+  "verification_sources": [
+    "https://arxiv.org/search/?searchtype=all&query=firebrand%20ipsec%20boot%20modular%20custom%20linux%20distribution%20project",
+    "https://en.wikipedia.org/w/index.php?search=firebrand%20ipsec%20boot%20modular%20custom%20linux%20distribution%20project",
+    "https://en.wikipedia.org/w/index.php?search=firebrand%20ipsec%20boot%20modular%20custom%20linux%20distribution",
+    "https://scholar.google.com/scholar?q=firebrand%20ipsec%20boot%20modular%20custom%20linux%20distribution"
+  ],
+  "last_verified_at": "2026-04-18T06:41:18Z"
+}

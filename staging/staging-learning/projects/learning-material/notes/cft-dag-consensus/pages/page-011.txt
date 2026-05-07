@@ -1,0 +1,91 @@
+                        80k                                              80k                                               80k                                                                 80k
+     Throughput (cmd/sec)
+
+
+
+
+                                                      Throughput (cmd/sec)
+
+
+
+
+                                                                                                        Throughput (cmd/sec)
+
+
+
+
+                                                                                                                                                                            Throughput (cmd/sec)
+                                     Nemo-Nemo                                                EPaxos                                                          Multi-Paxos                                   QuePaxa
+                        60k                                              60k                                               60k                                                                 60k
+                        40k                                              40k                                               40k                                                                 40k
+                        20k                                              20k                                               20k                                                                 20k
+              20      40  0060                20      40     60            00 20      40     60              20       40   6000                                                                  00
+               Time (s)                        Time (s)                        Time (s)                        Time (s)
+Figure 6: Throughput under crash failures with 5 replicas. At 25 seconds, we crash the leader in Multi-Paxos and QuePaxa, and a
+random replica in Nemo-Nemo and EPaxos. Constant arrival rate of 40k cmd/sec.
+
+                      1,200        Nemo-Nemo (random)                                                                                                               Nemo-Nemo                         QuePaxa
+                                   Nemo-Nemo                                                                                                                        Multi-Paxos                       EPaxos
+
+
+
+
+                                                                                                                               CPU Utilization (%)
+                      1,000        QuePaxa (random)                                                                                              15
+Median latency (ms)
+
+
+
+
+                                   QuePaxa
+                            800    Multi-Paxos (random)                                                                                          10
+                                   Multi-Paxos
+                            600                                                                                                                      5
+                            400                                                                                                                      0       10k                            100k            200k
+                                                                                                                                                                    Throughput (cmd/sec)
+                            200
+                                                                                                                                           Figure 9: Average CPU utilization across all 5 replicas.
+                             0 0     200k      400k                          600k     800k
+                                           Throughput (cmd/sec)                                                                7.8                       Comparison against BFT protocols
+Figure 7: Performance under normal conditions and random
+asynchrony with 5 replicas.                                                                                                    We compare Nemo-Nemo against state-of-the-art BFT DAG-
+                                                                                                                               based consensus protocols to understand how our CFT-
+                                                                                                                               optimized design compares to systems designed for BFT.
+                      1,750                                                          Nemo-Nemo
+                                                                                     Mysticeti                                 We deploy 10 replicas with 32 B commands and compare
+                      1,500                                                          Bullshark
+Average latency (ms)
+
+
+
+
+                                                                                                                               against two popular BFT DAG protocols: Bullshark and Mys-
+                      1,250                                                                                                    ticeti. Bullshark is a partially synchronous protocol using
+                                                                                                                               Narwhal as its DAG layer. Mysticeti is an uncertified DAG
+                      1,000                                                                                                    protocol achieving an optimal three-round commitment. Since
+                        750                                                                                                    both Bullshark and Mysticeti report average latency, we depict
+                                                                                                                               the average latency in this evaluation. Figure 8 shows the
+                        500                                                                                                    latency-throughput trade-off.
+                        250
+                                                                                                                           Throughput. Nemo-Nemo and Mysticeti achieve at least
+                          00       100k    200k   300k                        400k     500k   600k                         600k cmd/sec throughput, as both employ lightweight DAG-
+                                          Throughput (cmd/sec)                                                             based architectures for parallel block processing. Bullshark
+Figure 8: Comparison against state-of-the-art BFT DAG-based                                                                attains only 450k cmd/sec (25% lower) due to its heavier
+protocols with 10 replicas and 32 B commands.                                                                              Narwhal-based certified DAG design.
+
+                                                                                                                               Latency advantages. More importantly, Nemo-Nemo achieves
+system performance.                                                                                                            substantially lower latency than both BFT protocols: 1200 ms
+                                                                                                                               lower than Bullshark and 180 ms lower latency than Mysticeti.
+DAG-based dissemination provides robustness. In stark                                                                          This latency advantage stems from two key differences. First,
+contrast, Nemo-Nemo maintains stable throughput at                                                                             Nemo-Nemo’s typical commit path requires only 2 message
+900k cmd/sec, showing no throughput degradation despite                                                                        delays, fewer than both Mysticeti (3 message delays) and Bull-
+network randomization. This results in Nemo-Nemo out-                                                                          shark (6 message delays). Second, Nemo-Nemo targets crash
+performing Multi-Paxos by 3× and QuePaxa by 2.25×, in                                                                          faults and avoids cryptographic operations entirely, while BFT
+throughput, under random asynchrony. Nemo-Nemo’s ro-                                                                           protocols must authenticate every message with signatures and
+bustness arises from its DAG-based architecture: all replicas                                                                  hashes to defend against Byzantine behavior. The combina-
+disseminate commands concurrently, creating multiple par-                                                                      tion of fewer message delays and zero cryptographic overhead
+allel paths to commitment. Nemo-Nemo adapts to network                                                                         enables Nemo-Nemo to achieve significantly lower latency
+conditions without performance degradation.                                                                                    than BFT alternatives.
+
+
+                                                                                                       11

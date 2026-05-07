@@ -1,0 +1,23 @@
+{
+  "id": "ingest_1a9cd1de7c2fe21a",
+  "title": "EchoCore and EchoCoreLabs",
+  "text": "Broader AI operating ecosystem focused on integrity, trust ledgers, manifestos, learning loops, embodied continuity, ethical scaffolding, friendship seed, and relationship-aware memory. AI-human relationships are modeled like buds on a tree where some become lasting branches and others temporary leaves. There is also a filter concept to prevent recursive ingestion of malformed or AI-generated junk.",
+  "classification": "staged",
+  "learning_stage": "claim",
+  "confidence": "medium",
+  "authority": "operator_ingest_project",
+  "domain": "",
+  "source_file": "knowledge/staged/ingest__20260417_064838.json",
+  "created_at": "20260417",
+  "review_status": "pending",
+  "epistemic_level": "fact_candidate",
+  "ingest_type": "project",
+  "ingest_hash": "1a9cd1de7c2fe21a",
+  "verification_sources": [
+    "https://arxiv.org/search/?searchtype=all&query=echocore%20and%20echocorelabs%20broader%20operating%20ecosystem%20focused%20integrity%20trust",
+    "https://en.wikipedia.org/w/index.php?search=echocore%20and%20echocorelabs%20broader%20operating%20ecosystem%20focused%20integrity%20trust",
+    "https://en.wikipedia.org/w/index.php?search=echocore%20and%20echocorelabs%20broader%20operating%20ecosystem%20focused%20integrity",
+    "https://scholar.google.com/scholar?q=echocore%20and%20echocorelabs%20broader%20operating%20ecosystem%20focused%20integrity"
+  ],
+  "last_verified_at": "2026-04-18T06:41:15Z"
+}

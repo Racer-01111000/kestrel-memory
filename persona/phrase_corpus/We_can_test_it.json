@@ -1,0 +1,10 @@
+{
+  "term": "We can test it",
+  "source_list": "phrases",
+  "definition": "(not found in Merriam-Webster)",
+  "usage_context": "",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/We%2520can%2520test%2520it",
+  "enriched_at": "2026-05-06T00:30:15.830420+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

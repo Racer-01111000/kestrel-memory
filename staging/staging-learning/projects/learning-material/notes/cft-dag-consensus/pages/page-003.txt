@@ -1,0 +1,83 @@
+      rectly into the DAG structure, eliminating protocol com-           to commit, but relaxes the worst-case adversarial scheduling
+      plexity and latency overhead.                                      of the classic asynchronous model [7, 34], where an adversary
+                                                                         can control the message schedule indefinitely.
+    • We exploit CFT’s lack of equivocation to admit non-
+      certified blocks into the DAG, achieving commit latencies          3     The Nemo-Nemo DAG: Data Dissemination
+      unattainable in BFT settings. This design choice, along            Nemo-Nemo operates in two logical layers: (i) a data dis-
+      with optimized commit rules and block ingestion, enables           semination layer that propagates client transactions through
+      Nemo-Nemo to commit in just two network hops, like                 a structured DAG (this section); and (ii) an ordering layer
+      existing CFT systems, while achieving a significantly              interpreting the DAG to derive a total order of transactions
+      higher saturation throughput of at least 2x.                       (see Section 4).
+    • In addition to the standard partially synchronous model,           3.1    Block creation
+      we also evaluate Nemo-Nemo under the random asyn-
+      chronous model, which models unstable network con-                 Replicas operate in a sequence of logical rounds, and in
+      ditions. Our results show that existing CFT protocols              each round, every replica proposes a unique block. During a
+      degrade significantly under this model, while Nemo-                round, replicas receive transactions from clients and blocks
+      Nemo maintains robust performance.                                 from other replicas. Clients submit transactions to a replica,
+                                                                         which includes them in its (next) block. If a transaction does
+2    System Model and Assumptions                                        not finalize quickly enough, the client simply resubmits it
+                                                                         to a different replica. Each block references blocks from
+Nemo-Nemo is a peer-to-peer message-passing system which
+                                                                         prior rounds, starting with the author’s most recent block,
+implements atomic broadcast [10], with the following prop-
+                                                                         and includes fresh transactions not yet included in preceding
+erties: (1) Validity: If a correct replica 𝑝 proposes a value 𝑣,
+                                                                         blocks. Specifically, a block contains at least the following
+then 𝑝 eventually commits 𝑣; (2) No duplication: No value
+                                                                         elements: (1) the author 𝐴 of the block; (2) a round number
+is committed more than once; (3) No creation: If a replica
+                                                                         𝑅; (3) a list of transactions; and (4) at least 𝑓 + 1 distinct
+commits a value 𝑣 with proposer 𝑠, then 𝑣 was previously
+                                                                         references to blocks from the previous round 𝑅 − 1, as well as
+proposed by replica 𝑠; (4) Agreement: If a value 𝑣 is committed
+                                                                         any additional references from earlier rounds, for which the
+by some correct replica, then 𝑣 is eventually committed by
+                                                                         replica has already downloaded the complete causal history.
+every correct replica; (5) Total order: Let 𝑣 1 and 𝑣 2 be any two
+                                                                         At the core of Nemo-Nemo is a round-based DAG structure
+values and suppose 𝑝 and 𝑞 are any two correct replicas that
+                                                                         where each vertex is a block. Each replica maintains a local
+commit 𝑣 1 and 𝑣 2 . If 𝑝 commits 𝑣 1 before 𝑣 2 , then 𝑞 commits
+                                                                         view of the DAG, adding a block once it has downloaded
+𝑣 1 before 𝑣 2 . In the random asynchronous model, validity and
+                                                                         its entire causal history. Consequently, all correct replicas
+agreement are satisfied with probability 1 (almost surely).
+                                                                         eventually converge on the same DAG view.
+Fault model. Nemo-Nemo follows the standard CFT assump-
+tions used in prior work [27, 40]. The system consists of                3.2    Inclusive block proposing
+𝑛 = 2 𝑓 + 1 replicas, of which at most 𝑓 may crash. A replica            Unlike traditional leader-based consensus protocols, where
+is correct if it follows the protocol and crashed otherwise.             only leaders propose values, in Nemo-Nemo all replicas,
+                                                                         leaders or not, propose values in each round. In each round,
+Network model. We analyze and evaluate Nemo-Nemo under
+                                                                         a subset of replicas known to everyone is pre-designated as
+two network models: the standard partial synchrony model and
+                                                                         skeleton nodes. Skeleton nodes are akin to leaders (possibly
+the more recent random asynchronous model. Links between
+                                                                         multiple ones per view, as in multi-leader protocols). That
+correct parties behave reliably, and messages among them
+                                                                         is, blocks by skeleton nodes drive progress in the protocol:
+eventually arrive.
+                                                                         they can become directly committed, and they determine
+   In the partially synchronous model, we assume the standard
+                                                                         the commit decisions for blocks they causally reference, as
+Global Stabilization Time (GST) used throughout related work.
+                                                                         described in the ordering layer (see Section 4). A replica
+After GST, every message sent among correct parties arrives
+                                                                         disseminates its block only after receiving (in addition to
+within Δ time. Before GST, the protocol operates in a fully
+                                                                          𝑓 + 1 blocks from the previous round, also) all skeleton blocks
+asynchronous network where messages eventually arrive but
+                                                                         from the previous round, or after a timeout expires. This
+no bound limits their delay.
+                                                                         ensures liveness once the system becomes synchronous (see
+   Although Nemo-Nemo operates in the CFT setting, it is
+                                                                         Supplementary Material).
+designed to operate in a more unstable environment prone to
+network instabilities. To model this, we employ the random               Random Asynchronous Model. This model assumes that the
+asynchronous model [15] which assumes that message delivery              first 𝑓 + 1 blocks received by a replica in a round 𝑅 constitute
+follows a random schedule. The random asynchronous model                 a random sample. We discuss the implementation of this
+strikes a midpoint between the partially synchronous and fully           mechanism in Section 6 and prove that Nemo-Nemo is live
+asynchronous settings: it does not rely on synchronous periods           with probability 1 under this model (see Section 5.2).
+
+
+                                                                     3

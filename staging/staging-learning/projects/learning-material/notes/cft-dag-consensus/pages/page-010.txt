@@ -1,0 +1,84 @@
+                                                                                  must handle all client commands and broadcast them to follow-
+Throughput (cmd/sec)
+
+                   600k                                   Nemo-Nemo               ers, making the leader’s network bandwidth the bottleneck as
+                                                          Multi-Paxos
+                                                          QuePaxa                 command size grows. Nemo-Nemo’s multi-leader DAG-based
+                   400k                                                           design distributes bandwidth usage evenly across all replicas,
+                                                                                  avoiding the leader bottleneck entirely.
+                   200k                                                           7.6    Performance under crash failures
+                       0                                                          We evaluate how each system handles crash failures by de-
+                              18           32               512                   ploying five replicas in a WAN setup under a constant load
+                                   Command size (Bytes)
+                                                                                  of 40k cmd/sec. At 25 seconds, we crash the leader replica
+Figure 5: Scalability with command size. Saturation through-                      in Multi-Paxos and QuePaxa, and a random replica in Nemo-
+put under 500 ms median latency and 5 replicas.                                   Nemo and EPaxos. Figure 6 shows the throughput over time.
+7.4                    Scalability with number of replicas                        Leader-based protocols suffer downtime. Multi-Paxos through-
+We evaluate how Nemo-Nemo scales as the number of replicas                        put drops to zero immediately upon leader crash and remains
+increases. We deploy ensembles of 3, 5, 7, and 9 replicas across                  at zero during the leader election (view change). Once a new
+geographically distributed AWS regions and compare against                        leader is elected, the backlog of accumulated commands is pro-
+pipelined Multi-Paxos and QuePaxa2 . Figure 4 shows the                           cessed, causing a throughput spike before returning to steady
+saturation throughput under 500 ms median latency.                                state. QuePaxa exhibits similar behavior despite employing
+                                                                                  multiple leaders via a hedging schedule: by default, only the
+Leader-based performance degradation. Multi-Paxos and
+                                                                                  first leader proposes in the crash-free case, and the second
+QuePaxa exhibit throughput degradation of 35% and 33%,
+                                                                                  leader begins proposing only after the configured hedging
+respectively, when scaling from 3 to 9 replicas. The perfor-
+                                                                                  timeout. This design still creates a period of zero throughput
+mance degradation stems from leader-centric designs: as the
+                                                                                  during leader transition, followed by a spike when the new
+replication factor grows, the leader must handle more messages
+                                                                                  leader processes the backlog.
+due to larger quorum sizes, creating a resource bottleneck.
+                                                                                  Multi-leader protocols avoid downtime. Both EPaxos and
+Multi-leader scalability. In contrast, Nemo-Nemo’s through-
+                                                                                  Nemo-Nemo exhibit no visible downtime under replica
+put doubles from 500k to 1M cmd/sec over the same range,
+                                                                                  crashes. As multi-leader protocols, the failure of one replica
+demonstrating superior scalability. Nemo-Nemo exhibits op-
+                                                                                  does not affect the ability of the remaining replicas to make
+posite behavior due to its multi-leader DAG-based architecture.
+                                                                                  progress. Nemo-Nemo avoids explicit view changes and
+With only 3 replicas, Nemo-Nemo underutilizes available net-
+                                                                                  promptly discards blocks from crashed replicas, preventing
+work and CPU resources. Adding more replicas improves
+                                                                                  head-of-line blocking in the commit sequence. This ensures
+resource multiplexing across leaders, increasing throughput.
+                                                                                  that even if a crashed replica was previously a leader, its
+Furthermore, more replicas increase the number of blocks
+                                                                                  uncommitted blocks do not stall the system’s progress.
+per round and the causal history size of leader blocks without
+additional network hops, enabling higher parallelism.                             7.7    Performance under random asynchrony
+7.5                    Scalability with command size                              We evaluate Nemo-Nemo’s performance when experienc-
+                                                                                  ing random message delays, leveraging the benchmarking
+We evaluate the impact of command size on Nemo-Nemo’s
+                                                                                  framework presented in Section 6. To amplify the effects of
+performance. We experiment with three command sizes: 18 B,
+                                                                                  network randomization, we deploy 5 replicas in Cape Town
+32 B, and 512 B, as used in recent SMR work [3, 53]. We
+                                                                                  (af-south-1), London (eu-west-2), Ireland (eu-west-1), Milan
+deploy Nemo-Nemo, pipelined Multi-Paxos, and pipelined
+                                                                                  (eu-south-1), and Hyderabad (ap-south-2). This setup includes
+QuePaxa in a WAN setting with 5 replicas. Figure 5 depicts
+                                                                                  three replicas in Europe (forming a fast majority) and two
+the saturation throughput under 500 ms median latency.3
+                                                                                  geographically distant replicas, creating significant latency
+   As command size increases from 18 B to 512 B, Multi-
+                                                                                  variance. Figure 7 compares throughput and median latency
+Paxos degrades from 300k to 10k cmd/s, while QuePaxa drops
+                                                                                  for both normal conditions and random asynchrony.
+from 400k to 20k cmd/s. In contrast, Nemo-Nemo maintains
+50–66% higher throughput at 18 B and 32 B, and still retains                      Single leader-based protocols suffer under asynchrony. Multi-
+a 5% advantage at 512 B, degrading from 600k to 30k cmd/s.                        Paxos degrades from 400k to 300k cmd/sec while QuePaxa
+   This performance gap stems from fundamental architectural                      drops from 500k to 400k cmd/sec, under 500ms latency bound.
+differences. In Multi-Paxos and QuePaxa, the single leader                        This degradation stems from their reliance on single leader-
+   2 Due to an implementation error, EPaxos only supports up to 5 replicas
+                                                                                  based dissemination: all commands must flow through a single
+and is excluded from this experiment.
+                                                                                  leader to its quorum. Under random asynchronous network
+   3 The EPaxos implementation does not allow configurable command sizes          conditions, the leader or its quorum members experience slow
+and was omitted from this experiment.                                             message delivery, creating a bottleneck that degrades overall
+
+
+                                                                             10

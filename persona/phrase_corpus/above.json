@@ -1,0 +1,10 @@
+{
+  "term": "above",
+  "source_list": "words",
+  "definition": "in the sky",
+  "usage_context": "the clouds above",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/above",
+  "enriched_at": "2026-05-06T00:33:22.004005+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

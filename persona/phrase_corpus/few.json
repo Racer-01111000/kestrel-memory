@@ -1,0 +1,10 @@
+{
+  "term": "few",
+  "source_list": "words",
+  "definition": "not many persons or things",
+  "usage_context": "few were present",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/few",
+  "enriched_at": "2026-05-06T00:40:32.962924+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

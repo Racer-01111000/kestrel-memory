@@ -1,0 +1,10 @@
+{
+  "term": "difference",
+  "source_list": "words",
+  "definition": "the quality or state of being dissimilar or different",
+  "usage_context": "the difference between right and wrong",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/difference",
+  "enriched_at": "2026-05-06T00:38:18.492423+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

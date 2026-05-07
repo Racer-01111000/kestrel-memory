@@ -1,0 +1,10 @@
+{
+  "term": "account",
+  "source_list": "words",
+  "definition": "a record of debit (see debit entry 2 sense 1a) and credit (see credit entry 1",
+  "usage_context": "sense 2d) entries to cover transactions involving a particular item or a",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/account",
+  "enriched_at": "2026-05-06T00:33:27.751341+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

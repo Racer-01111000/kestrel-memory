@@ -1,0 +1,10 @@
+{
+  "term": "week",
+  "source_list": "words",
+  "definition": "any of a series of 7-day cycles used in various calendars",
+  "usage_context": "especially : a 7-day cycle beginning on Sunday and ending on Saturday",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/week",
+  "enriched_at": "2026-05-06T00:57:22.674964+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

@@ -1,0 +1,10 @@
+{
+  "term": "my",
+  "source_list": "words",
+  "definition": "of or relating to me or myself especially as possessor, agent, object of an",
+  "usage_context": "action, or familiar person",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/my",
+  "enriched_at": "2026-05-06T00:46:27.254971+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

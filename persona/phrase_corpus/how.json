@@ -1,0 +1,10 @@
+{
+  "term": "how",
+  "source_list": "words",
+  "definition": "in what manner or way",
+  "usage_context": "How did you two meet each other?",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/how",
+  "enriched_at": "2026-05-06T00:43:07.640405+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

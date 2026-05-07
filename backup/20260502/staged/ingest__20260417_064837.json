@@ -1,0 +1,23 @@
+{
+  "id": "ingest_6eb939f5f9a47cf5",
+  "title": "Accessibility Guardian",
+  "text": "VS Code extension project tied to EchoCoreLabs. Local-first static analysis for accessibility and privacy/compliance, including ADA/WCAG, HIPAA risk signaling, GDPR/PIPEDA/APP concepts. Architecture references include src/extension.ts, diagnostics runner, rules, analyzers, utilities, commands, activation configuration, esbuild, and vsce. Positioning emphasizes local-first, actionable findings, security-first workflow, and practical dev-tool scanning.",
+  "classification": "staged",
+  "learning_stage": "claim",
+  "confidence": "medium",
+  "authority": "operator_ingest_project",
+  "domain": "",
+  "source_file": "knowledge/staged/ingest__20260417_064837.json",
+  "created_at": "20260417",
+  "review_status": "pending",
+  "epistemic_level": "fact_candidate",
+  "ingest_type": "project",
+  "ingest_hash": "6eb939f5f9a47cf5",
+  "verification_sources": [
+    "https://arxiv.org/search/?searchtype=all&query=accessibility%20guardian%20first%20extension%20local%20code%20project%20tied",
+    "https://en.wikipedia.org/w/index.php?search=accessibility%20guardian%20first%20extension%20local%20code%20project%20tied",
+    "https://en.wikipedia.org/w/index.php?search=accessibility%20guardian%20first%20extension%20local%20code%20project",
+    "https://scholar.google.com/scholar?q=accessibility%20guardian%20first%20extension%20local%20code%20project"
+  ],
+  "last_verified_at": "2026-04-18T06:41:12Z"
+}

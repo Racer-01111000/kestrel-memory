@@ -1,0 +1,10 @@
+{
+  "question": "what is quantum error correction",
+  "outcome": "SUFFICIENT_FOR_RESPONSE",
+  "reason": "3 relevant artifacts from 3 distinct domains",
+  "usable_sources": 3,
+  "matched_sources": 3,
+  "distinct_domains": 3,
+  "timestamp": "20260417T130058Z",
+  "run_dir": "/home/rick/kestrel-memory/staging/opaque/20260417T130058Z"
+}

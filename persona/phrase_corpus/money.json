@@ -1,0 +1,10 @@
+{
+  "term": "money",
+  "source_list": "words",
+  "definition": "something generally accepted as a medium of exchange, a measure of value, or",
+  "usage_context": "a means of payment: such as",
+  "moral_weight": "moral/ethical weight present",
+  "source_url": "https://www.merriam-webster.com/dictionary/money",
+  "enriched_at": "2026-05-06T00:46:08.387621+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

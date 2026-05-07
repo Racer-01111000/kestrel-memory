@@ -1,0 +1,10 @@
+{
+  "term": "guess",
+  "source_list": "words",
+  "definition": "to form an opinion of from little or no evidence",
+  "usage_context": "She could only guess what he meant.",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/guess",
+  "enriched_at": "2026-05-06T00:42:12.223224+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

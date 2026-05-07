@@ -1,0 +1,10 @@
+{
+  "term": "sleep",
+  "source_list": "words",
+  "definition": "the natural, easily reversible periodic state of many living things that is",
+  "usage_context": "marked by the absence of wakefulness and by the loss of consciousness of one's",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/sleep",
+  "enriched_at": "2026-05-06T00:52:32.550630+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

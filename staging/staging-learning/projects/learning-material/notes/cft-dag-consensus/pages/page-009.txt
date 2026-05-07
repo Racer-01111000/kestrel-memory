@@ -1,0 +1,74 @@
+Figure 3 shows the throughput and median latency.
+
+
+
+
+                                                                                  Throughput (cmd/sec)
+                                                                                                     900k    Nemo-Nemo
+Multi-Paxos. We observe in Figure 3 that Nemo-Nemo reaches                                                   Multi-Paxos
+a saturation throughput of 800k cmd/s at a median latency of                                                 QuePaxa
+                                                                                                     600k
+600 ms. In contrast, Multi-Paxos reaches only 400k cmd/s at
+750 ms. This corresponds to a 2x throughput improvement and
+a 20% latency reduction for Nemo-Nemo over Multi-Paxos.                                              300k
+   Nemo-Nemo’s throughput advantage over Multi-Paxos
+stems from two key factors. First, Multi-Paxos funnels all                                               0   3             5      7       9
+client traffic through a single leader, creating a bottleneck,                                                       Number of Replicas
+whereas Nemo-Nemo distributes load uniformly across all                           Figure 4: Scalability with replication factor. Saturation
+replicas (see Section 3). Second, Nemo-Nemo amortizes a                           throughput under 500 ms median latency.
+single message per batch of commands (see Section 4), while
+Multi-Paxos requires ten messages per batch in a five-replica
+deployment, consisting of five propose messages followed by                       higher throughput and lower latency by load balancing across
+five accept messages.                                                             all participating nodes.
+
+EPaxos. We observe in Figure 3 that EPaxos delivers over                          SADL-RACS. SADL-RACS uses a mempool to disseminate
+400k cmd/s at a median latency of 440 ms, compared to Nemo-                       client commands off the consensus critical path. In our de-
+Nemo which reaches 800k cmd/s at 600 ms. Both EPaxos and                          ployment, it achieves a saturation throughput of 300k cmd/s
+Nemo-Nemo distribute load among all participating nodes                           with a median latency of 1.35 s. In comparison, Nemo-Nemo
+and therefore outperform leader-based Multi-Paxos in latency.                     reaches 800k cmd/s and 600 ms, corresponding to a 166%
+   For a throughput below 300k cmd/s, EPaxos achieves a                           higher throughput and 125% lower latency.
+130 ms lower median latency than Nemo-Nemo. This latency
+advantage arises because EPaxos provides only a partial order                        The performance advantage of Nemo-Nemo arises from its
+of commands, which incurs less coordination overhead than                         avoidance of extra dissemination round trips. SADL-RACS
+Nemo-Nemo, which enforces a total order. In this experiment,                      requires two additional hops to propagate commands, which
+we configured EPaxos with a 2% conflict rate [54], meaning                        significantly increases latency. By embedding command dis-
+that 98% of commands commit in a single round trip, resulting                     semination into the DAG and balancing load across replicas,
+in lower commit latency than Nemo-Nemo at moderate load.                          Nemo-Nemo sustains higher throughput and lower latency.
+   However, beyond 400k cmd/s, Nemo-Nemo achieves
+                                                                                  Rabia. In our WAN deployment, Rabia delivers only 1k cmd/s
+roughly 2× the throughput of EPaxos. This gap stems from
+                                                                                  with latency above 1.25 s, whereas Nemo-Nemo achieves
+two factors. (1) The EPaxos implementation suffers from
+                                                                                  800k cmd/s at 600 ms. Its lower WAN performance stems from
+implementation limitations—most notably a single-threaded
+                                                                                  its design assumptions and optimizations for low-latency, high-
+main execution path—whereas Nemo-Nemo employs a highly
+                                                                                  bandwidth LANs. As network diameter and latency variability
+parallelized design. (2) Under high arrival rates, EPaxos’s
+                                                                                  increase, Rabia’s design assumptions no longer hold, leading
+conflict-resolution overhead becomes a dominant bottleneck.
+                                                                                  to severely reduced throughput and higher latency.
+By avoiding specialized conflict resolution, Nemo-Nemo sus-
+tains substantially higher throughput.                                            Tail latency. None of the evaluated systems is optimized
+   EPaxos is well suited for applications requiring only par-                     for tail latency, and in practice we observe comparable per-
+tial order with low conflict rates, such as key-value stores                      centile 99 behavior across all protocols. Under a 1 s percentile
+where per-key ordering is sufficient. By contrast, Nemo-Nemo                      99 bound, Nemo-Nemo sustains 400k cmd/s, while EPaxos
+targets applications requiring a total order of all commands,                     reaches 375k cmd/s, and both QuePaxa and Multi-Paxos reach
+providing higher throughput for workloads that demand strong                      roughly 300k cmd/s. These results are consistent with prior
+consistency.                                                                      findings reported in related work [52].
+QuePaxa. We observe in Figure 3 that QuePaxa achieves only
+400k cmd/s at a median latency of 460 ms. Under normal-case                       Summary. Across our experiments, Nemo-Nemo consistently
+executions, QuePaxa1 funnels all commands through a single                        outperforms existing CFT protocols in WAN deployments,
+leader replica. As a result, QuePaxa’s performance is limited                     achieving higher throughput and lower latency. Its advantages
+by the leader replica’s capacity, whereas Nemo-Nemo achieves                      arise from uniform load distribution, minimal message delays,
+                                                                                  and avoidance of specialized assumptions (such as latency
+     1 Ideally, both QuePaxa and Multi-Paxos should incur the same overhead
+                                                                                  bounds) or conflict-resolution bottlenecks. These observations
+and achieve comparable performance in normal-case operation. However, the
+QuePaxa implementation yields higher throughput than Multi-Paxos because
+                                                                                  validate our vision: Nemo-Nemo is well suited for applications
+it leverages gRPC-based high-speed messaging and multi-threading, whereas         that require total ordering, high throughput, and low latency,
+the Multi-Paxos implementation employs single-threaded execution.                 in cloud and wide-area environments.
+
+
+                                                                              9

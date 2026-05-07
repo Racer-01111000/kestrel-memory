@@ -1,0 +1,10 @@
+{
+  "term": "mine",
+  "source_list": "words",
+  "definition": "my",
+  "usage_context": "… this treasure in mine arms …—[mdash-gold]William Shakespeare",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/mine",
+  "enriched_at": "2026-05-06T00:45:56.839736+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

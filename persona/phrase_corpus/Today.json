@@ -1,0 +1,10 @@
+{
+  "term": "Today",
+  "source_list": "phrases",
+  "definition": "on or for this day",
+  "usage_context": "",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/Today",
+  "enriched_at": "2026-05-06T00:29:24.260592+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

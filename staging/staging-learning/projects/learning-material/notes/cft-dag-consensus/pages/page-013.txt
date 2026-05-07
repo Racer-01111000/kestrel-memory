@@ -1,0 +1,59 @@
+References                                                                on Principles of distributed computing, pages 316–317,
+ [1] Ittai  Abraham, Neil Giridharan, and Kar-                            2007.
+     tik Nayak.   What’s dag got to do with it?                      [12] Miguel Castro and Barbara Liskov. Practical Byzan-
+     https://decentralizedthoughts.github.io/                             tine fault tolerance. In Proceedings of the 3rd USENIX
+     2025-08-08-DAGs/, August 2025.                                       Symposium on Operating Systems Design and Imple-
+ [2] Ailidani Ailijiang, Aleksey Charapko, Murat Demirbas,                mentation (OSDI), February 1999.
+     and Tevfik Kosar. WPaxos: Wide area network flex-               [13] CoinEx. What Is IKA? IKA: Exploring the Fastest MPC
+     ible consensus. IEEE Transactions on Parallel and                    Network on Sui Blockchain, 2025. CoinEx Academy.
+     Distributed Systems, 31(1):211–223, 2019.
+                                                                     [14] George Danezis, Lefteris Kokoris-Kogias, Alberto Son-
+ [3] Mohammadreza Alimadadi, Hieu Mai, Shenghsun Cho,                     nino, and Alexander Spiegelman. Narwhal and Tusk: a
+     Michael Ferdman, Peter Milder, and Shuai Mu. Wa-                     DAG-based mempool and efficient BFT consensus. In
+     verunner: An elegant approach to hardware acceleration               ACM EuroSys, 2022.
+     of state machine replication. In 20th USENIX Sympo-
+     sium on Networked Systems Design and Implementation             [15] George Danezis, Jovan Komatovic, Lefteris Kokoris-
+     (NSDI 23), pages 357–374, 2023.                                      Kogias, Alberto Sonnino, and Igor Zablotchi. Byzantine
+                                                                          consensus in the random asynchronous model. arXiv
+ [4] Amazon. AWS instance types. https://aws.amazon.                      preprint arXiv:2502.09116, 2025.
+     com/ec2/instance-types/, 2023.
+                                                                     [16] DataDog. gopsutil. https://github.com/DataDog/
+ [5] Kushal Babel, Andrey Chursin, George Danezis, Lefteris               gopsutil, 2025.
+     Kokoris-Kogias, and Alberto Sonnino. Mysticeti: Low-
+     latency dag consensus with fast commit path. arXiv              [17] Cynthia Dwork, Nancy Lynch, and Larry Stockmeyer.
+     preprint arXiv:2310.14821, 2023.                                     Consensus in the presence of partial synchrony. Journal
+                                                                          of the ACM (JACM), 35(2):288–323, 1988.
+ [6] Leemon Baird and Atul Luykx. The Hashgraph Proto-
+     col: Efficient Asynchronous BFT for High-Throughput             [18] Vitor Enes, Carlos Baquero, Tuanir França Rezende,
+     Distributed Ledgers. In 2020 International Conference                Alexey Gotsman, Matthieu Perrin, and Pierre Sutra.
+     on Omni-layer Intelligent Systems (COINS), 2020.                     State-machine replication for Planet-Scale systems. In
+                                                                          Proceedings of the Fifteenth European Conference on
+ [7] Michael Ben-Or. Another advantage of free choice (ex-                Computer Systems (EuroSys ’20), April 2020.
+     tended abstract): Completely asynchronous agreement
+     protocols. In Proceedings of the Second Annual ACM              [19] Yingzi Gao, Yuan Lu, Zhenliang Lu, Qiang Tang, Jing Xu,
+     Symposium on Principles of Distributed Computing,                    and Zhenfeng Zhang. Dumbo-ng: Fast asynchronous bft
+     PODC ’83, pages 27–30. ACM, August 1983.                             consensus with throughput-oblivious latency. In ACM
+                                                                          CCS, 2022.
+ [8] Sam Blackshear, Andrey Chursin, George Danezis, Anas-
+     tasios Kichidis, Lefteris Kokoris-Kogias, Xun Li, Mark          [20] Neil Giridharan, Florian Suri-Payer, Ittai Abraham,
+     Logan, and et al. Sui lutris: A blockchain combining                 Lorenzo Alvisi, and Natacha Crooks. Autobahn: Seam-
+     broadcast and consensus. In CCS, 2024.                               less high speed bft. In Proceedings of the ACM SIGOPS
+                                                                          30th Symposium on Operating Systems Principles, pages
+ [9] Nathan Bronson, Zach Amsden, George Cabrera, Prasad                  1–23, 2024.
+     Chakka, Peter Dimov, Hui Ding, Jack Ferris, Anthony
+     Giardullo, Sachin Kulkarni, Harry Li, Mark Marchukov,           [21] Heidi Howard, Dahlia Malkhi, and Alexander Spiegel-
+     Dmitri Petrov, Lovro Puzar, Yee Jiun Song, and Venkat                man. Flexible Paxos: Quorum intersection revisited.
+     Venkataramani. TAO: Facebook’s distributed data store                In Proceedings of the 20th International Conference
+     for the social graph. In USENIX Annual Technical                     on Principles of Distributed Systems (OPODIS 2016),
+     Conference USENIX ATC 13, pages 49–60, June 2013.                    December 2016.
+
+[10] Christian Cachin, Rachid Guerraoui, and Luís Rodrigues.         [22] IOTA Stiftung. Consensus on IOTA. https://
+     Introduction to Reliable and Secure Distributed Program-             docs.iota.org/about-iota/iota-architecture/
+     ming. Springer Science & Business Media, 2011.                       consensus, 2025. IOTA Documentation.
+
+[11] Lásaro Jonas Camargos, Rodrigo Malta Schmidt, and               [23] Philipp Jovanovic, Lefteris Kokoris Kogias, Bryan Ku-
+     Fernando Pedone. Multicoordinated paxos. In Pro-                     mara, Alberto Sonnino, Pasindu Tennage, and Igor
+     ceedings of the twenty-sixth annual ACM symposium                    Zablotchi. Mahi-mahi: Low-latency asynchronous bft
+
+
+                                                                13

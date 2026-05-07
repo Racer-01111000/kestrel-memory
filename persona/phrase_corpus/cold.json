@@ -1,0 +1,10 @@
+{
+  "term": "cold",
+  "source_list": "words",
+  "definition": "having or being a temperature that is uncomfortably low for humans",
+  "usage_context": "it is cold outside today",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/cold",
+  "enriched_at": "2026-05-06T00:36:42.027872+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

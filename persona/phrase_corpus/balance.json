@@ -1,0 +1,10 @@
+{
+  "term": "balance",
+  "source_list": "words",
+  "definition": "physical equilibrium",
+  "usage_context": "I had trouble keeping my balance on the sailboat.",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/balance",
+  "enriched_at": "2026-05-06T00:34:48.675917+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

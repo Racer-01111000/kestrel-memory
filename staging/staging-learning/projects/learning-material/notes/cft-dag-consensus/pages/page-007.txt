@@ -1,0 +1,65 @@
+Theorem 3 (No creation). Nemo-Nemo satisfies the no cre-                 rounds without any directly committed slot is less than 2−𝑡 .
+ation property of Atomic Broadcast.                                      This implies that w.h.p., every slot that is not directly decided
+                                                                         will eventually have a committed anchor and therefore become
+Proof. This follows from two facts: (1) replicas only include            decided (i.e., it will be committed or skipped).                □
+in their local DAGs, blocks that have been previously proposed
+by some replica, and (2) replicas only commit blocks that they           Theorem 4 (Validity). Nemo-Nemo satisfies the validity prop-
+have previously included in their DAGs.                      □           erty of Atomic Broadcast, with probability 1.
+
+5.2    Liveness proofs                                                   Proof. Let 𝑁 be a correct replica and 𝐵 a block proposed by 𝑁.
+We now turn to liveness. We prove liveness in the random                 We show that, with probability 1, 𝐵 is eventually committed by
+asynchronous model here, and defer the proof of liveness                 every correct replica. By Lemma 6, 𝐵 is eventually included
+under partial synchrony to the Supplementary Material.                   in the local DAG of every correct replica. So every correct
+                                                                         replica will eventually include a reference to 𝐵 in at least
+Lemma 5. If a block 𝐵 produced by a correct replica 𝑁                    one of its blocks. Let 𝑅 be the highest round at which some
+references some block 𝐵′ , then 𝐵′ will eventually be included           correct replica includes a reference to 𝐵 in one of its blocks. By
+in the local DAG of every correct replica.                               Lemma 7, with probability 1, each skeleton block has a nonzero
+                                                                         probability of being directly committed, so eventually some
+Proof. If some replica 𝑁 ′ receives 𝐵 from 𝑁, but does not               block 𝐵′ at a round 𝑅 ′ > 𝑅 will be directly committed. Since
+have 𝐵′ yet, 𝑁 ′ will request 𝐵′ from 𝑁; since 𝑁 is correct and          all replicas have 𝐵 in their causal histories by round 𝑅, 𝐵′ must
+the network links are reliable, 𝑁 will eventually receive 𝑁 ′ ’s         therefore have a path to 𝐵. Lemma 8 guarantees that all slots
+request, send 𝐵′ to 𝑁 ′ , and 𝑁 ′ will eventually receive 𝐵′ . The       before 𝐵′ are eventually decided, so 𝐵′ is eventually committed.
+same is recursively true for any blocks from the causal history          Thus, 𝐵 will be committed at all correct replicas at the latest
+of 𝐵′ , so 𝑁 ′ will eventually receive all blocks from the causal        when 𝐵′ is committed alongside its causal history.               □
+history of 𝐵′ and thus include 𝐵′ in its local DAG.              □
+                                                                         Theorem 5 (Agreement). Nemo-Nemo satisfies the agreement
+Lemma 6. If a correct replica 𝑁 proposes a block 𝐵, then
+                                                                         property of Atomic Broadcast, with probability 1.
+every correct replica will eventually include 𝐵 in its local
+DAG.                                                                     Proof. Let 𝑁 be a correct replica and 𝐵 a block committed by
+                                                                         𝑁. We show that, with probability 1, 𝐵 is eventually committed
+Proof. Since network links are reliable, all correct replicas
+                                                                         by every correct replica. Let 𝐿 be the skeleton block with which
+will eventually receive 𝐵 from 𝑁. By Lemma 5, all correct
+                                                                         𝐵 is committed and 𝑆 the corresponding slot. By Lemma 8,
+replicas will eventually receive all of 𝐵’s causal history, and
+                                                                         all blocks up to and including 𝑆 are eventually decided by
+so will include 𝐵 in their local DAG.                         □
+                                                                         all correct replicas, with probability 1. By Observation 1, all
+Lemma 7. Fix a skeleton slot 𝑆. A replica directly commits 𝑆             correct replicas commit 𝐿 in 𝑆. Eventually, all correct replicas
+with probability at least 1/2.                                           commit 𝐵.                                                      □
+
+Proof. A block in round 𝑅 + 1 will reference a random subset             6    Implementation
+of 𝑓 + 1 blocks in round 𝑅. The probability that a given block 𝐵
+                                                                         We implemented Nemo-Nemo in Rust, building on the open-
+votes for the skeleton slot 𝑆 is 𝑝 = 2𝑓𝑓+1    1
+                                        +1 > 2 . Let 𝑉 (𝑆) denote        source Mysticeti codebase [26], which contains approxi-
+the random variable representing the number of replicas in               mately 14,000 lines of code (LOC). Our implementation
+round 𝑅 +1 that vote for 𝑆 in round 𝑅. 𝑉 (𝑆) follows a Binomial          uses tokio [49] for asynchronous networking and raw TCP
+distribution: 𝑉 (𝑆) ∼ 𝐵(𝑛, 𝑝), where 𝑝 = 2𝑓𝑓+1  +1 The expected          sockets for replica-to-replica communication.
+value of 𝑉 (𝑆) is: 𝐸 [𝑉 (𝑆)] = 𝑛 · 𝑝 = 𝑓 + 1.                               To support crash recovery and ensure data persistence, we
+   Since the mean 𝜇 = 𝑓 + 1 is an integer, the mean and the              implemented a Write-Ahead Log (WAL) tailored to Nemo-
+median of the distribution are equal [30]. By the definition of          Nemo. This provides stronger resilience than existing imple-
+the median 𝑚, we have Pr(𝑉 (𝑆) ≥ 𝑚) ≥ 21 . Thus, the probability         mentations of Multi-Paxos [50] and QuePaxa [51], which lack
+of a skeleton slot in round 𝑅 receiving at least 𝑓 + 1 votes             mechanisms for recovering after crashes, though this absence
+in round 𝑅 + 1, and thus being directly committed, satisfies:            arises from implementation choices rather than protocol spec-
+Pr(𝑉 (𝑆) ≥ 𝑓 + 1) ≥ 1/2.                                       □         ifications. Following prior implementations of Multi-Paxos,
+Lemma 8. Fix a skeleton slot 𝑆. Every correct replica even-              QuePaxa, and Rabia [41], we support batching at the replica
+tually either commits or skips 𝑆 with probability 1.                     level to amortize communication costs by packing multiple
+                                                                         commands into a single message. We collocated front- and
+Proof. By Lemma 7, the probability of a correct replica                  back-end within the same Nemo-Nemo binary. Each front-end
+directly committing any skeleton block in a given round is a             communicates with its assigned back-end, a design choice
+constant (≥ 1/2). Thus, the probability that a sequence of 𝑡             common in existing consensus protocol implementations [37].
+
+
+                                                                     7

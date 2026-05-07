@@ -1,0 +1,10 @@
+{
+  "term": "correct",
+  "source_list": "words",
+  "definition": "to make or set right",
+  "usage_context": "correct an error",
+  "moral_weight": "moral/ethical weight present",
+  "source_url": "https://www.merriam-webster.com/dictionary/correct",
+  "enriched_at": "2026-05-06T00:37:30.517565+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

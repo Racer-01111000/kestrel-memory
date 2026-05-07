@@ -1,0 +1,10 @@
+{
+  "term": "Stop",
+  "source_list": "phrases",
+  "definition": "to cease activity or operation",
+  "usage_context": "his heart stopped",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/Stop",
+  "enriched_at": "2026-05-06T00:22:15.201258+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

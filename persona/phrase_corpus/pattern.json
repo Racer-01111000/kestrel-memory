@@ -1,0 +1,10 @@
+{
+  "term": "pattern",
+  "source_list": "words",
+  "definition": "a form or model proposed for imitation",
+  "usage_context": "a dressmaker's pattern",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/pattern",
+  "enriched_at": "2026-05-06T00:48:28.835288+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

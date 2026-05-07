@@ -1,0 +1,10 @@
+{
+  "term": "limit",
+  "source_list": "words",
+  "definition": "something that bounds, restrains, or confines",
+  "usage_context": "the age limit for junior golf",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/limit",
+  "enriched_at": "2026-05-06T00:44:48.018265+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

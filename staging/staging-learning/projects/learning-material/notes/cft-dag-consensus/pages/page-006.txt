@@ -1,0 +1,71 @@
+Algorithm 2 Decider Instance                                                                Algorithm 3 Helper Functions
+1: waveOffset = 𝑖                            ⊲ The first parameter of the Decider (i)       1: nodes                                                             ⊲ The set of nodes
+2: leaderOffset = 𝑙                       ⊲ The second parameter of the Decider (l)
+3: waveLength = 2                                                                           2: procedure GetDecisionBlocks(𝑤 )
+                                                                                            3:    𝑟𝑑𝑒𝑐𝑖𝑠𝑖𝑜𝑛 ←DecisionRound(𝑤 )
+4: procedure WaveNumber(𝑟 )                                                                 4:    return 𝐷 𝐴𝐺 [𝑟𝑑𝑒𝑐𝑖𝑠𝑖𝑜𝑛 ]
+5:    return (𝑟 − waveOffset )/waveLength
+                                                                                            5: procedure GetLeaderBlock(𝑤, 𝑟 𝑎𝑛𝑘 )
+6: procedure ProposeRound(𝑤 )                                                               6:    𝑟 𝑝𝑟𝑜 𝑝𝑜𝑠𝑒 ←ProposeRound(𝑤 )
+7:    return (𝑤 · waveLength ) + waveOffset                                                 7:    𝑙𝑒𝑎𝑑𝑒𝑟 ← nodes [ (𝑟 𝑝𝑟𝑜 𝑝𝑜𝑠𝑒 + 𝑟 𝑎𝑛𝑘 ) mod | nodes | ]
+                                                                                            8:    if ∃𝑏 ∈ 𝐷 𝐴𝐺 [𝑟 𝑝𝑟𝑜 𝑝𝑜𝑠𝑒 ] s.t. 𝑏.𝑎𝑢𝑡 ℎ𝑜𝑟 = 𝑙𝑒𝑎𝑑𝑒𝑟 then return 𝑏
+8: procedure DecisionRound(𝑤 )                                                              9:    else return ⊥
+9:    return ProposeRound(𝑤 )+( waveLength − 1)
+                                                                                            10: procedure IsLink(𝑏𝑛𝑒𝑤 , 𝑏𝑜𝑙𝑑 )
+10: procedure SupportedLeader(𝑤, 𝑏𝑙𝑒𝑎𝑑𝑒𝑟 )                                                  11:    return ∃ a sequence of 𝑘 ∈ N blocks 𝑏1 , . . . , 𝑏 𝑘 s.t.
+                                                                                                                                                        Ð
+11:    𝐵𝑑𝑒𝑐𝑖𝑠𝑖𝑜𝑛 ← GetDecisionBlocks(𝑤 )                                                                 𝑏1 = 𝑏𝑜𝑙𝑑 ∧ 𝑏 𝑘 = 𝑏𝑛𝑒𝑤 ∧ ∀ 𝑗 ∈ [2, 𝑘 ] : 𝑏 𝑗 ∈    𝑟 ≥1 𝐷 𝐴𝐺 [𝑟 ] ∧ 𝑏 𝑗 −1 ∈
+12:    return | {𝑏′ ∈ 𝐵𝑑𝑒𝑐𝑖𝑠𝑖𝑜𝑛 : IsLink(𝑏′ , 𝑏𝑙𝑒𝑎𝑑𝑒𝑟 ) } | ≥ 𝑓 + 1                               𝑏 𝑗 . 𝑝𝑎𝑟 𝑒𝑛𝑡 𝑠
+
+13: procedure TryDirectDecide(𝑤 )                                                           12: procedure LinearizeSubDags( 𝐿 )
+14:    𝑏𝑙𝑒𝑎𝑑𝑒𝑟 ← GetLeaderBlock(𝑤 , leaderOffset)                                           13:    𝑂←[ ]                                           ⊲ Hold output sequence
+15:    if SupportedLeader(𝑤, 𝑏𝑙𝑒𝑎𝑑𝑒𝑟 ) then return Commit (𝑏𝑙𝑒𝑎𝑑𝑒𝑟 )                        14:    for 𝑏𝑙𝑒𝑎𝑑𝑒𝑟 ∈ 𝐿 do
+                                                                                                                    Ð
+16:    else return ⊥                                                                        15:        𝐵 ← {𝑏 ∈ 𝑟 ≥1 𝐷 𝐴𝐺 [𝑟 , ∗] s.t. IsLink (𝑏, 𝑏𝑙𝑒𝑎𝑑𝑒𝑟 ) ∧ 𝑏 ∉ 𝑂 ∧
+                                                                                                  𝑏 not already output }
+17: procedure TryIndirectDecide(𝑤, 𝑆 )                                                      16:           for 𝑏 ∈ 𝐵 in any deterministic order do
+18:    𝑟𝑑𝑒𝑐𝑖𝑠𝑖𝑜𝑛 ←DecisionRound(𝑤 )                                                         17:               𝑂 ← 𝑂 || 𝑏
+19:    𝑠𝑎𝑛𝑐ℎ𝑜𝑟 ← first 𝑠 ∈ 𝑆 s.t. 𝑟𝑑𝑒𝑐𝑖𝑠𝑖𝑜𝑛 < 𝑠.𝑟 𝑜𝑢𝑛𝑑 ∧ 𝑠 ≠ Skip                           18:       return 𝑂
+20:    if 𝑠𝑎𝑛𝑐ℎ𝑜𝑟 = Commit (𝑏𝑎𝑛𝑐ℎ𝑜𝑟 ) then
+21:        𝑏𝑙𝑒𝑎𝑑𝑒𝑟 ← GetLeaderBlock(𝑤 , leaderOffset)                                       committed as part of a lower slot’s causal history. In this case,
+22:        if Link (𝑏𝑎𝑛𝑐ℎ𝑜𝑟 , 𝑏𝑙𝑒𝑎𝑑𝑒𝑟 ) then return Commit (𝑏𝑙𝑒𝑎𝑑𝑒𝑟 )                       we say 𝐵 is committed at slot 𝑆, or committed with block 𝐿.
+23:        else return Skip
+24:    return ⊥                                                                             Lemma 4. If a block 𝐵 is committed by two replicas 𝑁 and
+   We say that a slot 𝑆 is decided at a replica 𝑁 if 𝑆 is committed                         𝑁 ′ , then 𝐵 is committed at the same slot 𝑆, and 𝐵 is committed
+or skipped. Otherwise, 𝑆 is undecided.                                                      with the same skeleton block 𝐿, at both 𝑁 and 𝑁 ′ .
+Lemma 3. If a slot 𝑆 is decided at two replicas 𝑁 and 𝑁 ′ ,                                 Proof. Let 𝑆 be the slot at which 𝐵 is committed at replica 𝑁,
+then either both replicas commit 𝑆, or both replicas skip 𝑆.                                and 𝐿 the corresponding skeleton block in 𝑆, also at replica 𝑁.
+                                                                                            Consider now the slot 𝑆 ′ at which 𝐵 is committed at replica
+Proof. Assume by contradiction that there exists a slot 𝑆 such                              𝑁 ′ , and 𝐿 ′ the corresponding skeleton block. Assume by
+that 𝑁 and 𝑁 ′ decide differently at 𝑆. We consider a finite                                contradiction that 𝑆 ′ ≠ 𝑆. If 𝑆 ′ < 𝑆, then 𝑁 would have also
+execution prefix and assume wlog that 𝑆 is the highest slot at                              committed 𝐵 at slot 𝑆 ′ , since by Observation 1, they must
+which 𝑁 and 𝑁 ′ decide differently (★). Further assume wlog                                 commit the same skeleton blocks in the same slots, so 𝑁
+that 𝑁 commits 𝑆 and 𝑁 ′ skips 𝑆. By Lemma 2, neither 𝑁 nor                                 could not have committed 𝐵 again at slot 𝑆; a contradiction.
+𝑁 ′ could have used the direct decision rule for 𝑆; they must                               Similarly, if 𝑆 < 𝑆 ′ , then 𝑁 ′ would have already committed 𝐵 at
+both have used the indirect rule. Consider now the anchor of                                slot 𝑆, since by Observation 1 𝑁 and 𝑁 ′ must have committed
+𝑆: 𝑁 and 𝑁 ′ must agree on which slot is the anchor of 𝑆, since                             the same block in slot 𝑆; contradiction. Thus, it must be that
+by our assumption (★) above, they make the same decisions                                   𝑆 = 𝑆 ′ , and by Observation 1, 𝐿 = 𝐿 ′ .                       □
+for all slots higher than 𝑆, including the anchor of 𝑆. Let 𝑆 ′ be
+the anchor of 𝑆; 𝑆 ′ must be committed at both 𝑁 and 𝑁 ′ . Thus,                              We can now prove the main safety properties of Nemo-
+by Observation 1, 𝑁 and 𝑁 ′ commit the same block 𝐵′ at 𝑆 ′ .                               Nemo: total order, no duplication, and no creation.
+But then 𝑁 and 𝑁 ′ cannot reach different decisions about slot
+                                                                                            Theorem 1 (Total Order). Nemo-Nemo satisfies the total order
+𝑆 using the indirect decision rule, a contradiction.             □
+                                                                                            property of Atomic Broadcast.
+   We have proven the consistency of replicas’ commit se-                                   Proof. This property follows immediately from Lemma 4 and
+quences: replicas commit (or skip) the same skeleton blocks,                                the fact that replicas order the causal histories of committed
+in the same order. However, we are not done: we also need                                   blocks using the same deterministic function, and commit
+to prove that non-skeleton blocks are committed in the same                                 blocks in this order.                                        □
+order by replicas. We show this next.
+                                                                                            Theorem 2 (No duplication). Nemo-Nemo satisfies the no
+Causal history and commit conditions. Consider a replica
+                                                                                            duplication property of Atomic Broadcast.
+𝑁. We call the causal history of a block 𝐵 in 𝑁’s DAG, the
+transitive closure of all blocks referenced by 𝐵 in 𝑁’s DAG,                                Proof. This is by construction: a block 𝐵 is committed as part
+including 𝐵 itself. In Nemo-Nemo, a block 𝐵 is committed by                                 of the causal history of a committed skeleton block only if 𝐵
+a replica 𝑁 if (1) there exists a committed skeleton block 𝐿 in                             has not been committed along with an earlier leader block (see
+𝑁’s DAG such that 𝐵 is in 𝐿’s causal history (2) all skeleton                               "Causal history & commit conditions" above). So a replica
+slots up to 𝐿 are decided in 𝑁’s DAG and (3) 𝐵 has not been                                 cannot commit the same block twice.                          □
+
+
+                                                                                        6

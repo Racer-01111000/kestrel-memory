@@ -1,0 +1,10 @@
+{
+  "term": "sit",
+  "source_list": "words",
+  "definition": "to rest on the buttocks or haunches",
+  "usage_context": "sit in a chair",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/sit",
+  "enriched_at": "2026-05-06T00:52:21.064361+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

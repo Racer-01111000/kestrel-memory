@@ -1,0 +1,10 @@
+{
+  "term": "general",
+  "source_list": "words",
+  "definition": "involving, applicable to, or affecting the whole",
+  "usage_context": "Take our 3 question quiz on general",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/general",
+  "enriched_at": "2026-05-06T00:41:43.287920+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

@@ -1,0 +1,64 @@
+     dag-based consensus. 45th IEEE International Confer-             [37] Iulian Moraru, David G Andersen, Michael Kaminsky,
+     ence on Distributed Computing Systems, 2025.                          and Pasindu Tennage. EPaxos go-lang – modified for
+                                                                           QuePaxa experiments. https://github.com/dedis/
+[24] Idit Keidar, Eleftherios Kokoris-Kogias, Oded Naor, and               quepaxa-ePaxos-open-loop, September 2023.
+     Alexander Spiegelman. All You Need is DAG. In ACM
+     PODC, 2021.                                                      [38] Faisal Nawab, Divyakant Agrawal, and Amr El Abbadi.
+                                                                           DPaxos: Managing data closer to users for low-latency
+[25] Idit Keidar, Oded Naor, Ouri Poupko, and Ehud Shapiro.                and mobile applications. In ACM SIGMOD/PODS
+     Cordial Miners: Fast and Efficient Consensus for Every                Conference on Management of Data, June 2018.
+     Eventuality. In DISC, 2023.
+                                                                      [39] Brian M Oki and Barbara H Liskov. Viewstamped
+[26] Mysten Labs. Mysticeti: Low-latency dag consen-                       replication: A new primary copy method to support
+     sus with fast commit path. https://github.com/                        highly-available distributed systems. In Proceedings of
+     asonnino/mysticeti, 2024.                                             the Seventh Annual ACM Symposium on Principles of
+                                                                           Distributed Computing, pages 8–17, January 1988.
+[27] Leslie Lamport. Paxos made simple. ACM SIGACT
+     News (Distributed Computing Column) 32, 4, 32:51–58,             [40] Diego Ongaro and John Ousterhout. In search of an
+     December 2001.                                                        understandable consensus algorithm. In 2014 USENIX
+                                                                           Annual Technical Conference ATC14, pages 305–319,
+[28] Leslie Lamport. Generalized consensus and Paxos.                      June 2014.
+     Technical Report MSR-TR-2005-33, Microsoft Research,
+                                                                      [41] Haochen Pan, Jesse Tuglu, Neo Zhou, Tianshu Wang,
+     March 2005.
+                                                                           Yicheng Shen, Xiong Zheng, Joseph Tassarotti, Lewis
+[29] Leslie Lamport. Fast paxos. Distributed Computing,                    Tseng, and Roberto Palmieri. Rabia. https://github.
+     19(2):79–103, 2006.                                                   com/haochenpan/rabia, 2021. Rabia implementation
+                                                                           in the Go language (GitHub repository).
+[30] Nick Lord. Binomial averages when the mean is an
+     integer. The Mathematical Gazette 94, 331-332, 2010.             [42] Haochen Pan, Jesse Tuglu, Neo Zhou, Tianshu Wang,
+                                                                           Yicheng Shen, Xiong Zheng, Joseph Tassarotti, Lewis
+[31] Dahlia Malkhi and Pawel Szalachowski. Maximal ex-                     Tseng, and Roberto Palmieri. Rabia: Simplifying state-
+     tractable value (mev) protection on a dag. In Tokenomics,             machine replication through randomization. In Proceed-
+     2022.                                                                 ings of the ACM SIGOPS 28th Symposium on Operating
+                                                                           Systems Principles, pages 472–487, October 2021.
+[32] Yanhua Mao, Flavio Junqueira, and Keith Marzullo.
+     Mencius: Building efficient replicated state machines for        [43] Sebastiano Peluso, Alexandru Turcu, Roberto Palmieri,
+     WANs. In 8th USENIX Symposium on Operating Systems                    Giuliano Losa, and Binoy Ravindran. Making fast con-
+     Design and Implementation (OSDI 08), December 2008.                   sensus generally faster. In Proceedings of the 46th
+                                                                           Annual IEEE/IFIP International Conference on Depend-
+[33] Venkata Swaroop Matte, Aleksey Charapko, and Abu-                     able Systems and Networks (DSN), June 2016.
+     talib Aghayev. Scalable but wasteful: Current state of
+                                                                      [44] Mayank Raikwar, Nikita Polyanskii, and Sebastian
+     replication in the cloud. In Proceedings of the 13th ACM
+                                                                           Müller. SoK: DAG-based Consensus Protocols. In
+     Workshop on Hot Topics in Storage and File Systems,
+                                                                           IEEE ICBC, 2024.
+     pages 42–49, July 2021.
+                                                                      [45] Bianca Schroeder, Adam Wierman, and Mor Harchol-
+[34] Michael S. Paterson Michael J. Fischer, Nancy A. Lynch.               Balter. Open versus closed: A cautionary tale. In
+     Impossibility of distributed consensus with one faulty                Proceedings of the 3rd USENIX Symposium on Net-
+     process. Journal of ACM, 1985.                                        worked Systems Design and Implementation (NSDI 06).
+                                                                           USENIX, May 2006.
+[35] Iulian Moraru, David G Andersen, and Michael Kamin-
+     sky.    EPaxos go-lang.      https://github.com/                 [46] Alexander Spiegelman, Neil Giridharan, Alberto Son-
+     efficient/epaxos/, 2013.                                              nino, and Lefteris Kokoris-Kogias. Bullshark: DAG BFT
+                                                                           Protocols Made Practical. In ACM CCS, 2022.
+[36] Iulian Moraru, David G Andersen, and Michael Kamin-
+     sky. There is more consensus in egalitarian parliaments.         [47] Alexander Spiegelman, Neil Giridharan, Alberto Son-
+     In Proceedings of the Twenty-Fourth ACM Symposium on                  nino, and Lefteris Kokoris-Kogias. Bullshark: the
+     Operating Systems Principles, pages 358–372, November                 partially synchronous version.      arXiv preprint
+     2013.                                                                 arXiv:2209.05633, 2022.
+
+
+                                                                 14

@@ -1,0 +1,10 @@
+{
+  "term": "mean",
+  "source_list": "words",
+  "definition": "to have in the mind as a purpose",
+  "usage_context": "She means to win.",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/mean",
+  "enriched_at": "2026-05-06T00:45:41.520007+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

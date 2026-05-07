@@ -1,0 +1,10 @@
+{
+  "term": "This does not align with",
+  "source_list": "phrases",
+  "definition": "(not found in Merriam-Webster)",
+  "usage_context": "",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/This%2520does%2520not%2520align%2520with",
+  "enriched_at": "2026-05-06T00:25:08.666508+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

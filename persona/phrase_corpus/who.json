@@ -1,0 +1,10 @@
+{
+  "term": "who",
+  "source_list": "words",
+  "definition": "what or which person or persons",
+  "usage_context": "who was elected?",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/who",
+  "enriched_at": "2026-05-06T00:57:40.799537+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

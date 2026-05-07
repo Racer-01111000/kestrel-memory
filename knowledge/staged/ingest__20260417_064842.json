@@ -1,0 +1,23 @@
+{
+  "id": "ingest_d60faf034debf5e5",
+  "title": "Quantum and secure networking interests",
+  "text": "Interested in quantum-ready VPN concepts, secure transfer, AI packet checking, future quantum internet considerations, privacy-preserving infrastructure, HIPAA-sensitive transfer use cases, Amazon Braket, and Qiskit/runtime/transpiler understanding.",
+  "classification": "staged",
+  "learning_stage": "claim",
+  "confidence": "medium",
+  "authority": "operator_ingest_project",
+  "domain": "",
+  "source_file": "knowledge/staged/ingest__20260417_064842.json",
+  "created_at": "20260417",
+  "review_status": "pending",
+  "epistemic_level": "fact_candidate",
+  "ingest_type": "project",
+  "ingest_hash": "d60faf034debf5e5",
+  "verification_sources": [
+    "https://arxiv.org/search/?searchtype=all&query=quantum%20and%20secure%20networking%20interests%20quantum%20transfer%20interested%20ready%20concepts%20secure",
+    "https://en.wikipedia.org/w/index.php?search=quantum%20and%20secure%20networking%20interests%20quantum%20transfer%20interested%20ready%20concepts%20secure",
+    "https://en.wikipedia.org/w/index.php?search=quantum%20and%20secure%20networking%20interests%20quantum%20transfer%20interested%20ready%20concepts",
+    "https://scholar.google.com/scholar?q=quantum%20and%20secure%20networking%20interests%20quantum%20transfer%20interested%20ready%20concepts"
+  ],
+  "last_verified_at": "2026-04-18T06:41:26Z"
+}

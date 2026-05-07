@@ -1,0 +1,10 @@
+{
+  "term": "cost",
+  "source_list": "words",
+  "definition": "the amount or equivalent paid or charged for something",
+  "usage_context": "The average cost of a college education has gone up dramatically.",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/cost",
+  "enriched_at": "2026-05-06T00:37:33.089033+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

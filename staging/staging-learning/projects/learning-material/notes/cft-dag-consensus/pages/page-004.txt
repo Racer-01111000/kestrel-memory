@@ -1,0 +1,72 @@
+              R        R+1            R                 R+2                            R         R+1        R+2         R+3        R+4
+      N0      P0        D0      N0    P0       P0       P0
+                                                                              N0      S0a                    S2a
+
+
+
+      N1      P1        D1      N1    P1       P1       P1
+
+                                                                              N1                  S1b                    S3a
+
+
+      N2      P2        D2      N2    P2       P2       P2
+
+
+            propose   decide          wave 1                                  N2      S0b         S1a        S2b
+                                               wave 2
+
+
+Figure 1: The structure of the Nemo-Nemo DAG. Left: The                 Figure 2: Example execution with three replicas and two skele-
+structure of a wave, consisting of two rounds (Propose and              ton slots per round. Skeleton blocks are classified as commit
+Decide). Right: Waves patterns in the Nemo-Nemo protocol                (green), skip (red), or undecided (grey). Thick arrows sig-
+(each round starts a new overlapping wave).                             nify commits via the indirect decision rule.
+4     The Nemo-Nemo Consensus Protocol                                  trates an example of a Nemo-Nemo DAG with three replicas,
+By itself, the DAG layer described in Section 3 functions as a          (𝑁0 , 𝑁1 , 𝑁2 ), two skeleton slots per round, and a potential
+scalable data dissemination layer. It grows with the network            skeleton slot ordering represented as (𝑆0𝑎 , 𝑆0𝑏 ) and (𝑆1𝑎 , 𝑆1𝑏 )
+and ensures that all disseminated transactions are reliably             for the first and second rounds, respectively.
+available. However, a consensus layer is required to order
+                                                                        4.2    The Nemo-Nemo decision rule
+transactions. Nemo-Nemo integrates this layer logically into
+the DAG messages, rather than sending separate consensus                We present the decision rule of Nemo-Nemo leveraging an
+messages, and infers decisions directly from the DAG itself.            example protocol run depicted in Figure 2. In this example,
+                                                                        we refer to blocks using the notation 𝐵 ( 𝑁𝑖 ,𝑅) , where 𝑁𝑖 is the
+4.1        Identifying DAG patterns                                     issuing replica and 𝑅 is the block’s round.
+Nemo-Nemo leverages patterns in the DAG structure to define                All skeleton slots are initially in the undecided state. The
+its decision rules.                                                     replica holds the portion of the DAG depicted in Figure 2 and
+                                                                        attempts to classify as many blocks in the skeleton slots as
+Rounds and waves. Figure 1 (left) shows an example of a
+                                                                        possible as either commit or skip.
+Nemo-Nemo DAG with three replicas, (𝑁0 , 𝑁1 , 𝑁2 ). Nemo-
+Nemo defines a wave of two rounds for every block. The                  Step 1: Direct decision rule. To start the classification process,
+first round 𝑅 (Propose) includes the blocks that the wave               the replica processes each slot individually, starting with the
+attempts to commit (𝑃0 , 𝑃1 , 𝑃2 ). The second round 𝑅 + 1              highest (𝑆3𝑎 ), applying the Nemo-Nemo direct decision rule.
+(Decide) includes the blocks (𝐷 0 , 𝐷 1 , 𝐷 2 ) implicitly acting       The replica classifies a block 𝐵 in a slot as commit if it
+as “votes” [27] determining the blocks of the previous round            observes 𝑓 + 1 blocks (i.e., two blocks in our example) from
+to commit. Figure 1 (right) shows that Nemo-Nemo initiates              the subsequent round referencing it. Otherwise, the replica
+a new wave every round, with two consecutive waves always               leaves the slot as undecided (for now). This rule is formally
+overlapping by one round. Put differently, each round starts a          described by the function TryDirectDecide in Algorithm 2.
+new wave. Algorithm 2 (Section 4.2) formally defines a wave.               In Figure 2, the replica targets 𝑆3𝑎 first. It observes that
+                                                                        𝐵 ( 𝑁0 ,𝑅+4) and 𝐵 ( 𝑁1 ,𝑅+4) reference it. Therefore, it classifies
+Skeleton slots. A skeleton slot (or simply “a slot”) is a tuple
+                                                                        𝑆3𝑎 as commit. Section 7 shows that this scenario is the most
+(replica, round) and can be either empty or contain the replica’s
+                                                                        common (in the absence of an asynchronous adversary) and
+proposal for the respective round. The slot can assume one
+                                                                        results in the lowest latency. Blocks 𝑆2𝑎 , 𝑆1𝑏 , and 𝑆0𝑎 are also
+of three states: commit, skip, or undecided. All slots are
+                                                                        classified as commit as they each have 𝑓 + 1 references from
+initially set to undecided and the goal of the protocol is to
+                                                                        the subsequent round.
+classify them as commit or skip.
+   The number of skeleton slots instantiated per round can              Step 2: Indirect decision rule. In the case where the direct
+be configured, and for systems with few faults, it can be as            decision rule cannot classify a skeleton slot 𝐵 ( 𝑁𝑖 ,𝑅) , the replica
+high as 𝑛 so that every block has a chance to commit in two             uses the Nemo-Nemo indirect decision rule. This rule looks
+steps. It can also be dynamically adjusted based on the net-            at future slots to decide about the current one. First, it finds
+work conditions, following a similar deterministic approach             an anchor. This is the earliest non-skipped skeleton slot with
+to HammerHead [55]. The protocol is initialized with a deter-           a round number 𝑅 ′ > 𝑅 + 1 that is either still classified as
+ministic total order among skeleton slots, known to all replicas.       undecided or already classified as commit. Recall that slots
+Within a single round, this ordering may reflect a fixed (e.g.,         are totally-ordered, so the anchor is uniquely defined regardless
+round robin) or a variable regime per round. Figure 2 illus-            of how the DAG evolves at different replicas. If the anchor is
+
+
+                                                                    4

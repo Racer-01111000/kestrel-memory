@@ -1,0 +1,10 @@
+{
+  "term": "food",
+  "source_list": "words",
+  "definition": "material consisting essentially of protein, carbohydrate, and fat used in the",
+  "usage_context": "body of an organism to sustain growth, repair, and vital processes and to",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/food",
+  "enriched_at": "2026-05-06T00:41:07.542314+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

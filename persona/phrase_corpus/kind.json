@@ -1,0 +1,10 @@
+{
+  "term": "kind",
+  "source_list": "words",
+  "definition": "a group united by common traits or interests",
+  "usage_context": "what kind of car do you drive",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/kind",
+  "enriched_at": "2026-05-06T00:44:05.531573+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

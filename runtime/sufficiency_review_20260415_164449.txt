@@ -1,0 +1,5 @@
+=== Sufficiency Review ===
+Run at: 2026-04-15T09:44:49Z
+Staged dir: /home/rick/kestrel-memory/knowledge/staged
+
+## JSON entries

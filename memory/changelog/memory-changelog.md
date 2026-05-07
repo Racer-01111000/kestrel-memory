@@ -1,0 +1,9 @@
+--- 2026-04-12: Added staged JSONL ingest entry for quantum_thesis_2026_03_28_v1.
+- 2026-04-12: Ingested staged platform essay on IBM and trapped-ion technology into knowledge/staged and staged_memory.jsonl.
+- 2026-04-12: Promoted verified IBM/trapped-ion platform relationship statement to canonical fact with source citations; supporting essay remains staged.
+- 2026-04-12: Removed duplicate partial IBM/trapped-ion fact artifact from trusted_facts.md.
+- 2026-04-12: Ingested metadata-only staged source record for arXiv:2403.02240.
+- 2026-04-12: Ingested staged excerpt from arXiv:2403.02240 covering algorithms, software, cryptography, scalability, and future trends.
+- 2026-04-12: Ingested staged GRB quantum/classical autoencoder paper excerpt with partial-math visibility note.
+- 2026-04-12: Ingested staged GRB QDL results/conclusions excerpt emphasizing conditional low-resource quantum advantage claims.
+- 2026-04-12: Added staged claim extraction note for GRB quantum/classical autoencoder paper, separating likely-general, paper-specific, and staged-only material.

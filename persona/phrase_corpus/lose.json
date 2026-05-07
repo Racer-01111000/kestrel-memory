@@ -1,0 +1,10 @@
+{
+  "term": "lose",
+  "source_list": "words",
+  "definition": "to miss from one's possession or from a customary or supposed place",
+  "usage_context": "lost his glove",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/lose",
+  "enriched_at": "2026-05-06T00:45:16.718180+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

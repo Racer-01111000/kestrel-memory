@@ -1,0 +1,10 @@
+{
+  "term": "last",
+  "source_list": "words",
+  "definition": "to continue in time",
+  "usage_context": "The movie lasted about two hours.",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/last",
+  "enriched_at": "2026-05-06T00:44:14.676142+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

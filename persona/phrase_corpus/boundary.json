@@ -1,0 +1,10 @@
+{
+  "term": "boundary",
+  "source_list": "words",
+  "definition": "something that indicates or fixes a limit or extent",
+  "usage_context": "Those two trees mark the boundary of our property.",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/boundary",
+  "enriched_at": "2026-05-06T00:35:28.222905+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

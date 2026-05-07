@@ -1,0 +1,10 @@
+{
+  "term": "room",
+  "source_list": "words",
+  "definition": "an extent of space occupied by or sufficient or available for something",
+  "usage_context": "room to run and play",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/room",
+  "enriched_at": "2026-05-06T00:50:56.561203+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

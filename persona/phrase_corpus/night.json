@@ -1,0 +1,10 @@
+{
+  "term": "night",
+  "source_list": "words",
+  "definition": "the time from dusk to dawn when no sunlight is visible",
+  "usage_context": "The store is open all night.",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/night",
+  "enriched_at": "2026-05-06T00:46:52.269197+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

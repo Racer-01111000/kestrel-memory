@@ -1,0 +1,10 @@
+{
+  "term": "load",
+  "source_list": "words",
+  "definition": "the quantity that can be carried at one time by a specified means",
+  "usage_context": "a dump truck with a full load of sand",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/load",
+  "enriched_at": "2026-05-06T00:44:56.155668+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

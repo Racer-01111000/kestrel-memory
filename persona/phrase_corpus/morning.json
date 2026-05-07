@@ -1,0 +1,10 @@
+{
+  "term": "morning",
+  "source_list": "words",
+  "definition": "dawn",
+  "usage_context": "tossed and turned all night until morning finally came",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/morning",
+  "enriched_at": "2026-05-06T00:46:19.082106+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

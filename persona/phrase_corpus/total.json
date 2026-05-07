@@ -1,0 +1,10 @@
+{
+  "term": "total",
+  "source_list": "words",
+  "definition": "comprising or constituting a whole",
+  "usage_context": "the total amount",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/total",
+  "enriched_at": "2026-05-06T00:55:36.630396+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

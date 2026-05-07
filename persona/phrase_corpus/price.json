@@ -1,0 +1,10 @@
+{
+  "term": "price",
+  "source_list": "words",
+  "definition": "the amount of money given or set as consideration for the sale of a specified",
+  "usage_context": "… the price of freedom is restraint …—[mdash-gold]J. Irwin Miller",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/price",
+  "enriched_at": "2026-05-06T00:49:13.876550+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

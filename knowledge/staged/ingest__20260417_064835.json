@@ -1,0 +1,23 @@
+{
+  "id": "ingest_d2cf7aeb0baba4c2",
+  "title": "Technical environment",
+  "text": "Heavy Linux user on Debian-based systems, uses GNOME and XFCE, prefers terminal-first troubleshooting, uses VS Code heavily, is comfortable with Git, system services, CLI debugging, package management, server administration, PM2, Nginx, DigitalOcean-style setups, PostgreSQL, Resend, PayPal webhooks, WireGuard, ClamAV, and host hardening.",
+  "classification": "staged",
+  "learning_stage": "claim",
+  "confidence": "medium",
+  "authority": "operator_ingest_technical",
+  "domain": "",
+  "source_file": "knowledge/staged/ingest__20260417_064835.json",
+  "created_at": "20260417",
+  "review_status": "pending",
+  "epistemic_level": "fact_candidate",
+  "ingest_type": "technical",
+  "ingest_hash": "d2cf7aeb0baba4c2",
+  "verification_sources": [
+    "https://arxiv.org/search/?searchtype=all&query=technical%20environment%20heavy%20linux%20user%20debian%20gnome%20xfce",
+    "https://en.wikipedia.org/w/index.php?search=technical%20environment%20heavy%20linux%20user%20debian%20gnome%20xfce",
+    "https://en.wikipedia.org/w/index.php?search=technical%20environment%20heavy%20linux%20user%20debian%20gnome",
+    "https://scholar.google.com/scholar?q=technical%20environment%20heavy%20linux%20user%20debian%20gnome"
+  ],
+  "last_verified_at": "2026-04-18T06:41:05Z"
+}

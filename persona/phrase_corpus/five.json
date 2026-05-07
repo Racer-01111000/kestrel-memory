@@ -1,0 +1,10 @@
+{
+  "term": "five",
+  "source_list": "words",
+  "definition": "a number that is one more than four see Table of Numbers",
+  "usage_context": "fives plural : a British handball game",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/five",
+  "enriched_at": "2026-05-06T00:40:50.863743+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

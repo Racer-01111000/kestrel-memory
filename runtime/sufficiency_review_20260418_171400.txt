@@ -1,0 +1,45 @@
+=== Sufficiency Review ===
+Run at: 2026-04-18T10:14:00Z
+Staged dir: /home/rick/kestrel-memory/knowledge/staged
+
+## JSON entries
+  [PASS] grb_qdl_results_conclusion_excerpt.entry.json  review_status=pending  epistemic_level=fact_candidate
+  [PASS] ibm_and_trapped_ion_technology_essay.entry.json  review_status=pending  epistemic_level=fact_candidate
+  [PASS] ingest__20260417_064833.json  review_status=pending  epistemic_level=fact_candidate
+  [PASS] ingest__20260417_064834.json  review_status=pending  epistemic_level=fact_candidate
+  [PASS] ingest__20260417_064835.json  review_status=pending  epistemic_level=fact_candidate
+  [PASS] ingest__20260417_064836.json  review_status=pending  epistemic_level=fact_candidate
+  [PASS] ingest__20260417_064837.json  review_status=pending  epistemic_level=fact_candidate
+  [PASS] ingest__20260417_064838.json  review_status=pending  epistemic_level=fact_candidate
+  [PASS] ingest__20260417_064839.json  review_status=pending  epistemic_level=fact_candidate
+  [PASS] ingest__20260417_064840.json  review_status=pending  epistemic_level=fact_candidate
+  [PASS] ingest__20260417_064841.json  review_status=pending  epistemic_level=fact_candidate
+  [PASS] ingest__20260417_064842.json  review_status=pending  epistemic_level=fact_candidate
+  [PASS] ingest__20260417_064843.json  review_status=pending  epistemic_level=fact_candidate
+  [PASS] ingest__20260417_064844.json  review_status=pending  epistemic_level=fact_candidate
+  [PASS] ingest__20260417_064845.json  review_status=pending  epistemic_level=fact_candidate
+  [PASS] ingest__20260417_064847.json  review_status=pending  epistemic_level=fact_candidate
+  [PASS] ingest__20260418_052000.json  review_status=pending  epistemic_level=fact_candidate
+  [PASS] ingest__20260418_101404.json  review_status=pending  epistemic_level=verified
+  [PASS] ingest_quantum_error_correction_overview_2026_20260417_064846.json  review_status=pending  epistemic_level=fact_candidate
+
+## Markdown entries
+  [PASS] arxiv_2403_02240_excerpt_algorithms_crypto_scaling.md  classification=staged  epistemic_level=claim
+  [PASS] arxiv_2403_02240_source_record.md  classification=staged  epistemic_level=claim
+  [PASS] candidate_claims.md  classification=queue  epistemic_level=claim
+  [PASS] grb_qdl_anomaly_detection_excerpt.md  classification=staged  epistemic_level=claim
+  [PASS] grb_qdl_claim_extraction_note.md  classification=- Classification: staged  epistemic_level=claim
+  [PASS] grb_qdl_results_conclusion_excerpt.md  classification=staged  epistemic_level=claim
+  [PASS] hypotheses.md  classification=queue  epistemic_level=claim
+  [PASS] ibm_and_trapped_ion_technology_essay.md  classification=staged  epistemic_level=claim
+  [PASS] quantum_thesis_2026_03_28_v1.md  classification=staged  epistemic_level=claim
+  [PASS] review_queue.md  classification=queue  epistemic_level=claim
+  [PASS] unresolved_items.md  classification=queue  epistemic_level=claim
+
+## Summary
+  PASS: 30
+  WARN: 0
+  FAIL: 0
+  Total: 30
+
+STATUS: SUFFICIENT — all staged items meet field requirements.

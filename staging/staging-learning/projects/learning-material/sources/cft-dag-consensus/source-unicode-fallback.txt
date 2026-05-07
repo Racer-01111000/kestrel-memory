@@ -1,0 +1,1050 @@
+                                                            Finding Nemo-Nemo: CFT DAG-based Consensus in the WAN
+
+                                                            Rithwik Kerur∗                  Pasindu Tennage∗                            Philipp Jovanovic
+                                                                UCSB                    Digital Asset and EPFL                       Mysten Labs and UCL
+                                                          rkerur@ucsb.edu             pasindu.tennage@gmail.com                      p.jovanovic@ucl.ac.uk
+
+                                                              Dahlia Malkhi                       Alberto Sonnino                          Igor Zablotchi
+                                                                 UCSB                          Mysten Labs and UCL                          Mysten Labs
+                                                         dahliamalkhi@ucsb.edu                alberto@mystenlabs.com                   igor@mystenlabs.com
+arXiv:2604.08914v1 [cs.DC] 10 Apr 2026
+
+
+
+
+                                                                     Abstract                                      1. DAG-based architecture: We can boost performance
+                                                                                                                      and alleviate network and failure-induced hiccups by
+                                         This paper introduces Nemo-Nemo, a practical crash-fault
+                                                                                                                      adopting the DAG-based approach, which provides a
+                                         tolerant (CFT) consensus protocol designed to outperform
+                                                                                                                      self-regulating mempool and seamless failure recovery.
+                                         existing protocols in wide-area networks by bridging de-
+                                         sign principles from the CFT and Byzantine-fault tolerant                 2. Battle-tested implementations: Rather than building
+                                         (BFT) worlds. By structuring command propagation through                     from scratch, we can adapt production-grade BFT code-
+                                         a causally ordered DAG, Nemo-Nemo allows all consensus                       bases to CFT settings.
+                                         replicas to propose commands with a naturally self-regulating
+                                         communication regime. By exploiting multi-leader architec-                3. Unstable network testing: Even without Byzantine repli-
+                                         ture, Nemo-Nemo avoids the performance bottleneck inherent                   cas, we must test CFT systems under unstable network
+                                         to single-leader protocols. By separating command dissemina-                 conditions, such as shifting connected majorities and
+                                         tion from consensus logic, Nemo-Nemo handles challenging                     leaders, which partial synchrony alone does not capture.
+                                         network conditions even when consensus commits are stalled.
+                                         Moreover, leader proposals that miss a deadline are never                 This paper presents Nemo-Nemo, the first DAG-based CFT
+                                         dropped, but deterministically deferred and executed later,             protocol. Nemo-Nemo applies these principles to achieve the
+                                         preserving throughput under transient network delays. And               best performance among known CFT protocols in wide-area
+                                         by enabling Nemo-Nemo to commit on a DAG in just two                    network settings under both partial synchrony [17] and random
+                                         network hops, it matches the latency of existing CFT systems,           asynchronous network [15] models.
+                                         while achieving significantly higher throughput. The result is
+                                         a robust, deployable system: the first DAG-based CFT con-               Vision and motivation. Modern DAG-based BFT consensus
+                                         sensus protocol proven to exceed state-of-the-art wide-area             systems offer two central lessons that form the foundation of
+                                         network performance in both speed and resilience.                       Nemo-Nemo. The first is the value of a causally ordered, and
+                                                                                                                 self-regulating mempool A mempool functions as a transport
+                                         1     Introduction                                                      layer for disseminating transaction requests, allowing replicas
+                                         Byzantine fault-tolerant (BFT) consensus systems have                   to inject transactions in parallel. In a DAG-based mempool,
+                                         seen significant advances, driven by a multi-trillion dollar            transactions are bundled into blocks that maintain causal
+                                         blockchain industry. These advances have yielded powerful               order. This design achieves three goals: (1) it induces a
+                                         techniques, notably DAG-based consensus architectures, that             self-regulating, round-based communication pattern where
+                                         enable high throughput, low latency, and graceful handling              replicas wait for a threshold of blocks before advancing rounds;
+                                         of both failures and network instabilities (e.g., [5, 14, 25, 46]       (2) each block automatically carries its causal history, ensuring
+                                         and others). Meanwhile, crash fault-tolerant (CFT) consensus            consistent DAG views across correct replicas; and (3) progress
+                                         remains the workhorse for traditional distributed systems, yet          continues seamlessly despite leader failures, enabling rapid
+                                         has not benefited equally from these innovations.                       recovery when new leaders are promoted.
+                                            This paper bridges that gap. We argue that CFT systems                  In principle, any consensus protocol can sit atop such a
+                                         designed to operate in the WAN can and should adopt lessons             DAG mempool, and many BFT protocols leverage this idea:
+                                         from modern BFT consensus, while adapting them to exploit               Narwhal-HS [14] integrates HotStuff [62] with a DAG and
+                                         the simpler model of crash-only failures. Specifically:                 achieves roughly a 50× performance gain over bare HotStuff,
+                                                                                                                 while Autobahn [20] integrates PBFT [12] with a DAG and
+                                             ∗ Equal contribution.                                               similarly attains significant throughput improvements.
+
+
+                                                                                                             1
+   Beyond a DAG-based mempool alone, the second lesson                   smoothly despite temporary leader disruptions.
+is that consensus protocols can be embedded directly into
+                                                                         Implementing Nemo-Nemo. To validate our vision, we wanted
+the DAG structure by pre-designating a skeleton of leader
+                                                                         to employ mature code and optimize it for low latency. We
+proposals and treating blocks that reference those proposals as
+                                                                         started with Mysticeti, a BFT protocol deployed in production
+protocol votes [6]. In this view, much of the logic of traditional
+                                                                         by multiple blockchains [13, 22, 48].
+consensus protocols collapses into simple structural rules on
+                                                                            Applying Mysticeti to CFT involved both obvious modifica-
+the DAG. For example, simple and direct commit logic can be
+                                                                         tions and structural opportunities that fundamentally improve
+realized by 𝑓 + 1 blocks referencing a leader proposal [31, 47].
+                                                                         performance, including the following: (i) changing quorum
+Overview of Nemo-Nemo. For the DAG-mempool, a key de-                    thresholds from 2 𝑓 + 1 to 𝑓 + 1, (ii) eliminating an entire
+sign choice concerns whether DAG blocks must be explicitly               communication round and simplifying commit rules to enable
+certified for availability by a quorum before insertion [1].             Nemo-Nemo to commit on a DAG in just two network hops,
+Several BFT DAGs, such as Tusk [14] and Bullshark [46], use              like existing CFT systems, (iii) simplifying authentication by
+certified blocks, motivated by the need for non-equivocation             removing signatures and integrity checks, thus streamlining
+and data availability in adversarial environments. However,              command ingestion without Byzantine peer concerns.
+pre-certifying each block adds communication rounds on top               Unstable Network Testing. Finally, in addition to evaluating
+of those required for consensus, increasing latency. Alternative         performance under standard, partial synchrony conditions, we
+BFT DAGs, including Cordial Miners [25] and Mysticeti [5],               address an existing gap in the evaluation methodology for CFT
+avoid pre-certification to reduce latency.                               consensus systems. Existing CFT systems are designed to cope
+   Prioritizing low latency, Nemo-Nemo uses non-certified                with a minority of stragglers, progressing rather well with a
+blocks. Note that in CFT settings, equivocation is not a concern,        stable, well-connected majority. However, they suffer a perfor-
+hence the benefit of pre-certification is diminished whereas             mance degradation when network conditions are unstable and
+admitting non-certified blocks enables extremely low-latency.            the fast majority is constantly “shifting”. To address this, in
+   The DAG direct commit rule of Nemo-Nemo is straight-                  addition to traditional evaluations, we developed a framework
+forward: a skeleton block becomes directly committed if                  to evaluate protocols under a recently proposed random asyn-
+referenced by 𝑓 + 1 blocks in the next round (see Figure 1).             chronous model, which assumes message delivery delays are
+The crux is maintaining safety against failures across replicas,         random but not adversarially controlled. This model captures
+each distinctly evolving the DAG due to network scheduling               realistic network variability—where packets may be delayed or
+and omissions. When a skeleton slot is not directly committed,           reordered—without assuming malicious nodes. Importantly,
+it can become indirectly committed by a future skeleton slot             this model reveals performance characteristics invisible under
+using the (causally ordered) DAG structure itself (see Figure 2).        standard partial synchrony assumptions, where protocols are
+Notably, there is no explicit view-change by which a future              typically evaluated with stable, low-latency networks. We
+leader may reinstate the proposed block. Rather, a DAG rule,             detail how we simulate this network model in Section 6
+which is somewhat subtle, is employed to indirectly commit or               Our evaluations demonstrate that existing CFT protocols
+skip the undecided slot; it is detailed in the body of the paper.        behave quite differently under randomized network delays
+   This design enhances state-of-the-art CFT consensus in                compared to stable networks. Nemo-Nemo, by contrast, main-
+several non-obvious respects. First, each round can inject new           tains robust performance across both settings.This validates
+proposals in the same round as voting, without waiting for               our motivating insight: by decoupling block propagation from
+confirmation that earlier proposals have committed. Second,              consensus, Nemo-Nemo remains robust under the random
+each round can rotate leaders while preserving the same struc-           asynchronous model as the DAG continues to grow even in the
+ture and latency as a stable-leader regime, without requiring            absence of commits. It contrasts with traditional CFT proto-
+an explicit leader-replacement (view-change) protocol. Third,            cols, which couple these processes, forcing block production
+each round may include multiple skeleton slots for proposals,            to halt until consensus is achieved.
+enabling greater flexibility and throughput (see Figure 2).              Contributions. We summarize our contributions as follows:
+   An additional advantage becomes apparent under unstable
+conditions, such as transient network delays. Consensus pro-                • We present Nemo-Nemo, the first DAG-based CFT con-
+tocols face a well-known tradeoff when configuring leader                     sensus protocol. Nemo-Nemo achieves the best perfor-
+timeouts: timeouts that are too short risk discarding correct                 mance among known CFT protocols in WAN settings
+leader proposals, while timeouts that are too long can stall                  under both partial synchrony and random asynchronous
+the system upon leader failure or hang-up. Nemo-Nemo miti-                    network models.
+gates this tradeoff by enabling shorter leader timeouts without
+compromising fairness or throughput. Leader proposals are                   • We show how, unlike traditional CFT protocols that re-
+never dropped; instead, they are deferred, typically to the im-               quire explicit view-change mechanisms, Nemo-Nemo
+mediately succeeding round, allowing the system to progress                   integrates leader rotation and multi-proposer rounds di-
+
+
+                                                                     2
+      rectly into the DAG structure, eliminating protocol com-           to commit, but relaxes the worst-case adversarial scheduling
+      plexity and latency overhead.                                      of the classic asynchronous model [7, 34], where an adversary
+                                                                         can control the message schedule indefinitely.
+    • We exploit CFT’s lack of equivocation to admit non-
+      certified blocks into the DAG, achieving commit latencies          3     The Nemo-Nemo DAG: Data Dissemination
+      unattainable in BFT settings. This design choice, along            Nemo-Nemo operates in two logical layers: (i) a data dis-
+      with optimized commit rules and block ingestion, enables           semination layer that propagates client transactions through
+      Nemo-Nemo to commit in just two network hops, like                 a structured DAG (this section); and (ii) an ordering layer
+      existing CFT systems, while achieving a significantly              interpreting the DAG to derive a total order of transactions
+      higher saturation throughput of at least 2x.                       (see Section 4).
+    • In addition to the standard partially synchronous model,           3.1    Block creation
+      we also evaluate Nemo-Nemo under the random asyn-
+      chronous model, which models unstable network con-                 Replicas operate in a sequence of logical rounds, and in
+      ditions. Our results show that existing CFT protocols              each round, every replica proposes a unique block. During a
+      degrade significantly under this model, while Nemo-                round, replicas receive transactions from clients and blocks
+      Nemo maintains robust performance.                                 from other replicas. Clients submit transactions to a replica,
+                                                                         which includes them in its (next) block. If a transaction does
+2    System Model and Assumptions                                        not finalize quickly enough, the client simply resubmits it
+                                                                         to a different replica. Each block references blocks from
+Nemo-Nemo is a peer-to-peer message-passing system which
+                                                                         prior rounds, starting with the author’s most recent block,
+implements atomic broadcast [10], with the following prop-
+                                                                         and includes fresh transactions not yet included in preceding
+erties: (1) Validity: If a correct replica 𝑝 proposes a value 𝑣,
+                                                                         blocks. Specifically, a block contains at least the following
+then 𝑝 eventually commits 𝑣; (2) No duplication: No value
+                                                                         elements: (1) the author 𝐴 of the block; (2) a round number
+is committed more than once; (3) No creation: If a replica
+                                                                         𝑅; (3) a list of transactions; and (4) at least 𝑓 + 1 distinct
+commits a value 𝑣 with proposer 𝑠, then 𝑣 was previously
+                                                                         references to blocks from the previous round 𝑅 − 1, as well as
+proposed by replica 𝑠; (4) Agreement: If a value 𝑣 is committed
+                                                                         any additional references from earlier rounds, for which the
+by some correct replica, then 𝑣 is eventually committed by
+                                                                         replica has already downloaded the complete causal history.
+every correct replica; (5) Total order: Let 𝑣 1 and 𝑣 2 be any two
+                                                                         At the core of Nemo-Nemo is a round-based DAG structure
+values and suppose 𝑝 and 𝑞 are any two correct replicas that
+                                                                         where each vertex is a block. Each replica maintains a local
+commit 𝑣 1 and 𝑣 2 . If 𝑝 commits 𝑣 1 before 𝑣 2 , then 𝑞 commits
+                                                                         view of the DAG, adding a block once it has downloaded
+𝑣 1 before 𝑣 2 . In the random asynchronous model, validity and
+                                                                         its entire causal history. Consequently, all correct replicas
+agreement are satisfied with probability 1 (almost surely).
+                                                                         eventually converge on the same DAG view.
+Fault model. Nemo-Nemo follows the standard CFT assump-
+tions used in prior work [27, 40]. The system consists of                3.2    Inclusive block proposing
+𝑛 = 2 𝑓 + 1 replicas, of which at most 𝑓 may crash. A replica            Unlike traditional leader-based consensus protocols, where
+is correct if it follows the protocol and crashed otherwise.             only leaders propose values, in Nemo-Nemo all replicas,
+                                                                         leaders or not, propose values in each round. In each round,
+Network model. We analyze and evaluate Nemo-Nemo under
+                                                                         a subset of replicas known to everyone is pre-designated as
+two network models: the standard partial synchrony model and
+                                                                         skeleton nodes. Skeleton nodes are akin to leaders (possibly
+the more recent random asynchronous model. Links between
+                                                                         multiple ones per view, as in multi-leader protocols). That
+correct parties behave reliably, and messages among them
+                                                                         is, blocks by skeleton nodes drive progress in the protocol:
+eventually arrive.
+                                                                         they can become directly committed, and they determine
+   In the partially synchronous model, we assume the standard
+                                                                         the commit decisions for blocks they causally reference, as
+Global Stabilization Time (GST) used throughout related work.
+                                                                         described in the ordering layer (see Section 4). A replica
+After GST, every message sent among correct parties arrives
+                                                                         disseminates its block only after receiving (in addition to
+within Δ time. Before GST, the protocol operates in a fully
+                                                                          𝑓 + 1 blocks from the previous round, also) all skeleton blocks
+asynchronous network where messages eventually arrive but
+                                                                         from the previous round, or after a timeout expires. This
+no bound limits their delay.
+                                                                         ensures liveness once the system becomes synchronous (see
+   Although Nemo-Nemo operates in the CFT setting, it is
+                                                                         Supplementary Material).
+designed to operate in a more unstable environment prone to
+network instabilities. To model this, we employ the random               Random Asynchronous Model. This model assumes that the
+asynchronous model [15] which assumes that message delivery              first 𝑓 + 1 blocks received by a replica in a round 𝑅 constitute
+follows a random schedule. The random asynchronous model                 a random sample. We discuss the implementation of this
+strikes a midpoint between the partially synchronous and fully           mechanism in Section 6 and prove that Nemo-Nemo is live
+asynchronous settings: it does not rely on synchronous periods           with probability 1 under this model (see Section 5.2).
+
+
+                                                                     3
+              R        R+1            R                 R+2                            R         R+1        R+2         R+3        R+4
+      N0      P0        D0      N0    P0       P0       P0
+                                                                              N0      S0a                    S2a
+
+
+
+      N1      P1        D1      N1    P1       P1       P1
+
+                                                                              N1                  S1b                    S3a
+
+
+      N2      P2        D2      N2    P2       P2       P2
+
+
+            propose   decide          wave 1                                  N2      S0b         S1a        S2b
+                                               wave 2
+
+
+Figure 1: The structure of the Nemo-Nemo DAG. Left: The                 Figure 2: Example execution with three replicas and two skele-
+structure of a wave, consisting of two rounds (Propose and              ton slots per round. Skeleton blocks are classified as commit
+Decide). Right: Waves patterns in the Nemo-Nemo protocol                (green), skip (red), or undecided (grey). Thick arrows sig-
+(each round starts a new overlapping wave).                             nify commits via the indirect decision rule.
+4     The Nemo-Nemo Consensus Protocol                                  trates an example of a Nemo-Nemo DAG with three replicas,
+By itself, the DAG layer described in Section 3 functions as a          (𝑁0 , 𝑁1 , 𝑁2 ), two skeleton slots per round, and a potential
+scalable data dissemination layer. It grows with the network            skeleton slot ordering represented as (𝑆0𝑎 , 𝑆0𝑏 ) and (𝑆1𝑎 , 𝑆1𝑏 )
+and ensures that all disseminated transactions are reliably             for the first and second rounds, respectively.
+available. However, a consensus layer is required to order
+                                                                        4.2    The Nemo-Nemo decision rule
+transactions. Nemo-Nemo integrates this layer logically into
+the DAG messages, rather than sending separate consensus                We present the decision rule of Nemo-Nemo leveraging an
+messages, and infers decisions directly from the DAG itself.            example protocol run depicted in Figure 2. In this example,
+                                                                        we refer to blocks using the notation 𝐵 ( 𝑁𝑖 ,𝑅) , where 𝑁𝑖 is the
+4.1        Identifying DAG patterns                                     issuing replica and 𝑅 is the block’s round.
+Nemo-Nemo leverages patterns in the DAG structure to define                All skeleton slots are initially in the undecided state. The
+its decision rules.                                                     replica holds the portion of the DAG depicted in Figure 2 and
+                                                                        attempts to classify as many blocks in the skeleton slots as
+Rounds and waves. Figure 1 (left) shows an example of a
+                                                                        possible as either commit or skip.
+Nemo-Nemo DAG with three replicas, (𝑁0 , 𝑁1 , 𝑁2 ). Nemo-
+Nemo defines a wave of two rounds for every block. The                  Step 1: Direct decision rule. To start the classification process,
+first round 𝑅 (Propose) includes the blocks that the wave               the replica processes each slot individually, starting with the
+attempts to commit (𝑃0 , 𝑃1 , 𝑃2 ). The second round 𝑅 + 1              highest (𝑆3𝑎 ), applying the Nemo-Nemo direct decision rule.
+(Decide) includes the blocks (𝐷 0 , 𝐷 1 , 𝐷 2 ) implicitly acting       The replica classifies a block 𝐵 in a slot as commit if it
+as “votes” [27] determining the blocks of the previous round            observes 𝑓 + 1 blocks (i.e., two blocks in our example) from
+to commit. Figure 1 (right) shows that Nemo-Nemo initiates              the subsequent round referencing it. Otherwise, the replica
+a new wave every round, with two consecutive waves always               leaves the slot as undecided (for now). This rule is formally
+overlapping by one round. Put differently, each round starts a          described by the function TryDirectDecide in Algorithm 2.
+new wave. Algorithm 2 (Section 4.2) formally defines a wave.               In Figure 2, the replica targets 𝑆3𝑎 first. It observes that
+                                                                        𝐵 ( 𝑁0 ,𝑅+4) and 𝐵 ( 𝑁1 ,𝑅+4) reference it. Therefore, it classifies
+Skeleton slots. A skeleton slot (or simply “a slot”) is a tuple
+                                                                        𝑆3𝑎 as commit. Section 7 shows that this scenario is the most
+(replica, round) and can be either empty or contain the replica’s
+                                                                        common (in the absence of an asynchronous adversary) and
+proposal for the respective round. The slot can assume one
+                                                                        results in the lowest latency. Blocks 𝑆2𝑎 , 𝑆1𝑏 , and 𝑆0𝑎 are also
+of three states: commit, skip, or undecided. All slots are
+                                                                        classified as commit as they each have 𝑓 + 1 references from
+initially set to undecided and the goal of the protocol is to
+                                                                        the subsequent round.
+classify them as commit or skip.
+   The number of skeleton slots instantiated per round can              Step 2: Indirect decision rule. In the case where the direct
+be configured, and for systems with few faults, it can be as            decision rule cannot classify a skeleton slot 𝐵 ( 𝑁𝑖 ,𝑅) , the replica
+high as 𝑛 so that every block has a chance to commit in two             uses the Nemo-Nemo indirect decision rule. This rule looks
+steps. It can also be dynamically adjusted based on the net-            at future slots to decide about the current one. First, it finds
+work conditions, following a similar deterministic approach             an anchor. This is the earliest non-skipped skeleton slot with
+to HammerHead [55]. The protocol is initialized with a deter-           a round number 𝑅 ′ > 𝑅 + 1 that is either still classified as
+ministic total order among skeleton slots, known to all replicas.       undecided or already classified as commit. Recall that slots
+Within a single round, this ordering may reflect a fixed (e.g.,         are totally-ordered, so the anchor is uniquely defined regardless
+round robin) or a variable regime per round. Figure 2 illus-            of how the DAG evolves at different replicas. If the anchor is
+
+
+                                                                    4
+undecided, the replica marks the current slot as undecided.                 Algorithm 1 Nemo-Nemo
+If the anchor is commit, the replica checks if it indirectly                1: leadersPerRound                             ⊲ A number between 1 and 2 𝑓 + 1
+references the target slot, that is, it checks whether there is a           2: waveLength = 2
+path between the anchor and the target skeleton slot. If it does,            3: procedure TryDecide(𝑟𝑐𝑜𝑚𝑚𝑖𝑡𝑡𝑒𝑑 , 𝑟ℎ𝑖𝑔ℎ𝑒𝑠𝑡 )
+the replica marks the target slot as commit. If it does not, the             4:    𝑆←[]                                                  ⊲ Holds decisions
+                                                                             5:    for 𝑟 ← 𝑟ℎ𝑖𝑔ℎ𝑒𝑠𝑡 down to 𝑟𝑐𝑜𝑚𝑚𝑖𝑡𝑡𝑒𝑑 + 1 do
+replica marks it as skip. This rule is formally described by                 6:        for 𝑙 ← leadersPerRound − 1 down to 0 do
+the function TryIndirectDecide in Algorithm 2. Section 5                     7:            𝑖 ← 𝑟 mod waveLength
+                                                                             8:            𝐷 ← Decider(𝑖, 𝑙 )
+shows that the direct and indirect decision rules are consistent:            9:            𝑤 ← 𝐷.WaveNumber(𝑟 )
+if one replica directly commits a block, no honest replicas will            10:             𝑠 ← 𝐷.TryDirectDecide(𝑤 )
+                                                                            11:             if 𝑠 = ⊥ then 𝑠 ← 𝐷.TryIndirectDecide(𝑤, 𝑆 )
+indirectly skip it (and vice versa).                                        12:             𝑆←𝑠 ∥ 𝑆
+                                                                            13:     return 𝑆
+   In this example, the replica fails to classify 𝑆2𝑏 , 𝑆1𝑎 , and
+𝑆0𝑏 using the direct decision rule and thus searches for their              14: procedure ExtendCommitSequence(𝑟𝑐𝑜𝑚𝑚𝑖𝑡𝑡𝑒𝑑 , 𝑟ℎ𝑖𝑔ℎ𝑒𝑠𝑡 )
+                                                                            15:    𝑆 ← TryDecide(𝑟𝑐𝑜𝑚𝑚𝑖𝑡𝑡𝑒𝑑 , 𝑟ℎ𝑖𝑔ℎ𝑒𝑠𝑡 )
+respective anchors. The status of the anchor of 𝑆2𝑏 is still                16:    𝑆𝑐𝑜𝑚𝑚𝑖𝑡 ← [ ]                                 ⊲ Holds committed blocks
+undecided; the replica thus marks 𝑆2𝑏 as undecided. Even-                   17:    for 𝑠 ∈ 𝑆 do
+                                                                            18:        if 𝑠 = ⊥ then break
+tually, the DAG will grow and a block with round 𝑅 ′ > 𝑅 + 3                19:        if 𝑠 = Commit (𝑏𝑙𝑒𝑎𝑑𝑒𝑟 ) then 𝑆𝑐𝑜𝑚𝑚𝑖𝑡 ← 𝑆𝑐𝑜𝑚𝑚𝑖𝑡 ∥ 𝑏𝑙𝑒𝑎𝑑𝑒𝑟
+will become the anchor for 𝑆2𝑏 . For the moment however, 𝑆2𝑏                20:    return LinearizeSubDags(𝑆𝑐𝑜𝑚𝑚𝑖𝑡 )             ⊲ Commit returned blocks
+remains undecided. 𝑆3𝑎 is the anchor for 𝑆1𝑎 ; since 𝑆3𝑎 has                5     Correctness
+a path to 𝑆1𝑎 (marked with thick arrows), the replica classifies
+𝑆1𝑎 as commit. The anchor of 𝑆0𝑏 is 𝑆2𝑎 which does not have                 In this section, we prove that Nemo-Nemo guarantees the
+a path to 𝑆0𝑏 . Thus, the replica classifies 𝑆0𝑏 as skip.                   properties of atomic broadcast.
+                                                                            5.1     Safety proofs
+Step 3: Skeleton slots sequence. After processing all slots, the
+replica derives an ordered sequence of the blocks contained in              Lemma 1. If in round 𝑅, 𝑓 + 1 blocks from distinct replicas
+the skeleton slots. It then iterates over this sequence, commit-            vote for a block 𝐵, then all blocks at future rounds 𝑅 ′ > 𝑅 will
+ting all slots marked as commit and skipping all slots marked               have a path to 𝐵.
+as skip. This process continues until the replica encounters                Proof. We prove the lemma by induction on 𝑅 ′ . The base
+the first undecided slot. As shown in Section 5 this commit                 case is 𝑅 ′ = 𝑅 + 1. Let 𝐵′ be a block at round 𝑅 ′ . Since 𝐵′
+sequence is safe, and eventually, all slots will be classified              points to 𝑓 + 1 blocks at round 𝑅, by quorum intersection, 𝐵′
+as either commit or skip. In the example shown in Figure 2,                 must point to at least one of the blocks that vote for 𝐵, and
+the skeleton block output by the replica is [𝑆0𝑎 , 𝑆1𝑎 , 𝑆1𝑏 ,              thus have a path to 𝐵.
+𝑆2𝑎 ]. Since 𝑆2𝑏 remains undecided, it is not included in the                  For the induction case, assume the lemma holds up to round
+sequence and 𝑆3𝑎 is also excluded.                                          𝑅 ′ and consider the case of round 𝑅 ′ + 1. Let 𝐵′ be a block
+                                                                            at round 𝑅 ′ + 1. By the induction hypothesis, 𝑓 + 1 blocks at
+Step 4: Commit sequence. Following the approach introduced                  round 𝑅 ′ have paths to 𝐵. Since 𝐵′ points to 𝑓 + 1 blocks from
+by DagRider [24], the replica determines a linear ordering                  round 𝑅 ′ , by quorum intersection, 𝐵′ must point to at least
+of all the blocks within the sub-DAG defined by each skele-                 one block that has a path to 𝐵.                               □
+ton block, including previously skipped skeleton blocks (if
+they are reachable), by performing a depth-first search. If a               Lemma 2. If a replica directly commits some block in a slot
+previous skeleton slot has already linearized a block, it is not            𝑆, then no other replica skips slot 𝑆.
+re-linearized. The replica processes skeleton slots sequen-
+tially, ensuring that all blocks are included in the final commit           Proof. Assume by contradiction that a replica 𝑁 directly
+sequence in the correct order, according to their causal depen-             commits block 𝐵 in slot 𝑆 while another replica 𝑁 ′ decides
+dencies. The procedure LinearizeSubDags of Algorithm 3                      to skip 𝑆. Let 𝑅 be the round of 𝑆. Since 𝑁 directly commits
+formally describes this linearization process.                              𝐵, there exist 𝑓 + 1 votes for 𝐵 at 𝑆. Therefore, by Lemma 1,
+                                                                            all blocks at rounds 𝑅 ′ > 𝑅, including the anchor of 𝑆, have
+   In this example, 𝑆0𝑎 and 𝑆0𝑏 do not define any sub-DAG                   a path to 𝐵 at 𝑆. Thus, 𝑁 ′ cannot decide to skip 𝑆 using the
+(because the example begins at round 𝑅) and are thus directly               indirect decision rule. We have reached a contradiction. □
+added to the commit sequence. Next, 𝑆1𝑎 defines the sub-
+DAG {𝐿 1𝑎 , 𝐵 ( 𝑁1 ,𝑅) , 𝐿 0𝑏 }, which is linearized as [𝐵 ( 𝑁1 ,𝑅) ,       Observation 1. If a slot 𝑆 is committed at two replicas, then
+𝑆0𝑏 , 𝑆1𝑎 ]. The replica continues this process for each skeleton,          𝑆 contains the same block at both replicas.
+linearizing the sub-DAGs defined by 𝑆1𝑏 as [𝑆1𝑏 ], since both
+𝑆0𝑎 and 𝐵 ( 𝑁1 ,𝑅) are already part of the commit sequence, and             Proof. This follows, by construction, from two facts: (1) the
+so forth. The final commit sequence is [ 𝑆0𝑎 , 𝐵 ( 𝑁1 ,𝑅) , 𝑆1𝑎 ,           sequence of skeleton slots is predetermined and known to all
+𝑆1𝑏 , 𝐵 ( 𝑁0 ,𝑅+1) , 𝑆2𝑎 ].                                                 replicas, (2) replicas propose at most one block per slot. □
+
+
+                                                                        5
+Algorithm 2 Decider Instance                                                                Algorithm 3 Helper Functions
+1: waveOffset = 𝑖                            ⊲ The first parameter of the Decider (i)       1: nodes                                                             ⊲ The set of nodes
+2: leaderOffset = 𝑙                       ⊲ The second parameter of the Decider (l)
+3: waveLength = 2                                                                           2: procedure GetDecisionBlocks(𝑤 )
+                                                                                            3:    𝑟𝑑𝑒𝑐𝑖𝑠𝑖𝑜𝑛 ←DecisionRound(𝑤 )
+4: procedure WaveNumber(𝑟 )                                                                 4:    return 𝐷 𝐴𝐺 [𝑟𝑑𝑒𝑐𝑖𝑠𝑖𝑜𝑛 ]
+5:    return (𝑟 − waveOffset )/waveLength
+                                                                                            5: procedure GetLeaderBlock(𝑤, 𝑟 𝑎𝑛𝑘 )
+6: procedure ProposeRound(𝑤 )                                                               6:    𝑟 𝑝𝑟𝑜 𝑝𝑜𝑠𝑒 ←ProposeRound(𝑤 )
+7:    return (𝑤 · waveLength ) + waveOffset                                                 7:    𝑙𝑒𝑎𝑑𝑒𝑟 ← nodes [ (𝑟 𝑝𝑟𝑜 𝑝𝑜𝑠𝑒 + 𝑟 𝑎𝑛𝑘 ) mod | nodes | ]
+                                                                                            8:    if ∃𝑏 ∈ 𝐷 𝐴𝐺 [𝑟 𝑝𝑟𝑜 𝑝𝑜𝑠𝑒 ] s.t. 𝑏.𝑎𝑢𝑡 ℎ𝑜𝑟 = 𝑙𝑒𝑎𝑑𝑒𝑟 then return 𝑏
+8: procedure DecisionRound(𝑤 )                                                              9:    else return ⊥
+9:    return ProposeRound(𝑤 )+( waveLength − 1)
+                                                                                            10: procedure IsLink(𝑏𝑛𝑒𝑤 , 𝑏𝑜𝑙𝑑 )
+10: procedure SupportedLeader(𝑤, 𝑏𝑙𝑒𝑎𝑑𝑒𝑟 )                                                  11:    return ∃ a sequence of 𝑘 ∈ N blocks 𝑏1 , . . . , 𝑏 𝑘 s.t.
+                                                                                                                                                        Ð
+11:    𝐵𝑑𝑒𝑐𝑖𝑠𝑖𝑜𝑛 ← GetDecisionBlocks(𝑤 )                                                                 𝑏1 = 𝑏𝑜𝑙𝑑 ∧ 𝑏 𝑘 = 𝑏𝑛𝑒𝑤 ∧ ∀ 𝑗 ∈ [2, 𝑘 ] : 𝑏 𝑗 ∈    𝑟 ≥1 𝐷 𝐴𝐺 [𝑟 ] ∧ 𝑏 𝑗 −1 ∈
+12:    return | {𝑏′ ∈ 𝐵𝑑𝑒𝑐𝑖𝑠𝑖𝑜𝑛 : IsLink(𝑏′ , 𝑏𝑙𝑒𝑎𝑑𝑒𝑟 ) } | ≥ 𝑓 + 1                               𝑏 𝑗 . 𝑝𝑎𝑟 𝑒𝑛𝑡 𝑠
+
+13: procedure TryDirectDecide(𝑤 )                                                           12: procedure LinearizeSubDags( 𝐿 )
+14:    𝑏𝑙𝑒𝑎𝑑𝑒𝑟 ← GetLeaderBlock(𝑤 , leaderOffset)                                           13:    𝑂←[ ]                                           ⊲ Hold output sequence
+15:    if SupportedLeader(𝑤, 𝑏𝑙𝑒𝑎𝑑𝑒𝑟 ) then return Commit (𝑏𝑙𝑒𝑎𝑑𝑒𝑟 )                        14:    for 𝑏𝑙𝑒𝑎𝑑𝑒𝑟 ∈ 𝐿 do
+                                                                                                                    Ð
+16:    else return ⊥                                                                        15:        𝐵 ← {𝑏 ∈ 𝑟 ≥1 𝐷 𝐴𝐺 [𝑟 , ∗] s.t. IsLink (𝑏, 𝑏𝑙𝑒𝑎𝑑𝑒𝑟 ) ∧ 𝑏 ∉ 𝑂 ∧
+                                                                                                  𝑏 not already output }
+17: procedure TryIndirectDecide(𝑤, 𝑆 )                                                      16:           for 𝑏 ∈ 𝐵 in any deterministic order do
+18:    𝑟𝑑𝑒𝑐𝑖𝑠𝑖𝑜𝑛 ←DecisionRound(𝑤 )                                                         17:               𝑂 ← 𝑂 || 𝑏
+19:    𝑠𝑎𝑛𝑐ℎ𝑜𝑟 ← first 𝑠 ∈ 𝑆 s.t. 𝑟𝑑𝑒𝑐𝑖𝑠𝑖𝑜𝑛 < 𝑠.𝑟 𝑜𝑢𝑛𝑑 ∧ 𝑠 ≠ Skip                           18:       return 𝑂
+20:    if 𝑠𝑎𝑛𝑐ℎ𝑜𝑟 = Commit (𝑏𝑎𝑛𝑐ℎ𝑜𝑟 ) then
+21:        𝑏𝑙𝑒𝑎𝑑𝑒𝑟 ← GetLeaderBlock(𝑤 , leaderOffset)                                       committed as part of a lower slot’s causal history. In this case,
+22:        if Link (𝑏𝑎𝑛𝑐ℎ𝑜𝑟 , 𝑏𝑙𝑒𝑎𝑑𝑒𝑟 ) then return Commit (𝑏𝑙𝑒𝑎𝑑𝑒𝑟 )                       we say 𝐵 is committed at slot 𝑆, or committed with block 𝐿.
+23:        else return Skip
+24:    return ⊥                                                                             Lemma 4. If a block 𝐵 is committed by two replicas 𝑁 and
+   We say that a slot 𝑆 is decided at a replica 𝑁 if 𝑆 is committed                         𝑁 ′ , then 𝐵 is committed at the same slot 𝑆, and 𝐵 is committed
+or skipped. Otherwise, 𝑆 is undecided.                                                      with the same skeleton block 𝐿, at both 𝑁 and 𝑁 ′ .
+Lemma 3. If a slot 𝑆 is decided at two replicas 𝑁 and 𝑁 ′ ,                                 Proof. Let 𝑆 be the slot at which 𝐵 is committed at replica 𝑁,
+then either both replicas commit 𝑆, or both replicas skip 𝑆.                                and 𝐿 the corresponding skeleton block in 𝑆, also at replica 𝑁.
+                                                                                            Consider now the slot 𝑆 ′ at which 𝐵 is committed at replica
+Proof. Assume by contradiction that there exists a slot 𝑆 such                              𝑁 ′ , and 𝐿 ′ the corresponding skeleton block. Assume by
+that 𝑁 and 𝑁 ′ decide differently at 𝑆. We consider a finite                                contradiction that 𝑆 ′ ≠ 𝑆. If 𝑆 ′ < 𝑆, then 𝑁 would have also
+execution prefix and assume wlog that 𝑆 is the highest slot at                              committed 𝐵 at slot 𝑆 ′ , since by Observation 1, they must
+which 𝑁 and 𝑁 ′ decide differently (★). Further assume wlog                                 commit the same skeleton blocks in the same slots, so 𝑁
+that 𝑁 commits 𝑆 and 𝑁 ′ skips 𝑆. By Lemma 2, neither 𝑁 nor                                 could not have committed 𝐵 again at slot 𝑆; a contradiction.
+𝑁 ′ could have used the direct decision rule for 𝑆; they must                               Similarly, if 𝑆 < 𝑆 ′ , then 𝑁 ′ would have already committed 𝐵 at
+both have used the indirect rule. Consider now the anchor of                                slot 𝑆, since by Observation 1 𝑁 and 𝑁 ′ must have committed
+𝑆: 𝑁 and 𝑁 ′ must agree on which slot is the anchor of 𝑆, since                             the same block in slot 𝑆; contradiction. Thus, it must be that
+by our assumption (★) above, they make the same decisions                                   𝑆 = 𝑆 ′ , and by Observation 1, 𝐿 = 𝐿 ′ .                       □
+for all slots higher than 𝑆, including the anchor of 𝑆. Let 𝑆 ′ be
+the anchor of 𝑆; 𝑆 ′ must be committed at both 𝑁 and 𝑁 ′ . Thus,                              We can now prove the main safety properties of Nemo-
+by Observation 1, 𝑁 and 𝑁 ′ commit the same block 𝐵′ at 𝑆 ′ .                               Nemo: total order, no duplication, and no creation.
+But then 𝑁 and 𝑁 ′ cannot reach different decisions about slot
+                                                                                            Theorem 1 (Total Order). Nemo-Nemo satisfies the total order
+𝑆 using the indirect decision rule, a contradiction.             □
+                                                                                            property of Atomic Broadcast.
+   We have proven the consistency of replicas’ commit se-                                   Proof. This property follows immediately from Lemma 4 and
+quences: replicas commit (or skip) the same skeleton blocks,                                the fact that replicas order the causal histories of committed
+in the same order. However, we are not done: we also need                                   blocks using the same deterministic function, and commit
+to prove that non-skeleton blocks are committed in the same                                 blocks in this order.                                        □
+order by replicas. We show this next.
+                                                                                            Theorem 2 (No duplication). Nemo-Nemo satisfies the no
+Causal history and commit conditions. Consider a replica
+                                                                                            duplication property of Atomic Broadcast.
+𝑁. We call the causal history of a block 𝐵 in 𝑁’s DAG, the
+transitive closure of all blocks referenced by 𝐵 in 𝑁’s DAG,                                Proof. This is by construction: a block 𝐵 is committed as part
+including 𝐵 itself. In Nemo-Nemo, a block 𝐵 is committed by                                 of the causal history of a committed skeleton block only if 𝐵
+a replica 𝑁 if (1) there exists a committed skeleton block 𝐿 in                             has not been committed along with an earlier leader block (see
+𝑁’s DAG such that 𝐵 is in 𝐿’s causal history (2) all skeleton                               "Causal history & commit conditions" above). So a replica
+slots up to 𝐿 are decided in 𝑁’s DAG and (3) 𝐵 has not been                                 cannot commit the same block twice.                          □
+
+
+                                                                                        6
+Theorem 3 (No creation). Nemo-Nemo satisfies the no cre-                 rounds without any directly committed slot is less than 2−𝑡 .
+ation property of Atomic Broadcast.                                      This implies that w.h.p., every slot that is not directly decided
+                                                                         will eventually have a committed anchor and therefore become
+Proof. This follows from two facts: (1) replicas only include            decided (i.e., it will be committed or skipped).                □
+in their local DAGs, blocks that have been previously proposed
+by some replica, and (2) replicas only commit blocks that they           Theorem 4 (Validity). Nemo-Nemo satisfies the validity prop-
+have previously included in their DAGs.                      □           erty of Atomic Broadcast, with probability 1.
+
+5.2    Liveness proofs                                                   Proof. Let 𝑁 be a correct replica and 𝐵 a block proposed by 𝑁.
+We now turn to liveness. We prove liveness in the random                 We show that, with probability 1, 𝐵 is eventually committed by
+asynchronous model here, and defer the proof of liveness                 every correct replica. By Lemma 6, 𝐵 is eventually included
+under partial synchrony to the Supplementary Material.                   in the local DAG of every correct replica. So every correct
+                                                                         replica will eventually include a reference to 𝐵 in at least
+Lemma 5. If a block 𝐵 produced by a correct replica 𝑁                    one of its blocks. Let 𝑅 be the highest round at which some
+references some block 𝐵′ , then 𝐵′ will eventually be included           correct replica includes a reference to 𝐵 in one of its blocks. By
+in the local DAG of every correct replica.                               Lemma 7, with probability 1, each skeleton block has a nonzero
+                                                                         probability of being directly committed, so eventually some
+Proof. If some replica 𝑁 ′ receives 𝐵 from 𝑁, but does not               block 𝐵′ at a round 𝑅 ′ > 𝑅 will be directly committed. Since
+have 𝐵′ yet, 𝑁 ′ will request 𝐵′ from 𝑁; since 𝑁 is correct and          all replicas have 𝐵 in their causal histories by round 𝑅, 𝐵′ must
+the network links are reliable, 𝑁 will eventually receive 𝑁 ′ ’s         therefore have a path to 𝐵. Lemma 8 guarantees that all slots
+request, send 𝐵′ to 𝑁 ′ , and 𝑁 ′ will eventually receive 𝐵′ . The       before 𝐵′ are eventually decided, so 𝐵′ is eventually committed.
+same is recursively true for any blocks from the causal history          Thus, 𝐵 will be committed at all correct replicas at the latest
+of 𝐵′ , so 𝑁 ′ will eventually receive all blocks from the causal        when 𝐵′ is committed alongside its causal history.               □
+history of 𝐵′ and thus include 𝐵′ in its local DAG.              □
+                                                                         Theorem 5 (Agreement). Nemo-Nemo satisfies the agreement
+Lemma 6. If a correct replica 𝑁 proposes a block 𝐵, then
+                                                                         property of Atomic Broadcast, with probability 1.
+every correct replica will eventually include 𝐵 in its local
+DAG.                                                                     Proof. Let 𝑁 be a correct replica and 𝐵 a block committed by
+                                                                         𝑁. We show that, with probability 1, 𝐵 is eventually committed
+Proof. Since network links are reliable, all correct replicas
+                                                                         by every correct replica. Let 𝐿 be the skeleton block with which
+will eventually receive 𝐵 from 𝑁. By Lemma 5, all correct
+                                                                         𝐵 is committed and 𝑆 the corresponding slot. By Lemma 8,
+replicas will eventually receive all of 𝐵’s causal history, and
+                                                                         all blocks up to and including 𝑆 are eventually decided by
+so will include 𝐵 in their local DAG.                         □
+                                                                         all correct replicas, with probability 1. By Observation 1, all
+Lemma 7. Fix a skeleton slot 𝑆. A replica directly commits 𝑆             correct replicas commit 𝐿 in 𝑆. Eventually, all correct replicas
+with probability at least 1/2.                                           commit 𝐵.                                                      □
+
+Proof. A block in round 𝑅 + 1 will reference a random subset             6    Implementation
+of 𝑓 + 1 blocks in round 𝑅. The probability that a given block 𝐵
+                                                                         We implemented Nemo-Nemo in Rust, building on the open-
+votes for the skeleton slot 𝑆 is 𝑝 = 2𝑓𝑓+1    1
+                                        +1 > 2 . Let 𝑉 (𝑆) denote        source Mysticeti codebase [26], which contains approxi-
+the random variable representing the number of replicas in               mately 14,000 lines of code (LOC). Our implementation
+round 𝑅 +1 that vote for 𝑆 in round 𝑅. 𝑉 (𝑆) follows a Binomial          uses tokio [49] for asynchronous networking and raw TCP
+distribution: 𝑉 (𝑆) ∼ 𝐵(𝑛, 𝑝), where 𝑝 = 2𝑓𝑓+1  +1 The expected          sockets for replica-to-replica communication.
+value of 𝑉 (𝑆) is: 𝐸 [𝑉 (𝑆)] = 𝑛 · 𝑝 = 𝑓 + 1.                               To support crash recovery and ensure data persistence, we
+   Since the mean 𝜇 = 𝑓 + 1 is an integer, the mean and the              implemented a Write-Ahead Log (WAL) tailored to Nemo-
+median of the distribution are equal [30]. By the definition of          Nemo. This provides stronger resilience than existing imple-
+the median 𝑚, we have Pr(𝑉 (𝑆) ≥ 𝑚) ≥ 21 . Thus, the probability         mentations of Multi-Paxos [50] and QuePaxa [51], which lack
+of a skeleton slot in round 𝑅 receiving at least 𝑓 + 1 votes             mechanisms for recovering after crashes, though this absence
+in round 𝑅 + 1, and thus being directly committed, satisfies:            arises from implementation choices rather than protocol spec-
+Pr(𝑉 (𝑆) ≥ 𝑓 + 1) ≥ 1/2.                                       □         ifications. Following prior implementations of Multi-Paxos,
+Lemma 8. Fix a skeleton slot 𝑆. Every correct replica even-              QuePaxa, and Rabia [41], we support batching at the replica
+tually either commits or skips 𝑆 with probability 1.                     level to amortize communication costs by packing multiple
+                                                                         commands into a single message. We collocated front- and
+Proof. By Lemma 7, the probability of a correct replica                  back-end within the same Nemo-Nemo binary. Each front-end
+directly committing any skeleton block in a given round is a             communicates with its assigned back-end, a design choice
+constant (≥ 1/2). Thus, the probability that a sequence of 𝑡             common in existing consensus protocol implementations [37].
+
+
+                                                                     7
+   We also implement a benchmark framework to simulate
+performance under a random asynchronous network model.                                     1,600                             Nemo-Nemo
+                                                                                                                             QuePaxa
+The framework forces each consensus instance to gather a                                   1,400                             Multi-Paxos
+
+
+
+
+                                                                         Median latency (ms)
+randomly selected quorum to commit rather than rely on                                     1,200                             EPaxos
+whichever majority returns first. This shifts performance                                                                    Rabia
+away from the quickest or geographically closest replicas
+                                                                                           1,000                             SADL-RACS
+and instead drives execution through a random message-                                       800
+delivery schedule that removes any bias toward low-latency                                   600
+quorums. We use this framework only in Section 7.7 and                                       400
+rely on standard communication patterns for the rest of our
+                                                                                             200
+evaluation in Section 7. To the best of our knowledge, this is the
+first work to introduce an evaluation framework for measuring                                  0 0      200k      400k     600k      800k
+protocol performance under the random asynchronous model,                                                 Throughput (cmd/sec)
+and we present this evaluation setup as a novel contribution of           Figure 3: Performance under normal case WAN execution.
+independent interest. We will open-source our Nemo-Nemo
+                                                                         two state-of-the-art DAG-based, partially synchronous BFT
+implementation upon acceptance to support reproducibility
+                                                                         consensus protocols: Bullshark [46] and Mysticeti [5]. We
+and enable further research in this area.
+                                                                         select these two BFT protocols because they share key ar-
+7     Evaluation                                                         chitectural features with Nemo-Nemo and because both are
+                                                                         widely deployed in production systems [8, 48].
+Our evaluation compares performance, scalability, and re-
+source efficiency to existing CFT consensus protocols. We                7.2                   Experimental setup
+experiment across a range of execution conditions, includ-               We deploy replicas on Amazon EC2 virtual machines [4]
+ing favorable (fault-free, timely communication), crash-fault            of type c5.4xlarge. Each machine provides 10 Gbps of
+scenarios, and both normal and unstable network conditions.              bandwidth, 16 virtual CPUs on a 2.5 GHz Intel Xeon Plat-
+                                                                         inum 8124M, 32 GB memory, and runs Ubuntu Linux
+7.1    Baselines
+                                                                         22.04 LTS [56]. We select these machines because they
+We compare the performance of Nemo-Nemo against state-of-                provide decent performance, are in the price range of
+the-art CFT protocols: Multi-Paxos [27, 50], EPaxos [35, 36],            “commodity servers”, and are in line with recent related
+QuePaxa [51, 52], Rabia [41, 42], and SADL-RACS [53]                     work [5, 23]. We conducted experiments in a wide-area net-
+   We select these baselines for their contrasting designs, en-          work (WAN) with replicas distributed across multiple AWS re-
+suring coverage of a broad spectrum of protocol architectures.           gions: Cape Town (af-south-1), Hyderabad (ap-south-2),
+Multi-Paxos uses a classic leader-based approach that chan-              Jakarta (ap-southeast-3), Osaka (ap-northeast-3), and
+nels all requests through a single leader. EPaxos adopts a               Milan (eu-south-1).
+multi-leader design in which every replica can propose and                  We instantiate several geo-distributed benchmark clients
+commit commands concurrently under dependency constraints.               collocated with each replica, submitting transactions in an
+EPaxos produces only a partial order, a weaker abstraction               open loop model [45], at a fixed rate. We experimentally
+than the total order that Nemo-Nemo enforces. QuePaxa rep-               increase the submission rate and record the throughput and
+resents the current state of the art in randomized consensus:            latency of commits. As a result, all plots illustrate the steady-
+it matches Multi-Paxos under synchronous conditions and                  state latency of all systems under load, as well as the maximal
+switches to a fallback mode that preserves throughput under              throughput they can provide, after which latency increases
+asynchrony, which makes it well suited for wide-area deploy-             rapidly. We verified that the CPU, memory, bandwidth, and
+ments. Rabia uses randomized techniques to optimize for                  storage resources are sufficient to host both the replica and
+low-latency local-area settings; we include it for complete-             client for all protocols under test.
+ness. SADL-RACS achieves high throughput by separating                      Following prior studies [42, 52] and production systems [9],
+command dissemination from the consensus critical path. We               we set the command size to 18 bytes. We set the timeouts at
+include QuePaxa, Multi-Paxos, EPaxos, and Nemo-Nemo in                   5 sec in each protocol. For each protocol, we measure end-to-
+all subsequent experiments. Due to page-limit constraints,               end commit latency. Throughput is measured in commands
+we report only best-case evaluations for SADL-RACS and                   per second (cmd/sec), where one command corresponds to a
+Rabia. We observed that the existing EPaxos codebase [35]                single 18-byte request. All protocols use batching to amortize
+does not support more than five replicas, an implementation              network latency.
+limitation noted by prior work [52, 53]. Therefore, we omit
+using EPaxos in the scalability experiment in Section 7.4.               7.3                   Normal case WAN performance
+Nemo-Nemo is designed for crash fault-tolerant systems; how-             We evaluate the normal-case performance of Nemo-Nemo in
+ever, for completeness, we also compare Nemo-Nemo against                a WAN under favorable (“synchronous”) network conditions.
+
+
+                                                                     8
+Figure 3 shows the throughput and median latency.
+
+
+
+
+                                                                                  Throughput (cmd/sec)
+                                                                                                     900k    Nemo-Nemo
+Multi-Paxos. We observe in Figure 3 that Nemo-Nemo reaches                                                   Multi-Paxos
+a saturation throughput of 800k cmd/s at a median latency of                                                 QuePaxa
+                                                                                                     600k
+600 ms. In contrast, Multi-Paxos reaches only 400k cmd/s at
+750 ms. This corresponds to a 2x throughput improvement and
+a 20% latency reduction for Nemo-Nemo over Multi-Paxos.                                              300k
+   Nemo-Nemo’s throughput advantage over Multi-Paxos
+stems from two key factors. First, Multi-Paxos funnels all                                               0   3             5      7       9
+client traffic through a single leader, creating a bottleneck,                                                       Number of Replicas
+whereas Nemo-Nemo distributes load uniformly across all                           Figure 4: Scalability with replication factor. Saturation
+replicas (see Section 3). Second, Nemo-Nemo amortizes a                           throughput under 500 ms median latency.
+single message per batch of commands (see Section 4), while
+Multi-Paxos requires ten messages per batch in a five-replica
+deployment, consisting of five propose messages followed by                       higher throughput and lower latency by load balancing across
+five accept messages.                                                             all participating nodes.
+
+EPaxos. We observe in Figure 3 that EPaxos delivers over                          SADL-RACS. SADL-RACS uses a mempool to disseminate
+400k cmd/s at a median latency of 440 ms, compared to Nemo-                       client commands off the consensus critical path. In our de-
+Nemo which reaches 800k cmd/s at 600 ms. Both EPaxos and                          ployment, it achieves a saturation throughput of 300k cmd/s
+Nemo-Nemo distribute load among all participating nodes                           with a median latency of 1.35 s. In comparison, Nemo-Nemo
+and therefore outperform leader-based Multi-Paxos in latency.                     reaches 800k cmd/s and 600 ms, corresponding to a 166%
+   For a throughput below 300k cmd/s, EPaxos achieves a                           higher throughput and 125% lower latency.
+130 ms lower median latency than Nemo-Nemo. This latency
+advantage arises because EPaxos provides only a partial order                        The performance advantage of Nemo-Nemo arises from its
+of commands, which incurs less coordination overhead than                         avoidance of extra dissemination round trips. SADL-RACS
+Nemo-Nemo, which enforces a total order. In this experiment,                      requires two additional hops to propagate commands, which
+we configured EPaxos with a 2% conflict rate [54], meaning                        significantly increases latency. By embedding command dis-
+that 98% of commands commit in a single round trip, resulting                     semination into the DAG and balancing load across replicas,
+in lower commit latency than Nemo-Nemo at moderate load.                          Nemo-Nemo sustains higher throughput and lower latency.
+   However, beyond 400k cmd/s, Nemo-Nemo achieves
+                                                                                  Rabia. In our WAN deployment, Rabia delivers only 1k cmd/s
+roughly 2× the throughput of EPaxos. This gap stems from
+                                                                                  with latency above 1.25 s, whereas Nemo-Nemo achieves
+two factors. (1) The EPaxos implementation suffers from
+                                                                                  800k cmd/s at 600 ms. Its lower WAN performance stems from
+implementation limitations—most notably a single-threaded
+                                                                                  its design assumptions and optimizations for low-latency, high-
+main execution path—whereas Nemo-Nemo employs a highly
+                                                                                  bandwidth LANs. As network diameter and latency variability
+parallelized design. (2) Under high arrival rates, EPaxos’s
+                                                                                  increase, Rabia’s design assumptions no longer hold, leading
+conflict-resolution overhead becomes a dominant bottleneck.
+                                                                                  to severely reduced throughput and higher latency.
+By avoiding specialized conflict resolution, Nemo-Nemo sus-
+tains substantially higher throughput.                                            Tail latency. None of the evaluated systems is optimized
+   EPaxos is well suited for applications requiring only par-                     for tail latency, and in practice we observe comparable per-
+tial order with low conflict rates, such as key-value stores                      centile 99 behavior across all protocols. Under a 1 s percentile
+where per-key ordering is sufficient. By contrast, Nemo-Nemo                      99 bound, Nemo-Nemo sustains 400k cmd/s, while EPaxos
+targets applications requiring a total order of all commands,                     reaches 375k cmd/s, and both QuePaxa and Multi-Paxos reach
+providing higher throughput for workloads that demand strong                      roughly 300k cmd/s. These results are consistent with prior
+consistency.                                                                      findings reported in related work [52].
+QuePaxa. We observe in Figure 3 that QuePaxa achieves only
+400k cmd/s at a median latency of 460 ms. Under normal-case                       Summary. Across our experiments, Nemo-Nemo consistently
+executions, QuePaxa1 funnels all commands through a single                        outperforms existing CFT protocols in WAN deployments,
+leader replica. As a result, QuePaxa’s performance is limited                     achieving higher throughput and lower latency. Its advantages
+by the leader replica’s capacity, whereas Nemo-Nemo achieves                      arise from uniform load distribution, minimal message delays,
+                                                                                  and avoidance of specialized assumptions (such as latency
+     1 Ideally, both QuePaxa and Multi-Paxos should incur the same overhead
+                                                                                  bounds) or conflict-resolution bottlenecks. These observations
+and achieve comparable performance in normal-case operation. However, the
+QuePaxa implementation yields higher throughput than Multi-Paxos because
+                                                                                  validate our vision: Nemo-Nemo is well suited for applications
+it leverages gRPC-based high-speed messaging and multi-threading, whereas         that require total ordering, high throughput, and low latency,
+the Multi-Paxos implementation employs single-threaded execution.                 in cloud and wide-area environments.
+
+
+                                                                              9
+                                                                                  must handle all client commands and broadcast them to follow-
+Throughput (cmd/sec)
+
+                   600k                                   Nemo-Nemo               ers, making the leader’s network bandwidth the bottleneck as
+                                                          Multi-Paxos
+                                                          QuePaxa                 command size grows. Nemo-Nemo’s multi-leader DAG-based
+                   400k                                                           design distributes bandwidth usage evenly across all replicas,
+                                                                                  avoiding the leader bottleneck entirely.
+                   200k                                                           7.6    Performance under crash failures
+                       0                                                          We evaluate how each system handles crash failures by de-
+                              18           32               512                   ploying five replicas in a WAN setup under a constant load
+                                   Command size (Bytes)
+                                                                                  of 40k cmd/sec. At 25 seconds, we crash the leader replica
+Figure 5: Scalability with command size. Saturation through-                      in Multi-Paxos and QuePaxa, and a random replica in Nemo-
+put under 500 ms median latency and 5 replicas.                                   Nemo and EPaxos. Figure 6 shows the throughput over time.
+7.4                    Scalability with number of replicas                        Leader-based protocols suffer downtime. Multi-Paxos through-
+We evaluate how Nemo-Nemo scales as the number of replicas                        put drops to zero immediately upon leader crash and remains
+increases. We deploy ensembles of 3, 5, 7, and 9 replicas across                  at zero during the leader election (view change). Once a new
+geographically distributed AWS regions and compare against                        leader is elected, the backlog of accumulated commands is pro-
+pipelined Multi-Paxos and QuePaxa2 . Figure 4 shows the                           cessed, causing a throughput spike before returning to steady
+saturation throughput under 500 ms median latency.                                state. QuePaxa exhibits similar behavior despite employing
+                                                                                  multiple leaders via a hedging schedule: by default, only the
+Leader-based performance degradation. Multi-Paxos and
+                                                                                  first leader proposes in the crash-free case, and the second
+QuePaxa exhibit throughput degradation of 35% and 33%,
+                                                                                  leader begins proposing only after the configured hedging
+respectively, when scaling from 3 to 9 replicas. The perfor-
+                                                                                  timeout. This design still creates a period of zero throughput
+mance degradation stems from leader-centric designs: as the
+                                                                                  during leader transition, followed by a spike when the new
+replication factor grows, the leader must handle more messages
+                                                                                  leader processes the backlog.
+due to larger quorum sizes, creating a resource bottleneck.
+                                                                                  Multi-leader protocols avoid downtime. Both EPaxos and
+Multi-leader scalability. In contrast, Nemo-Nemo’s through-
+                                                                                  Nemo-Nemo exhibit no visible downtime under replica
+put doubles from 500k to 1M cmd/sec over the same range,
+                                                                                  crashes. As multi-leader protocols, the failure of one replica
+demonstrating superior scalability. Nemo-Nemo exhibits op-
+                                                                                  does not affect the ability of the remaining replicas to make
+posite behavior due to its multi-leader DAG-based architecture.
+                                                                                  progress. Nemo-Nemo avoids explicit view changes and
+With only 3 replicas, Nemo-Nemo underutilizes available net-
+                                                                                  promptly discards blocks from crashed replicas, preventing
+work and CPU resources. Adding more replicas improves
+                                                                                  head-of-line blocking in the commit sequence. This ensures
+resource multiplexing across leaders, increasing throughput.
+                                                                                  that even if a crashed replica was previously a leader, its
+Furthermore, more replicas increase the number of blocks
+                                                                                  uncommitted blocks do not stall the system’s progress.
+per round and the causal history size of leader blocks without
+additional network hops, enabling higher parallelism.                             7.7    Performance under random asynchrony
+7.5                    Scalability with command size                              We evaluate Nemo-Nemo’s performance when experienc-
+                                                                                  ing random message delays, leveraging the benchmarking
+We evaluate the impact of command size on Nemo-Nemo’s
+                                                                                  framework presented in Section 6. To amplify the effects of
+performance. We experiment with three command sizes: 18 B,
+                                                                                  network randomization, we deploy 5 replicas in Cape Town
+32 B, and 512 B, as used in recent SMR work [3, 53]. We
+                                                                                  (af-south-1), London (eu-west-2), Ireland (eu-west-1), Milan
+deploy Nemo-Nemo, pipelined Multi-Paxos, and pipelined
+                                                                                  (eu-south-1), and Hyderabad (ap-south-2). This setup includes
+QuePaxa in a WAN setting with 5 replicas. Figure 5 depicts
+                                                                                  three replicas in Europe (forming a fast majority) and two
+the saturation throughput under 500 ms median latency.3
+                                                                                  geographically distant replicas, creating significant latency
+   As command size increases from 18 B to 512 B, Multi-
+                                                                                  variance. Figure 7 compares throughput and median latency
+Paxos degrades from 300k to 10k cmd/s, while QuePaxa drops
+                                                                                  for both normal conditions and random asynchrony.
+from 400k to 20k cmd/s. In contrast, Nemo-Nemo maintains
+50–66% higher throughput at 18 B and 32 B, and still retains                      Single leader-based protocols suffer under asynchrony. Multi-
+a 5% advantage at 512 B, degrading from 600k to 30k cmd/s.                        Paxos degrades from 400k to 300k cmd/sec while QuePaxa
+   This performance gap stems from fundamental architectural                      drops from 500k to 400k cmd/sec, under 500ms latency bound.
+differences. In Multi-Paxos and QuePaxa, the single leader                        This degradation stems from their reliance on single leader-
+   2 Due to an implementation error, EPaxos only supports up to 5 replicas
+                                                                                  based dissemination: all commands must flow through a single
+and is excluded from this experiment.
+                                                                                  leader to its quorum. Under random asynchronous network
+   3 The EPaxos implementation does not allow configurable command sizes          conditions, the leader or its quorum members experience slow
+and was omitted from this experiment.                                             message delivery, creating a bottleneck that degrades overall
+
+
+                                                                             10
+                        80k                                              80k                                               80k                                                                 80k
+     Throughput (cmd/sec)
+
+
+
+
+                                                      Throughput (cmd/sec)
+
+
+
+
+                                                                                                        Throughput (cmd/sec)
+
+
+
+
+                                                                                                                                                                            Throughput (cmd/sec)
+                                     Nemo-Nemo                                                EPaxos                                                          Multi-Paxos                                   QuePaxa
+                        60k                                              60k                                               60k                                                                 60k
+                        40k                                              40k                                               40k                                                                 40k
+                        20k                                              20k                                               20k                                                                 20k
+              20      40  0060                20      40     60            00 20      40     60              20       40   6000                                                                  00
+               Time (s)                        Time (s)                        Time (s)                        Time (s)
+Figure 6: Throughput under crash failures with 5 replicas. At 25 seconds, we crash the leader in Multi-Paxos and QuePaxa, and a
+random replica in Nemo-Nemo and EPaxos. Constant arrival rate of 40k cmd/sec.
+
+                      1,200        Nemo-Nemo (random)                                                                                                               Nemo-Nemo                         QuePaxa
+                                   Nemo-Nemo                                                                                                                        Multi-Paxos                       EPaxos
+
+
+
+
+                                                                                                                               CPU Utilization (%)
+                      1,000        QuePaxa (random)                                                                                              15
+Median latency (ms)
+
+
+
+
+                                   QuePaxa
+                            800    Multi-Paxos (random)                                                                                          10
+                                   Multi-Paxos
+                            600                                                                                                                      5
+                            400                                                                                                                      0       10k                            100k            200k
+                                                                                                                                                                    Throughput (cmd/sec)
+                            200
+                                                                                                                                           Figure 9: Average CPU utilization across all 5 replicas.
+                             0 0     200k      400k                          600k     800k
+                                           Throughput (cmd/sec)                                                                7.8                       Comparison against BFT protocols
+Figure 7: Performance under normal conditions and random
+asynchrony with 5 replicas.                                                                                                    We compare Nemo-Nemo against state-of-the-art BFT DAG-
+                                                                                                                               based consensus protocols to understand how our CFT-
+                                                                                                                               optimized design compares to systems designed for BFT.
+                      1,750                                                          Nemo-Nemo
+                                                                                     Mysticeti                                 We deploy 10 replicas with 32 B commands and compare
+                      1,500                                                          Bullshark
+Average latency (ms)
+
+
+
+
+                                                                                                                               against two popular BFT DAG protocols: Bullshark and Mys-
+                      1,250                                                                                                    ticeti. Bullshark is a partially synchronous protocol using
+                                                                                                                               Narwhal as its DAG layer. Mysticeti is an uncertified DAG
+                      1,000                                                                                                    protocol achieving an optimal three-round commitment. Since
+                        750                                                                                                    both Bullshark and Mysticeti report average latency, we depict
+                                                                                                                               the average latency in this evaluation. Figure 8 shows the
+                        500                                                                                                    latency-throughput trade-off.
+                        250
+                                                                                                                           Throughput. Nemo-Nemo and Mysticeti achieve at least
+                          00       100k    200k   300k                        400k     500k   600k                         600k cmd/sec throughput, as both employ lightweight DAG-
+                                          Throughput (cmd/sec)                                                             based architectures for parallel block processing. Bullshark
+Figure 8: Comparison against state-of-the-art BFT DAG-based                                                                attains only 450k cmd/sec (25% lower) due to its heavier
+protocols with 10 replicas and 32 B commands.                                                                              Narwhal-based certified DAG design.
+
+                                                                                                                               Latency advantages. More importantly, Nemo-Nemo achieves
+system performance.                                                                                                            substantially lower latency than both BFT protocols: 1200 ms
+                                                                                                                               lower than Bullshark and 180 ms lower latency than Mysticeti.
+DAG-based dissemination provides robustness. In stark                                                                          This latency advantage stems from two key differences. First,
+contrast, Nemo-Nemo maintains stable throughput at                                                                             Nemo-Nemo’s typical commit path requires only 2 message
+900k cmd/sec, showing no throughput degradation despite                                                                        delays, fewer than both Mysticeti (3 message delays) and Bull-
+network randomization. This results in Nemo-Nemo out-                                                                          shark (6 message delays). Second, Nemo-Nemo targets crash
+performing Multi-Paxos by 3× and QuePaxa by 2.25×, in                                                                          faults and avoids cryptographic operations entirely, while BFT
+throughput, under random asynchrony. Nemo-Nemo’s ro-                                                                           protocols must authenticate every message with signatures and
+bustness arises from its DAG-based architecture: all replicas                                                                  hashes to defend against Byzantine behavior. The combina-
+disseminate commands concurrently, creating multiple par-                                                                      tion of fewer message delays and zero cryptographic overhead
+allel paths to commitment. Nemo-Nemo adapts to network                                                                         enables Nemo-Nemo to achieve significantly lower latency
+conditions without performance degradation.                                                                                    than BFT alternatives.
+
+
+                                                                                                       11
+7.9     Resource utilization                                                      network messages to commit a batch of commands, resulting
+                                                                                  in high latency overhead (see in Figure 3). In contrast, Nemo-
+We measure the CPU utilization of Nemo-Nemo and follow
+                                                                                  Nemo embeds command dissemination directly into the DAG,
+Matte et al. [33], who use CPU utilization as a proxy for
+                                                                                  avoiding extra message hops and achieving lower latency and
+resource consumption. We record per-replica CPU utilization
+                                                                                  higher throughput.
+once per second with Go’s “gopsutil” tool [16], aggregate
+the readings across replicas, and report the mean per-replica                     DAG-based protocols. DAG-based consensus protocols are
+utilization in Figure 9.                                                          recent advancements in Byzantine fault-tolerance (BFT), but
+   Figure 9 shows that Nemo-Nemo uses only 1% CPU at                              have not been explored in the context of crash fault-tolerant
+100k cmd/sec, compared to 9%, 15%, and 7% for Multi-Paxos,                        (CFT) systems. Existing BFT DAG-based protocols can be
+QuePaxa, and EPaxos.4 The same pattern holds at 10k and                           classified into two categories: certified DAGs [14, 46] and
+200k cmd/sec. Multi-Paxos, QuePaxa, and EPaxos consume                            uncertified DAGs [5, 23, 25]. Nemo-Nemo is the first CFT
+more CPU because they process more messages: Nemo-Nemo                            protocol to adopt a DAG-based architecture, specifically using
+broadcasts one message per block, while existing protocols                        an uncertified DAG design.
+require at least two propose–vote rounds to commit a batch.                          DAG-Rider [24], Tusk [14], Bullshark [46], and Dumbo-
+This extra communication directly increases their CPU cost,                       NG [19] are representative certified DAG protocols that use
+whereas Nemo-Nemo avoids it.                                                      consistent broadcast to explicitly certify each DAG block [44].
+                                                                                  Fides [60] is a TEE-assisted BFT DAG protocol that also
+8     Related Work                                                                uses certified blocks, achieving certification in two rounds
+                                                                                  without signatures by leveraging TEE guarantees. Explicit
+Leader-based protocols. Most deployed consensus protocols
+                                                                                  certification ensures that equivocating blocks cannot exist,
+rely on a leader to order requests and achieve one-round-trip
+                                                                                  simplifying the commit rule. However, certification adds at
+normal-case commit latency [27, 39, 40]. While simple and
+                                                                                  least 3 message delays per DAG round and increases latency, as
+efficient in favorable conditions, leader-based protocols suffer
+                                                                                  seen in Bullshark’s results in Figure 8. It also raises bandwidth
+from two fundamental limitations: all client requests must
+                                                                                  and CPU costs, since replicas must disseminate, receive, and
+funnel through a single leader, limiting throughput scalability,
+                                                                                  verify cryptographic certificates. To avoid these drawbacks,
+and performance degrades significantly under asynchronous
+                                                                                  Nemo-Nemo employs an uncertified DAG architecture.
+or poor network conditions when the leader or its closest
+                                                                                     Cordial Miners [25], Mysticeti [5], Mahi-Mahi [23], and
+quorum experiences delays. As shown in Figures 3 to 5
+                                                                                  BlueBottle [58] operate over uncertified DAGs, where each
+and 7, Nemo-Nemo outperforms leader-based protocols in
+                                                                                  block is disseminated using best-effort to all replicas. Nemo-
+both throughput and latency by distributing load evenly across
+                                                                                  Nemo also builds on an uncertified DAG, but differs funda-
+replicas, providing robustness under network randomization.
+                                                                                  mentally from these BFT protocols in two key ways. First,
+Multi-leader protocols. To address the leader bottleneck,                         by targeting crash faults instead of Byzantine faults, Nemo-
+several protocols enable multiple concurrent leaders. Men-                        Nemo’s protocol structure requires one less DAG-round to
+cius [32] statically partitions the replicated log across replicas,               commit, reducing message delays from 3 to 2. Second, Nemo-
+but its main drawback is that SMR progress depends on the                         Nemo avoids expensive cryptographic operations such as
+slowest replica. In contrast, Nemo-Nemo progresses at the                         signature generation and verification, and hash computation
+speed of the majority. Generalized Paxos [28] and EPaxos [36]                     and verification. The combination of fewer message delays and
+support multi-leaders by exploiting request dependencies and                      zero cryptographic overhead enables Nemo-Nemo to achieve
+allowing partial order of commands. Under low load, EPaxos                        significantly lower latency than Mysticeti (see in Figure 8).
+achieves lower latency than Nemo-Nemo, but under high load,                       Orthogonal goals. Nemo-Nemo focuses on high-performance,
+the dependency-checking overhead becomes a bottleneck, de-                        simple consensus, but does not address several other important
+grading performance. Fast Paxos [29] and Multi-coordinated                        goals: e.g., scalability via partitioning commands and state [2,
+Paxos [11] also permit multiple leaders but deliver suboptimal                    18, 36, 43], shrinking quorum sizes [2, 21], exploiting WAN
+performance in practice [36].                                                     locality [2, 38], storage optimization with erasure coding [57,
+Parallel dissemination. SADL-RACS [53] takes a different                          59], or reducing replica load by outsourcing work [61]. We
+approach by decoupling command dissemination from the                             plan to explore how techniques from these complementary
+consensus critical path, following a design similar to Nar-                       efforts can integrate with Nemo-Nemo in future work.
+whal [14]. Unlike Nemo-Nemo, SADL-RACS does not build
+a DAG; instead, it uses the SADL overlay to maintain a per-
+replica chain of blocks, which are committed when the next
+RACS block is committed. This separation requires at least 5
+    4 QuePaxa adopts a gRPC-based multi-threaded design, while Multi-Paxos
+
+uses a single-threaded one, which increases QuePaxa’s CPU usage.
+
+
+                                                                             12
+References                                                                on Principles of distributed computing, pages 316–317,
+ [1] Ittai  Abraham, Neil Giridharan, and Kar-                            2007.
+     tik Nayak.   What’s dag got to do with it?                      [12] Miguel Castro and Barbara Liskov. Practical Byzan-
+     https://decentralizedthoughts.github.io/                             tine fault tolerance. In Proceedings of the 3rd USENIX
+     2025-08-08-DAGs/, August 2025.                                       Symposium on Operating Systems Design and Imple-
+ [2] Ailidani Ailijiang, Aleksey Charapko, Murat Demirbas,                mentation (OSDI), February 1999.
+     and Tevfik Kosar. WPaxos: Wide area network flex-               [13] CoinEx. What Is IKA? IKA: Exploring the Fastest MPC
+     ible consensus. IEEE Transactions on Parallel and                    Network on Sui Blockchain, 2025. CoinEx Academy.
+     Distributed Systems, 31(1):211–223, 2019.
+                                                                     [14] George Danezis, Lefteris Kokoris-Kogias, Alberto Son-
+ [3] Mohammadreza Alimadadi, Hieu Mai, Shenghsun Cho,                     nino, and Alexander Spiegelman. Narwhal and Tusk: a
+     Michael Ferdman, Peter Milder, and Shuai Mu. Wa-                     DAG-based mempool and efficient BFT consensus. In
+     verunner: An elegant approach to hardware acceleration               ACM EuroSys, 2022.
+     of state machine replication. In 20th USENIX Sympo-
+     sium on Networked Systems Design and Implementation             [15] George Danezis, Jovan Komatovic, Lefteris Kokoris-
+     (NSDI 23), pages 357–374, 2023.                                      Kogias, Alberto Sonnino, and Igor Zablotchi. Byzantine
+                                                                          consensus in the random asynchronous model. arXiv
+ [4] Amazon. AWS instance types. https://aws.amazon.                      preprint arXiv:2502.09116, 2025.
+     com/ec2/instance-types/, 2023.
+                                                                     [16] DataDog. gopsutil. https://github.com/DataDog/
+ [5] Kushal Babel, Andrey Chursin, George Danezis, Lefteris               gopsutil, 2025.
+     Kokoris-Kogias, and Alberto Sonnino. Mysticeti: Low-
+     latency dag consensus with fast commit path. arXiv              [17] Cynthia Dwork, Nancy Lynch, and Larry Stockmeyer.
+     preprint arXiv:2310.14821, 2023.                                     Consensus in the presence of partial synchrony. Journal
+                                                                          of the ACM (JACM), 35(2):288–323, 1988.
+ [6] Leemon Baird and Atul Luykx. The Hashgraph Proto-
+     col: Efficient Asynchronous BFT for High-Throughput             [18] Vitor Enes, Carlos Baquero, Tuanir França Rezende,
+     Distributed Ledgers. In 2020 International Conference                Alexey Gotsman, Matthieu Perrin, and Pierre Sutra.
+     on Omni-layer Intelligent Systems (COINS), 2020.                     State-machine replication for Planet-Scale systems. In
+                                                                          Proceedings of the Fifteenth European Conference on
+ [7] Michael Ben-Or. Another advantage of free choice (ex-                Computer Systems (EuroSys ’20), April 2020.
+     tended abstract): Completely asynchronous agreement
+     protocols. In Proceedings of the Second Annual ACM              [19] Yingzi Gao, Yuan Lu, Zhenliang Lu, Qiang Tang, Jing Xu,
+     Symposium on Principles of Distributed Computing,                    and Zhenfeng Zhang. Dumbo-ng: Fast asynchronous bft
+     PODC ’83, pages 27–30. ACM, August 1983.                             consensus with throughput-oblivious latency. In ACM
+                                                                          CCS, 2022.
+ [8] Sam Blackshear, Andrey Chursin, George Danezis, Anas-
+     tasios Kichidis, Lefteris Kokoris-Kogias, Xun Li, Mark          [20] Neil Giridharan, Florian Suri-Payer, Ittai Abraham,
+     Logan, and et al. Sui lutris: A blockchain combining                 Lorenzo Alvisi, and Natacha Crooks. Autobahn: Seam-
+     broadcast and consensus. In CCS, 2024.                               less high speed bft. In Proceedings of the ACM SIGOPS
+                                                                          30th Symposium on Operating Systems Principles, pages
+ [9] Nathan Bronson, Zach Amsden, George Cabrera, Prasad                  1–23, 2024.
+     Chakka, Peter Dimov, Hui Ding, Jack Ferris, Anthony
+     Giardullo, Sachin Kulkarni, Harry Li, Mark Marchukov,           [21] Heidi Howard, Dahlia Malkhi, and Alexander Spiegel-
+     Dmitri Petrov, Lovro Puzar, Yee Jiun Song, and Venkat                man. Flexible Paxos: Quorum intersection revisited.
+     Venkataramani. TAO: Facebook’s distributed data store                In Proceedings of the 20th International Conference
+     for the social graph. In USENIX Annual Technical                     on Principles of Distributed Systems (OPODIS 2016),
+     Conference USENIX ATC 13, pages 49–60, June 2013.                    December 2016.
+
+[10] Christian Cachin, Rachid Guerraoui, and Luís Rodrigues.         [22] IOTA Stiftung. Consensus on IOTA. https://
+     Introduction to Reliable and Secure Distributed Program-             docs.iota.org/about-iota/iota-architecture/
+     ming. Springer Science & Business Media, 2011.                       consensus, 2025. IOTA Documentation.
+
+[11] Lásaro Jonas Camargos, Rodrigo Malta Schmidt, and               [23] Philipp Jovanovic, Lefteris Kokoris Kogias, Bryan Ku-
+     Fernando Pedone. Multicoordinated paxos. In Pro-                     mara, Alberto Sonnino, Pasindu Tennage, and Igor
+     ceedings of the twenty-sixth annual ACM symposium                    Zablotchi. Mahi-mahi: Low-latency asynchronous bft
+
+
+                                                                13
+     dag-based consensus. 45th IEEE International Confer-             [37] Iulian Moraru, David G Andersen, Michael Kaminsky,
+     ence on Distributed Computing Systems, 2025.                          and Pasindu Tennage. EPaxos go-lang – modified for
+                                                                           QuePaxa experiments. https://github.com/dedis/
+[24] Idit Keidar, Eleftherios Kokoris-Kogias, Oded Naor, and               quepaxa-ePaxos-open-loop, September 2023.
+     Alexander Spiegelman. All You Need is DAG. In ACM
+     PODC, 2021.                                                      [38] Faisal Nawab, Divyakant Agrawal, and Amr El Abbadi.
+                                                                           DPaxos: Managing data closer to users for low-latency
+[25] Idit Keidar, Oded Naor, Ouri Poupko, and Ehud Shapiro.                and mobile applications. In ACM SIGMOD/PODS
+     Cordial Miners: Fast and Efficient Consensus for Every                Conference on Management of Data, June 2018.
+     Eventuality. In DISC, 2023.
+                                                                      [39] Brian M Oki and Barbara H Liskov. Viewstamped
+[26] Mysten Labs. Mysticeti: Low-latency dag consen-                       replication: A new primary copy method to support
+     sus with fast commit path. https://github.com/                        highly-available distributed systems. In Proceedings of
+     asonnino/mysticeti, 2024.                                             the Seventh Annual ACM Symposium on Principles of
+                                                                           Distributed Computing, pages 8–17, January 1988.
+[27] Leslie Lamport. Paxos made simple. ACM SIGACT
+     News (Distributed Computing Column) 32, 4, 32:51–58,             [40] Diego Ongaro and John Ousterhout. In search of an
+     December 2001.                                                        understandable consensus algorithm. In 2014 USENIX
+                                                                           Annual Technical Conference ATC14, pages 305–319,
+[28] Leslie Lamport. Generalized consensus and Paxos.                      June 2014.
+     Technical Report MSR-TR-2005-33, Microsoft Research,
+                                                                      [41] Haochen Pan, Jesse Tuglu, Neo Zhou, Tianshu Wang,
+     March 2005.
+                                                                           Yicheng Shen, Xiong Zheng, Joseph Tassarotti, Lewis
+[29] Leslie Lamport. Fast paxos. Distributed Computing,                    Tseng, and Roberto Palmieri. Rabia. https://github.
+     19(2):79–103, 2006.                                                   com/haochenpan/rabia, 2021. Rabia implementation
+                                                                           in the Go language (GitHub repository).
+[30] Nick Lord. Binomial averages when the mean is an
+     integer. The Mathematical Gazette 94, 331-332, 2010.             [42] Haochen Pan, Jesse Tuglu, Neo Zhou, Tianshu Wang,
+                                                                           Yicheng Shen, Xiong Zheng, Joseph Tassarotti, Lewis
+[31] Dahlia Malkhi and Pawel Szalachowski. Maximal ex-                     Tseng, and Roberto Palmieri. Rabia: Simplifying state-
+     tractable value (mev) protection on a dag. In Tokenomics,             machine replication through randomization. In Proceed-
+     2022.                                                                 ings of the ACM SIGOPS 28th Symposium on Operating
+                                                                           Systems Principles, pages 472–487, October 2021.
+[32] Yanhua Mao, Flavio Junqueira, and Keith Marzullo.
+     Mencius: Building efficient replicated state machines for        [43] Sebastiano Peluso, Alexandru Turcu, Roberto Palmieri,
+     WANs. In 8th USENIX Symposium on Operating Systems                    Giuliano Losa, and Binoy Ravindran. Making fast con-
+     Design and Implementation (OSDI 08), December 2008.                   sensus generally faster. In Proceedings of the 46th
+                                                                           Annual IEEE/IFIP International Conference on Depend-
+[33] Venkata Swaroop Matte, Aleksey Charapko, and Abu-                     able Systems and Networks (DSN), June 2016.
+     talib Aghayev. Scalable but wasteful: Current state of
+                                                                      [44] Mayank Raikwar, Nikita Polyanskii, and Sebastian
+     replication in the cloud. In Proceedings of the 13th ACM
+                                                                           Müller. SoK: DAG-based Consensus Protocols. In
+     Workshop on Hot Topics in Storage and File Systems,
+                                                                           IEEE ICBC, 2024.
+     pages 42–49, July 2021.
+                                                                      [45] Bianca Schroeder, Adam Wierman, and Mor Harchol-
+[34] Michael S. Paterson Michael J. Fischer, Nancy A. Lynch.               Balter. Open versus closed: A cautionary tale. In
+     Impossibility of distributed consensus with one faulty                Proceedings of the 3rd USENIX Symposium on Net-
+     process. Journal of ACM, 1985.                                        worked Systems Design and Implementation (NSDI 06).
+                                                                           USENIX, May 2006.
+[35] Iulian Moraru, David G Andersen, and Michael Kamin-
+     sky.    EPaxos go-lang.      https://github.com/                 [46] Alexander Spiegelman, Neil Giridharan, Alberto Son-
+     efficient/epaxos/, 2013.                                              nino, and Lefteris Kokoris-Kogias. Bullshark: DAG BFT
+                                                                           Protocols Made Practical. In ACM CCS, 2022.
+[36] Iulian Moraru, David G Andersen, and Michael Kamin-
+     sky. There is more consensus in egalitarian parliaments.         [47] Alexander Spiegelman, Neil Giridharan, Alberto Son-
+     In Proceedings of the Twenty-Fourth ACM Symposium on                  nino, and Lefteris Kokoris-Kogias. Bullshark: the
+     Operating Systems Principles, pages 358–372, November                 partially synchronous version.      arXiv preprint
+     2013.                                                                 arXiv:2209.05633, 2022.
+
+
+                                                                 14
+[48] The Sui team. Sui. https://github.com/mystenLabs/sui,           [60] Shaokang Xie, Dakai Kang, Hanzheng Lyu, Jianyu Niu,
+     2024.                                                                and Mohammad Sadoghi. Fides: Scalable censorship-
+                                                                          resistant dag consensus via trusted components. ArXiv
+[49] The Tokio Team. Tokio. https://tokio.rs, 2024.                       preprint arXiv:2501.01062, 2025.
+[50] Pasindu Tennage.    Paxos and Raft, September                   [61] Zichen Xu, Christopher Stewart, and Jiacheng Huang.
+     2023.   GitHub repository https://github.com/                        Elastic, geo-distributed RAFT. In Proceedings of the
+     dedis/paxos-and-raft.                                                International Symposium on Quality of Service. Associ-
+                                                                          ation for Computing Machinery, 2019.
+[51] Pasindu Tennage. QuePaxa, September 2023. GitHub
+     repository https://github.com/dedis/quepaxa.                    [62] Maofan Yin, Dahlia Malkhi, Michael K Reiter,
+                                                                          Guy Golan Gueta, and Ittai Abraham. Hotstuff: Bft
+[52] Pasindu Tennage, Cristina Basescu, Lefteris Kokoris-                 consensus with linearity and responsiveness. In ACM
+     Kogias, Ewa Syta, Philipp Jovanovic, Vero Estrada-                   PODC, 2019.
+     Galinanes, and Bryan Ford. Quepaxa: Escaping the
+     tyranny of timeouts in consensus. In Proceedings of the
+     29th Symposium on Operating Systems Principles, pages
+     281–297, 2023.
+
+[53] Pasindu Tennage, Antoine Desjardins, and Lefteris
+     Kokoris-Kogias. Racs-sadl: Robust and understand-
+     able randomized consensus in the cloud. In 2025 IEEE
+     18th International Conference on Cloud Computing
+     (CLOUD), pages 362–373, 2025.
+
+[54] Sarah Tollman, Seo Jin Park, and John K Ousterhout.
+     EPaxos revisited. In USENIX Symposium on Networked
+     Systems Design and Implementation (NSDI 21), pages
+     613–632, April 2021.
+
+[55] Giorgos Tsimos, Anastasios Kichidis, Alberto Sonnino,
+     and Lefteris Kokoris-Kogias. Hammerhead: Leader
+     reputation for dynamic scheduling. In 2024 IEEE 44th
+     International Conference on Distributed Computing Sys-
+     tems (ICDCS), pages 1377–1387, 2024.
+
+[56] Ubuntu. Ubuntu Linux. https://releases.ubuntu.
+     com/focal/, 2023.
+
+[57] Muhammed Uluyol, Anthony Huang, Ayush Goel,
+     Mosharaf Chowdhury, and Harsha V. Madhyastha. Near-
+     optimal latency versus cost tradeoffs in geo-distributed
+     storage. In Proceedings of the 17th USENIX Sympo-
+     sium on Networked Systems Design and Implementation
+     (NSDI ’20), February 2020.
+
+[58] Preston Vander Vos, Alberto Sonnino, Giorgos Tsimos,
+     Philipp Jovanovic, and Lefteris Kokoris-Kogias. Blue-
+     Bottle: Fast and Robust Blockchains through Subsystem
+     Specialization. ArXiv preprint arXiv:2511.15361, 2025.
+
+[59] Zizhong Wang, Tongliang Li, Haixia Wang, Airan Shao,
+     Yunren Bai, Shangming Cai, Zihan Xu, and Dongsheng
+     Wang. CRaft: An Erasure-coding-supported version
+     of Raft for reducing storage cost and network cost. In
+     Proceedings of the 18th USENIX Conference on File
+     and Storage Technologies (FAST ’20), February 2020.
+
+
+                                                                15
+

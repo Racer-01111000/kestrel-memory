@@ -1,0 +1,10 @@
+{
+  "term": "This is a key point",
+  "source_list": "phrases",
+  "definition": "(not found in Merriam-Webster)",
+  "usage_context": "",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/This%2520is%2520a%2520key%2520point",
+  "enriched_at": "2026-05-06T00:25:35.083625+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

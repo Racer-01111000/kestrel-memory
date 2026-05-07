@@ -1,0 +1,23 @@
+{
+  "id": "ibm_and_trapped_ion_technology_essay",
+  "title": "IBM and Trapped-Ion Technology Essay",
+  "text": "IBM's main commercial quantum hardware is superconducting-transmon based, not trapped-ion based; its relationship to trapped-ion technology is best understood as scientific participation, comparative benchmarking, and software/architecture awareness rather than ion-trap product ownership.",
+  "classification": "staged",
+  "learning_stage": "claim",
+  "confidence": "medium",
+  "authority": "operator_provided_explanatory_essay",
+  "project": "quantum",
+  "domain": "platform_architecture",
+  "source_file": "knowledge/staged/ibm_and_trapped_ion_technology_essay.md",
+  "created_at": "2026-04-12",
+  "review_status": "pending",
+  "notes": "Platform-analysis essay preserved as staged material; important correction that IBM production hardware is superconducting rather than trapped-ion.",
+  "epistemic_level": "fact_candidate",
+  "verification_sources": [
+    "https://arxiv.org/search/?searchtype=all&query=ibm%20and%20trapped%20ion%20technology%20essay%20trapped%20main%20commercial%20quantum%20hardware%20superconducting",
+    "https://en.wikipedia.org/w/index.php?search=ibm%20and%20trapped%20ion%20technology%20essay%20trapped%20main%20commercial%20quantum%20hardware%20superconducting",
+    "https://en.wikipedia.org/w/index.php?search=ibm%20and%20trapped%20ion%20technology%20essay%20platform%20architecture%20trapped%20main%20commercial%20quantum%20hardware",
+    "https://scholar.google.com/scholar?q=ibm%20and%20trapped%20ion%20technology%20essay%20platform%20architecture%20trapped%20main%20commercial%20quantum%20hardware"
+  ],
+  "last_verified_at": "2026-04-18T06:40:55Z"
+}

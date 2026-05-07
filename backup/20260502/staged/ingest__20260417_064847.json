@@ -1,0 +1,23 @@
+{
+  "id": "ingest_766e0d57c93d8a5b",
+  "title": "Quantum corpus ingest: hardware bottlenecks and scaling constraints",
+  "text": "CONTENT\nObjective:\nBuild a bounded quantum computing corpus focused on real hardware and scaling bottlenecks across major architectures.\nScope:\nCollect and stage source-backed material on:\n- superconducting qubit bottlenecks\n- trapped-ion bottlenecks\n- neutral-atom bottlenecks\n- photonic bottlenecks\n- control electronics constraints\n- coherence and decoherence limits\n- gate fidelity limits\n- connectivity and routing limits\n- cryogenic and thermal constraints\n- fabrication variability\n- calibration overhead\n- error correction overhead\n- interconnect and readout bottlenecks\n- scaling barriers from lab system to large fault-tolerant system\nSource preference:\nPrefer primary and technically grounded sources such as:\n- arXiv\n- PRX Quantum\n- Nature / Nature Physics / Nature Quantum Information where relevant\n- IBM Quantum technical materials\n- Microsoft Quantum technical materials\n- AWS Braket / Amazon technical materials\n- other first-party lab or research outputs with explicit technical substance\nExclusions:\n- hype-only summaries\n- investor language without technical backing\n- duplicated secondary summaries\n- vague \u201cquantum will change everything\u201d material\n- weak lexical matches that do not address hardware or scaling limits directly\nEpistemic policy:\nAcquisition \u2260 Evidence \u2260 Sufficiency \u2260 Promotion.\nNODE retrieval is acquisition only until relevance and sufficiency are checked.\nUnknown or opaque terms should use NODE-first bounded w3m retrieval before any escalation.\nDesired output:\n- staged claim-level artifacts\n- source metadata preserved\n- explicit unresolved-items list\n- identifiable hardware-specific bottlenecks\n- explicit scaling constraints by architecture\n- clean separation between established results, active research directions, and unresolved claims\nSuccess condition:\nProduce a usable staged corpus for host review with enough specificity to answer:\n\u201cWhat are the main hardware and scaling bottlenecks in current quantum computing systems?\u201d\nThe result should be strong enough for later synthesis, comparison, and promotion review.\nOperator note:\nIf proof remains insufficient after bounded NODE retrieval, escalate by Telegram with the exact unresolved gap.\nEPISTEMIC LEVEL\nclaim\nDOMAIN\nquantum, quantum-computing, hardware, scaling",
+  "classification": "staged",
+  "learning_stage": "claim",
+  "confidence": "medium",
+  "authority": "operator_ingest_project",
+  "domain": "",
+  "source_file": "knowledge/staged/ingest__20260417_064847.json",
+  "created_at": "2026-04-17",
+  "review_status": "pending",
+  "epistemic_level": "fact_candidate",
+  "ingest_type": "project",
+  "ingest_hash": "766e0d57c93d8a5b",
+  "verification_sources": [
+    "https://en.wikipedia.org/w/index.php?search=quantum%20corpus%20ingest%20hardware%20bottlenecks%20and%20scaling%20constraints%20bottlenecks%20quantum%20limits%20nature%20scaling%20source",
+    "https://scholar.google.com/scholar?q=quantum%20corpus%20ingest%20hardware%20bottlenecks%20and%20scaling%20constraints%20bottlenecks%20quantum%20limits%20nature%20scaling%20source",
+    "https://en.wikipedia.org/w/index.php?search=quantum%20corpus%20ingest%20hardware%20bottlenecks%20and%20scaling%20constraints%20bottlenecks%20quantum%20limits%20nature%20scaling",
+    "https://scholar.google.com/scholar?q=quantum%20corpus%20ingest%20hardware%20bottlenecks%20and%20scaling%20constraints%20bottlenecks%20quantum%20limits%20nature%20scaling"
+  ],
+  "last_verified_at": "2026-04-18T06:41:38Z"
+}

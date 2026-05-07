@@ -1,0 +1,10 @@
+{
+  "term": "process",
+  "source_list": "words",
+  "definition": "a series of actions that produce something or that lead to a particular",
+  "usage_context": "manufacturing processes",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/process",
+  "enriched_at": "2026-05-06T00:49:21.975000+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

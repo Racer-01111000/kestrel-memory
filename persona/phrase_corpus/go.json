@@ -1,0 +1,10 @@
+{
+  "term": "go",
+  "source_list": "words",
+  "definition": "to move or travel in a particular way or direction or for a particular",
+  "usage_context": "You need to go slow.",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/go",
+  "enriched_at": "2026-05-06T00:41:52.126658+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

@@ -1,0 +1,10 @@
+{
+  "term": "eight",
+  "source_list": "words",
+  "definition": "a number that is one more than seven see Table of Numbers",
+  "usage_context": "the eight of spades",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/eight",
+  "enriched_at": "2026-05-06T00:39:07.298845+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

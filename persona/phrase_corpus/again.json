@@ -1,0 +1,10 @@
+{
+  "term": "again",
+  "source_list": "words",
+  "definition": "another time",
+  "usage_context": "It happened again.",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/again",
+  "enriched_at": "2026-05-06T00:33:50.645252+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

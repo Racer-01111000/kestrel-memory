@@ -1,0 +1,10 @@
+{
+  "term": "wrong",
+  "source_list": "words",
+  "definition": "an injurious, unfair, or unjust act",
+  "usage_context": "without due provocation or just cause",
+  "moral_weight": "moral/ethical weight present",
+  "source_url": "https://www.merriam-webster.com/dictionary/wrong",
+  "enriched_at": "2026-05-06T00:58:09.331845+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

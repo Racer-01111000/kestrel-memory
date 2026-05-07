@@ -1,0 +1,10 @@
+{
+  "term": "hot",
+  "source_list": "words",
+  "definition": "having a relatively high temperature",
+  "usage_context": "hot and humid weather",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/hot",
+  "enriched_at": "2026-05-06T00:42:59.341359+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

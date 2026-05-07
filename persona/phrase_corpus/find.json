@@ -1,0 +1,10 @@
+{
+  "term": "find",
+  "source_list": "words",
+  "definition": "to come upon often accidentally",
+  "usage_context": "found a $10 bill on the ground",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/find",
+  "enriched_at": "2026-05-06T00:40:38.397072+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

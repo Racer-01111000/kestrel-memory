@@ -1,0 +1,10 @@
+{
+  "term": "Yesterday",
+  "source_list": "phrases",
+  "definition": "on the day last past",
+  "usage_context": "I wasn't born yesterday.",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/Yesterday",
+  "enriched_at": "2026-05-06T00:33:11.423131+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

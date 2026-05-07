@@ -1,0 +1,10 @@
+{
+  "term": "evaluate",
+  "source_list": "words",
+  "definition": "to determine or fix the value of",
+  "usage_context": "Take our 3 question quiz on evaluate",
+  "moral_weight": "moral/ethical weight present",
+  "source_url": "https://www.merriam-webster.com/dictionary/evaluate",
+  "enriched_at": "2026-05-06T00:39:33.156250+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

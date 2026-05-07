@@ -1,0 +1,10 @@
+{
+  "term": "inactive",
+  "source_list": "words",
+  "definition": "not active: such as",
+  "usage_context": "an inactive mine",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/inactive",
+  "enriched_at": "2026-05-06T00:43:27.676017+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

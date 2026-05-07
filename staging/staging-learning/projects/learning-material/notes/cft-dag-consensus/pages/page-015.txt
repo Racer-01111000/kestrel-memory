@@ -1,0 +1,59 @@
+[48] The Sui team. Sui. https://github.com/mystenLabs/sui,           [60] Shaokang Xie, Dakai Kang, Hanzheng Lyu, Jianyu Niu,
+     2024.                                                                and Mohammad Sadoghi. Fides: Scalable censorship-
+                                                                          resistant dag consensus via trusted components. ArXiv
+[49] The Tokio Team. Tokio. https://tokio.rs, 2024.                       preprint arXiv:2501.01062, 2025.
+[50] Pasindu Tennage.    Paxos and Raft, September                   [61] Zichen Xu, Christopher Stewart, and Jiacheng Huang.
+     2023.   GitHub repository https://github.com/                        Elastic, geo-distributed RAFT. In Proceedings of the
+     dedis/paxos-and-raft.                                                International Symposium on Quality of Service. Associ-
+                                                                          ation for Computing Machinery, 2019.
+[51] Pasindu Tennage. QuePaxa, September 2023. GitHub
+     repository https://github.com/dedis/quepaxa.                    [62] Maofan Yin, Dahlia Malkhi, Michael K Reiter,
+                                                                          Guy Golan Gueta, and Ittai Abraham. Hotstuff: Bft
+[52] Pasindu Tennage, Cristina Basescu, Lefteris Kokoris-                 consensus with linearity and responsiveness. In ACM
+     Kogias, Ewa Syta, Philipp Jovanovic, Vero Estrada-                   PODC, 2019.
+     Galinanes, and Bryan Ford. Quepaxa: Escaping the
+     tyranny of timeouts in consensus. In Proceedings of the
+     29th Symposium on Operating Systems Principles, pages
+     281–297, 2023.
+
+[53] Pasindu Tennage, Antoine Desjardins, and Lefteris
+     Kokoris-Kogias. Racs-sadl: Robust and understand-
+     able randomized consensus in the cloud. In 2025 IEEE
+     18th International Conference on Cloud Computing
+     (CLOUD), pages 362–373, 2025.
+
+[54] Sarah Tollman, Seo Jin Park, and John K Ousterhout.
+     EPaxos revisited. In USENIX Symposium on Networked
+     Systems Design and Implementation (NSDI 21), pages
+     613–632, April 2021.
+
+[55] Giorgos Tsimos, Anastasios Kichidis, Alberto Sonnino,
+     and Lefteris Kokoris-Kogias. Hammerhead: Leader
+     reputation for dynamic scheduling. In 2024 IEEE 44th
+     International Conference on Distributed Computing Sys-
+     tems (ICDCS), pages 1377–1387, 2024.
+
+[56] Ubuntu. Ubuntu Linux. https://releases.ubuntu.
+     com/focal/, 2023.
+
+[57] Muhammed Uluyol, Anthony Huang, Ayush Goel,
+     Mosharaf Chowdhury, and Harsha V. Madhyastha. Near-
+     optimal latency versus cost tradeoffs in geo-distributed
+     storage. In Proceedings of the 17th USENIX Sympo-
+     sium on Networked Systems Design and Implementation
+     (NSDI ’20), February 2020.
+
+[58] Preston Vander Vos, Alberto Sonnino, Giorgos Tsimos,
+     Philipp Jovanovic, and Lefteris Kokoris-Kogias. Blue-
+     Bottle: Fast and Robust Blockchains through Subsystem
+     Specialization. ArXiv preprint arXiv:2511.15361, 2025.
+
+[59] Zizhong Wang, Tongliang Li, Haixia Wang, Airan Shao,
+     Yunren Bai, Shangming Cai, Zihan Xu, and Dongsheng
+     Wang. CRaft: An Erasure-coding-supported version
+     of Raft for reducing storage cost and network cost. In
+     Proceedings of the 18th USENIX Conference on File
+     and Storage Technologies (FAST ’20), February 2020.
+
+
+                                                                15

@@ -1,0 +1,10 @@
+{
+  "term": "strange",
+  "source_list": "words",
+  "definition": "different from what is usual, ordinary, or expected",
+  "usage_context": "a strange sound",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/strange",
+  "enriched_at": "2026-05-06T00:53:47.011879+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

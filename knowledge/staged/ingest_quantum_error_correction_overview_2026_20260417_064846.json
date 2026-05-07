@@ -1,0 +1,23 @@
+{
+  "id": "ingest_20fe9196c6ba6a93",
+  "title": "Quantum Error Correction Overview 2026",
+  "text": "Surface code thresholds have improved to 99.5% fidelity in recent IBM hardware demonstrations.",
+  "classification": "staged",
+  "learning_stage": "claim",
+  "confidence": "medium",
+  "authority": "operator_ingest_source",
+  "domain": "quantum",
+  "source_file": "knowledge/staged/ingest_quantum_error_correction_overview_2026_20260417_064846.json",
+  "created_at": "2026-04-16",
+  "review_status": "pending",
+  "epistemic_level": "fact_candidate",
+  "ingest_type": "source",
+  "ingest_hash": "20fe9196c6ba6a93",
+  "verification_sources": [
+    "https://en.wikipedia.org/w/index.php?search=quantum%20error%20correction%20overview%202026%20surface%20code%20thresholds%20improved%20fidelity%20recent",
+    "https://scholar.google.com/scholar?q=quantum%20error%20correction%20overview%202026%20surface%20code%20thresholds%20improved%20fidelity%20recent",
+    "https://en.wikipedia.org/w/index.php?search=quantum%20error%20correction%20overview%202026%20quantum%20surface%20code%20thresholds%20improved%20fidelity",
+    "https://scholar.google.com/scholar?q=quantum%20error%20correction%20overview%202026%20quantum%20surface%20code%20thresholds%20improved%20fidelity"
+  ],
+  "last_verified_at": "2026-04-18T06:41:43Z"
+}

@@ -1,0 +1,10 @@
+{
+  "term": "person",
+  "source_list": "words",
+  "definition": "human, individual",
+  "usage_context": "an interesting person",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/person",
+  "enriched_at": "2026-05-06T00:48:45.347297+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

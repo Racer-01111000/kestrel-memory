@@ -1,0 +1,10 @@
+{
+  "term": "check",
+  "source_list": "words",
+  "definition": "to inspect, examine, or look at appraisingly or appreciatively",
+  "usage_context": "The doctors checked him over for injuries.",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/check",
+  "enriched_at": "2026-05-06T00:36:11.464579+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

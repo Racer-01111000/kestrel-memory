@@ -1,0 +1,10 @@
+{
+  "term": "message",
+  "source_list": "words",
+  "definition": "a communication in writing, in speech, or by signals",
+  "usage_context": "Please take this message for me to my friend.",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/message",
+  "enriched_at": "2026-05-06T00:45:51.206596+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

@@ -1,0 +1,10 @@
+{
+  "term": "text",
+  "source_list": "words",
+  "definition": "the original words and form of a written or printed work",
+  "usage_context": "",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/text",
+  "enriched_at": "2026-05-06T00:54:31.517707+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

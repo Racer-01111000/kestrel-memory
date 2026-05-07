@@ -1,0 +1,10 @@
+{
+  "term": "store",
+  "source_list": "words",
+  "definition": "lay away, accumulate",
+  "usage_context": "store vegetables for winter use",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/store",
+  "enriched_at": "2026-05-06T00:53:44.295297+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}

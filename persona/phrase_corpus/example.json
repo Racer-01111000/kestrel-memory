@@ -1,0 +1,10 @@
+{
+  "term": "example",
+  "source_list": "words",
+  "definition": "a person or way of behaving that serves as a pattern to be imitated or not to",
+  "usage_context": "be imitated",
+  "moral_weight": "neutral",
+  "source_url": "https://www.merriam-webster.com/dictionary/example",
+  "enriched_at": "2026-05-06T00:39:53.622032+00:00",
+  "corpus_layer": "kestrel_persona_corpus"
+}
