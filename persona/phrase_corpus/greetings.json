@@ -1,0 +1,10 @@
+{
+    "term": "greetings",
+    "source_list": "phrases",
+    "definition": "a salutation at meeting : an expression of goodwill",
+    "usage_context": "Greetings and salutations \u2014 greetings is a formal or playful opening",
+    "moral_weight": "neutral",
+    "source_url": "https://www.merriam-webster.com/dictionary/greetings",
+    "enriched_at": "2026-05-12T03:00:00.000000+00:00",
+    "corpus_layer": "kestrel_persona_corpus"
+}

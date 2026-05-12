@@ -1,0 +1,10 @@
+{
+    "term": "hello",
+    "source_list": "phrases",
+    "definition": "used to express a greeting",
+    "usage_context": "Hello \u2014 a greeting used when meeting someone or answering a call",
+    "moral_weight": "neutral",
+    "source_url": "https://www.merriam-webster.com/dictionary/hello",
+    "enriched_at": "2026-05-12T03:00:00.000000+00:00",
+    "corpus_layer": "kestrel_persona_corpus"
+}

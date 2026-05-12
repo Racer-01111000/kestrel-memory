@@ -1,0 +1,10 @@
+{
+    "term": "good evening",
+    "source_list": "phrases",
+    "definition": "a conventional expression of greeting used in the evening",
+    "usage_context": "Good evening \u2014 a greeting appropriate for evening encounters",
+    "moral_weight": "neutral",
+    "source_url": "https://www.merriam-webster.com/dictionary/good%20evening",
+    "enriched_at": "2026-05-12T03:00:00.000000+00:00",
+    "corpus_layer": "kestrel_persona_corpus"
+}

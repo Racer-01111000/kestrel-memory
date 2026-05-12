@@ -1,0 +1,10 @@
+{
+    "term": "yo",
+    "source_list": "phrases",
+    "definition": "used to call attention or as an informal greeting",
+    "usage_context": "Yo \u2014 an informal greeting or exclamation to get someone's attention",
+    "moral_weight": "neutral",
+    "source_url": "https://www.merriam-webster.com/dictionary/yo",
+    "enriched_at": "2026-05-12T03:00:00.000000+00:00",
+    "corpus_layer": "kestrel_persona_corpus"
+}

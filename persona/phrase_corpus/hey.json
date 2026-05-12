@@ -1,0 +1,10 @@
+{
+    "term": "hey",
+    "source_list": "phrases",
+    "definition": "used to call attention or express greeting",
+    "usage_context": "Hey, good to hear from you \u2014 hey is a casual greeting",
+    "moral_weight": "neutral",
+    "source_url": "https://www.merriam-webster.com/dictionary/hey",
+    "enriched_at": "2026-05-12T03:00:00.000000+00:00",
+    "corpus_layer": "kestrel_persona_corpus"
+}

@@ -1,0 +1,10 @@
+{
+    "term": "good morning",
+    "source_list": "phrases",
+    "definition": "a conventional expression of greeting used in the morning",
+    "usage_context": "Good morning \u2014 a greeting exchanged when meeting someone in the morning hours",
+    "moral_weight": "neutral",
+    "source_url": "https://www.merriam-webster.com/dictionary/good%20morning",
+    "enriched_at": "2026-05-12T03:00:00.000000+00:00",
+    "corpus_layer": "kestrel_persona_corpus"
+}

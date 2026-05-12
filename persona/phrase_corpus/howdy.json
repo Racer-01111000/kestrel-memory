@@ -1,0 +1,10 @@
+{
+    "term": "howdy",
+    "source_list": "phrases",
+    "definition": "chiefly dialectal : how do you do \u2014 used as a greeting",
+    "usage_context": "Howdy, partner \u2014 a friendly informal greeting common in American English",
+    "moral_weight": "neutral",
+    "source_url": "https://www.merriam-webster.com/dictionary/howdy",
+    "enriched_at": "2026-05-12T03:00:00.000000+00:00",
+    "corpus_layer": "kestrel_persona_corpus"
+}
