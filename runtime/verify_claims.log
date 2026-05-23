@@ -28716,3 +28716,2115 @@ Gate flags updated: auto_promote=true, requires_host_approval=false
 [2026-05-22T16:49:13Z]   Dry run: false
 [2026-05-22T16:49:13Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
 [2026-05-22T16:49:13Z] ════════════════════════════════════════════════════════
+[2026-05-22T17:19:00Z] ════════════════════════════════════════════════════════
+[2026-05-22T17:19:00Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-22T17:19:00Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-22T17:19:00Z] Run ts     : 2026-05-22T17:19:00Z
+[2026-05-22T17:19:00Z] ════════════════════════════════════════════════════════
+[2026-05-22T17:19:00Z] 
+[2026-05-22T17:19:00Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-22T17:19:01Z] 
+[2026-05-22T17:19:01Z] Pass 1 source tallies:
+[2026-05-22T17:19:01Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T17:19:01Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T17:19:01Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T17:19:01Z]   nist: 0 hits / 0 attempts
+[2026-05-22T17:19:01Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-22T17:19:01Z] 
+[2026-05-22T17:19:01Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-22T17:19:02Z] 
+[2026-05-22T17:19:02Z] Pass 2 source tallies:
+[2026-05-22T17:19:02Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T17:19:02Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T17:19:02Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T17:19:02Z]   nist: 0 hits / 0 attempts
+[2026-05-22T17:19:02Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-22T17:19:02Z] 
+[2026-05-22T17:19:02Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-22T17:19:02Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-22T17:19:13Z] 
+[2026-05-22T17:19:13Z] ════════════════════════════════════════════════════════
+[2026-05-22T17:19:13Z] verify_claims.sh v2 complete
+[2026-05-22T17:19:13Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-22T17:19:13Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-22T17:19:13Z]   Dry run: false
+[2026-05-22T17:19:13Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-22T17:19:13Z] ════════════════════════════════════════════════════════
+[2026-05-22T17:49:01Z] ════════════════════════════════════════════════════════
+[2026-05-22T17:49:01Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-22T17:49:01Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-22T17:49:01Z] Run ts     : 2026-05-22T17:49:01Z
+[2026-05-22T17:49:01Z] ════════════════════════════════════════════════════════
+[2026-05-22T17:49:01Z] 
+[2026-05-22T17:49:01Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-22T17:49:01Z] 
+[2026-05-22T17:49:01Z] Pass 1 source tallies:
+[2026-05-22T17:49:01Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T17:49:01Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T17:49:01Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T17:49:01Z]   nist: 0 hits / 0 attempts
+[2026-05-22T17:49:01Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-22T17:49:01Z] 
+[2026-05-22T17:49:01Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-22T17:49:02Z] 
+[2026-05-22T17:49:02Z] Pass 2 source tallies:
+[2026-05-22T17:49:02Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T17:49:02Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T17:49:02Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T17:49:02Z]   nist: 0 hits / 0 attempts
+[2026-05-22T17:49:02Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-22T17:49:02Z] 
+[2026-05-22T17:49:02Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-22T17:49:02Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-22T17:49:14Z] 
+[2026-05-22T17:49:14Z] ════════════════════════════════════════════════════════
+[2026-05-22T17:49:14Z] verify_claims.sh v2 complete
+[2026-05-22T17:49:14Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-22T17:49:14Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-22T17:49:14Z]   Dry run: false
+[2026-05-22T17:49:14Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-22T17:49:14Z] ════════════════════════════════════════════════════════
+[2026-05-22T18:19:01Z] ════════════════════════════════════════════════════════
+[2026-05-22T18:19:01Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-22T18:19:01Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-22T18:19:01Z] Run ts     : 2026-05-22T18:19:01Z
+[2026-05-22T18:19:01Z] ════════════════════════════════════════════════════════
+[2026-05-22T18:19:01Z] 
+[2026-05-22T18:19:01Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-22T18:19:02Z] 
+[2026-05-22T18:19:02Z] Pass 1 source tallies:
+[2026-05-22T18:19:02Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T18:19:02Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T18:19:02Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T18:19:02Z]   nist: 0 hits / 0 attempts
+[2026-05-22T18:19:02Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-22T18:19:02Z] 
+[2026-05-22T18:19:02Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-22T18:19:02Z] 
+[2026-05-22T18:19:02Z] Pass 2 source tallies:
+[2026-05-22T18:19:02Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T18:19:02Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T18:19:02Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T18:19:02Z]   nist: 0 hits / 0 attempts
+[2026-05-22T18:19:02Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-22T18:19:02Z] 
+[2026-05-22T18:19:02Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-22T18:19:02Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-22T18:19:14Z] 
+[2026-05-22T18:19:14Z] ════════════════════════════════════════════════════════
+[2026-05-22T18:19:14Z] verify_claims.sh v2 complete
+[2026-05-22T18:19:14Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-22T18:19:14Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-22T18:19:14Z]   Dry run: false
+[2026-05-22T18:19:14Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-22T18:19:14Z] ════════════════════════════════════════════════════════
+[2026-05-22T18:49:01Z] ════════════════════════════════════════════════════════
+[2026-05-22T18:49:01Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-22T18:49:01Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-22T18:49:01Z] Run ts     : 2026-05-22T18:49:01Z
+[2026-05-22T18:49:01Z] ════════════════════════════════════════════════════════
+[2026-05-22T18:49:01Z] 
+[2026-05-22T18:49:01Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-22T18:49:02Z] 
+[2026-05-22T18:49:02Z] Pass 1 source tallies:
+[2026-05-22T18:49:02Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T18:49:02Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T18:49:02Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T18:49:02Z]   nist: 0 hits / 0 attempts
+[2026-05-22T18:49:02Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-22T18:49:02Z] 
+[2026-05-22T18:49:02Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-22T18:49:03Z] 
+[2026-05-22T18:49:03Z] Pass 2 source tallies:
+[2026-05-22T18:49:03Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T18:49:03Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T18:49:03Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T18:49:03Z]   nist: 0 hits / 0 attempts
+[2026-05-22T18:49:03Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-22T18:49:03Z] 
+[2026-05-22T18:49:03Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-22T18:49:03Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-22T18:49:14Z] 
+[2026-05-22T18:49:14Z] ════════════════════════════════════════════════════════
+[2026-05-22T18:49:14Z] verify_claims.sh v2 complete
+[2026-05-22T18:49:14Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-22T18:49:14Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-22T18:49:14Z]   Dry run: false
+[2026-05-22T18:49:14Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-22T18:49:14Z] ════════════════════════════════════════════════════════
+[2026-05-22T19:19:59Z] ════════════════════════════════════════════════════════
+[2026-05-22T19:19:59Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-22T19:19:59Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-22T19:19:59Z] Run ts     : 2026-05-22T19:19:59Z
+[2026-05-22T19:19:59Z] ════════════════════════════════════════════════════════
+[2026-05-22T19:19:59Z] 
+[2026-05-22T19:19:59Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-22T19:20:00Z] 
+[2026-05-22T19:20:00Z] Pass 1 source tallies:
+[2026-05-22T19:20:00Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T19:20:00Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T19:20:00Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T19:20:00Z]   nist: 0 hits / 0 attempts
+[2026-05-22T19:20:00Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-22T19:20:00Z] 
+[2026-05-22T19:20:00Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-22T19:20:01Z] 
+[2026-05-22T19:20:01Z] Pass 2 source tallies:
+[2026-05-22T19:20:01Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T19:20:01Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T19:20:01Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T19:20:01Z]   nist: 0 hits / 0 attempts
+[2026-05-22T19:20:01Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-22T19:20:01Z] 
+[2026-05-22T19:20:01Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-22T19:20:01Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-22T19:20:12Z] 
+[2026-05-22T19:20:12Z] ════════════════════════════════════════════════════════
+[2026-05-22T19:20:12Z] verify_claims.sh v2 complete
+[2026-05-22T19:20:12Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-22T19:20:12Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-22T19:20:12Z]   Dry run: false
+[2026-05-22T19:20:12Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-22T19:20:12Z] ════════════════════════════════════════════════════════
+[2026-05-22T19:50:00Z] ════════════════════════════════════════════════════════
+[2026-05-22T19:50:00Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-22T19:50:00Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-22T19:50:00Z] Run ts     : 2026-05-22T19:50:00Z
+[2026-05-22T19:50:00Z] ════════════════════════════════════════════════════════
+[2026-05-22T19:50:00Z] 
+[2026-05-22T19:50:00Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-22T19:50:01Z] 
+[2026-05-22T19:50:01Z] Pass 1 source tallies:
+[2026-05-22T19:50:01Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T19:50:01Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T19:50:01Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T19:50:01Z]   nist: 0 hits / 0 attempts
+[2026-05-22T19:50:01Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-22T19:50:01Z] 
+[2026-05-22T19:50:01Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-22T19:50:01Z] 
+[2026-05-22T19:50:01Z] Pass 2 source tallies:
+[2026-05-22T19:50:01Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T19:50:01Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T19:50:01Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T19:50:01Z]   nist: 0 hits / 0 attempts
+[2026-05-22T19:50:01Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-22T19:50:01Z] 
+[2026-05-22T19:50:01Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-22T19:50:01Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-22T19:50:13Z] 
+[2026-05-22T19:50:13Z] ════════════════════════════════════════════════════════
+[2026-05-22T19:50:13Z] verify_claims.sh v2 complete
+[2026-05-22T19:50:13Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-22T19:50:13Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-22T19:50:13Z]   Dry run: false
+[2026-05-22T19:50:13Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-22T19:50:13Z] ════════════════════════════════════════════════════════
+[2026-05-22T20:20:00Z] ════════════════════════════════════════════════════════
+[2026-05-22T20:20:00Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-22T20:20:00Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-22T20:20:00Z] Run ts     : 2026-05-22T20:20:00Z
+[2026-05-22T20:20:00Z] ════════════════════════════════════════════════════════
+[2026-05-22T20:20:00Z] 
+[2026-05-22T20:20:00Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-22T20:20:01Z] 
+[2026-05-22T20:20:01Z] Pass 1 source tallies:
+[2026-05-22T20:20:01Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T20:20:01Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T20:20:01Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T20:20:01Z]   nist: 0 hits / 0 attempts
+[2026-05-22T20:20:01Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-22T20:20:01Z] 
+[2026-05-22T20:20:01Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-22T20:20:02Z] 
+[2026-05-22T20:20:02Z] Pass 2 source tallies:
+[2026-05-22T20:20:02Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T20:20:02Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T20:20:02Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T20:20:02Z]   nist: 0 hits / 0 attempts
+[2026-05-22T20:20:02Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-22T20:20:02Z] 
+[2026-05-22T20:20:02Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-22T20:20:02Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-22T20:20:14Z] 
+[2026-05-22T20:20:14Z] ════════════════════════════════════════════════════════
+[2026-05-22T20:20:14Z] verify_claims.sh v2 complete
+[2026-05-22T20:20:14Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-22T20:20:14Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-22T20:20:14Z]   Dry run: false
+[2026-05-22T20:20:14Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-22T20:20:14Z] ════════════════════════════════════════════════════════
+[2026-05-22T20:50:00Z] ════════════════════════════════════════════════════════
+[2026-05-22T20:50:00Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-22T20:50:00Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-22T20:50:00Z] Run ts     : 2026-05-22T20:50:00Z
+[2026-05-22T20:50:00Z] ════════════════════════════════════════════════════════
+[2026-05-22T20:50:00Z] 
+[2026-05-22T20:50:00Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-22T20:50:01Z] 
+[2026-05-22T20:50:01Z] Pass 1 source tallies:
+[2026-05-22T20:50:01Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T20:50:01Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T20:50:01Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T20:50:01Z]   nist: 0 hits / 0 attempts
+[2026-05-22T20:50:01Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-22T20:50:01Z] 
+[2026-05-22T20:50:01Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-22T20:50:02Z] 
+[2026-05-22T20:50:02Z] Pass 2 source tallies:
+[2026-05-22T20:50:02Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T20:50:02Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T20:50:02Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T20:50:02Z]   nist: 0 hits / 0 attempts
+[2026-05-22T20:50:02Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-22T20:50:02Z] 
+[2026-05-22T20:50:02Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-22T20:50:02Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-22T20:50:14Z] 
+[2026-05-22T20:50:14Z] ════════════════════════════════════════════════════════
+[2026-05-22T20:50:14Z] verify_claims.sh v2 complete
+[2026-05-22T20:50:14Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-22T20:50:14Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-22T20:50:14Z]   Dry run: false
+[2026-05-22T20:50:14Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-22T20:50:14Z] ════════════════════════════════════════════════════════
+[2026-05-22T21:20:00Z] ════════════════════════════════════════════════════════
+[2026-05-22T21:20:00Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-22T21:20:00Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-22T21:20:00Z] Run ts     : 2026-05-22T21:20:00Z
+[2026-05-22T21:20:00Z] ════════════════════════════════════════════════════════
+[2026-05-22T21:20:00Z] 
+[2026-05-22T21:20:00Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-22T21:20:01Z] 
+[2026-05-22T21:20:01Z] Pass 1 source tallies:
+[2026-05-22T21:20:01Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T21:20:01Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T21:20:01Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T21:20:01Z]   nist: 0 hits / 0 attempts
+[2026-05-22T21:20:01Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-22T21:20:01Z] 
+[2026-05-22T21:20:01Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-22T21:20:02Z] 
+[2026-05-22T21:20:02Z] Pass 2 source tallies:
+[2026-05-22T21:20:02Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T21:20:02Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T21:20:02Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T21:20:02Z]   nist: 0 hits / 0 attempts
+[2026-05-22T21:20:02Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-22T21:20:02Z] 
+[2026-05-22T21:20:02Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-22T21:20:02Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-22T21:20:13Z] 
+[2026-05-22T21:20:13Z] ════════════════════════════════════════════════════════
+[2026-05-22T21:20:13Z] verify_claims.sh v2 complete
+[2026-05-22T21:20:13Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-22T21:20:13Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-22T21:20:13Z]   Dry run: false
+[2026-05-22T21:20:13Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-22T21:20:13Z] ════════════════════════════════════════════════════════
+[2026-05-22T21:50:01Z] ════════════════════════════════════════════════════════
+[2026-05-22T21:50:01Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-22T21:50:01Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-22T21:50:01Z] Run ts     : 2026-05-22T21:50:01Z
+[2026-05-22T21:50:01Z] ════════════════════════════════════════════════════════
+[2026-05-22T21:50:01Z] 
+[2026-05-22T21:50:01Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-22T21:50:02Z] 
+[2026-05-22T21:50:02Z] Pass 1 source tallies:
+[2026-05-22T21:50:02Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T21:50:02Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T21:50:02Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T21:50:02Z]   nist: 0 hits / 0 attempts
+[2026-05-22T21:50:02Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-22T21:50:02Z] 
+[2026-05-22T21:50:02Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-22T21:50:02Z] 
+[2026-05-22T21:50:02Z] Pass 2 source tallies:
+[2026-05-22T21:50:02Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T21:50:02Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T21:50:02Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T21:50:02Z]   nist: 0 hits / 0 attempts
+[2026-05-22T21:50:02Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-22T21:50:02Z] 
+[2026-05-22T21:50:02Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-22T21:50:02Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-22T21:50:14Z] 
+[2026-05-22T21:50:14Z] ════════════════════════════════════════════════════════
+[2026-05-22T21:50:14Z] verify_claims.sh v2 complete
+[2026-05-22T21:50:14Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-22T21:50:14Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-22T21:50:14Z]   Dry run: false
+[2026-05-22T21:50:14Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-22T21:50:14Z] ════════════════════════════════════════════════════════
+[2026-05-22T22:20:01Z] ════════════════════════════════════════════════════════
+[2026-05-22T22:20:01Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-22T22:20:01Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-22T22:20:01Z] Run ts     : 2026-05-22T22:20:01Z
+[2026-05-22T22:20:01Z] ════════════════════════════════════════════════════════
+[2026-05-22T22:20:01Z] 
+[2026-05-22T22:20:01Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-22T22:20:02Z] 
+[2026-05-22T22:20:02Z] Pass 1 source tallies:
+[2026-05-22T22:20:02Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T22:20:02Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T22:20:02Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T22:20:02Z]   nist: 0 hits / 0 attempts
+[2026-05-22T22:20:02Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-22T22:20:02Z] 
+[2026-05-22T22:20:02Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-22T22:20:03Z] 
+[2026-05-22T22:20:03Z] Pass 2 source tallies:
+[2026-05-22T22:20:03Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T22:20:03Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T22:20:03Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T22:20:03Z]   nist: 0 hits / 0 attempts
+[2026-05-22T22:20:03Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-22T22:20:03Z] 
+[2026-05-22T22:20:03Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-22T22:20:03Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-22T22:20:14Z] 
+[2026-05-22T22:20:14Z] ════════════════════════════════════════════════════════
+[2026-05-22T22:20:14Z] verify_claims.sh v2 complete
+[2026-05-22T22:20:14Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-22T22:20:14Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-22T22:20:14Z]   Dry run: false
+[2026-05-22T22:20:14Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-22T22:20:14Z] ════════════════════════════════════════════════════════
+[2026-05-22T22:50:59Z] ════════════════════════════════════════════════════════
+[2026-05-22T22:50:59Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-22T22:50:59Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-22T22:50:59Z] Run ts     : 2026-05-22T22:50:59Z
+[2026-05-22T22:50:59Z] ════════════════════════════════════════════════════════
+[2026-05-22T22:50:59Z] 
+[2026-05-22T22:50:59Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-22T22:51:00Z] 
+[2026-05-22T22:51:00Z] Pass 1 source tallies:
+[2026-05-22T22:51:00Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T22:51:00Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T22:51:00Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T22:51:00Z]   nist: 0 hits / 0 attempts
+[2026-05-22T22:51:00Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-22T22:51:00Z] 
+[2026-05-22T22:51:00Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-22T22:51:01Z] 
+[2026-05-22T22:51:01Z] Pass 2 source tallies:
+[2026-05-22T22:51:01Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T22:51:01Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T22:51:01Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T22:51:01Z]   nist: 0 hits / 0 attempts
+[2026-05-22T22:51:01Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-22T22:51:01Z] 
+[2026-05-22T22:51:01Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-22T22:51:01Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-22T22:51:12Z] 
+[2026-05-22T22:51:12Z] ════════════════════════════════════════════════════════
+[2026-05-22T22:51:12Z] verify_claims.sh v2 complete
+[2026-05-22T22:51:12Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-22T22:51:12Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-22T22:51:12Z]   Dry run: false
+[2026-05-22T22:51:12Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-22T22:51:12Z] ════════════════════════════════════════════════════════
+[2026-05-22T23:20:59Z] ════════════════════════════════════════════════════════
+[2026-05-22T23:20:59Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-22T23:20:59Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-22T23:20:59Z] Run ts     : 2026-05-22T23:20:59Z
+[2026-05-22T23:20:59Z] ════════════════════════════════════════════════════════
+[2026-05-22T23:20:59Z] 
+[2026-05-22T23:20:59Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-22T23:21:01Z] 
+[2026-05-22T23:21:01Z] Pass 1 source tallies:
+[2026-05-22T23:21:01Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T23:21:01Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T23:21:01Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T23:21:01Z]   nist: 0 hits / 0 attempts
+[2026-05-22T23:21:01Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-22T23:21:01Z] 
+[2026-05-22T23:21:01Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-22T23:21:02Z] 
+[2026-05-22T23:21:02Z] Pass 2 source tallies:
+[2026-05-22T23:21:02Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T23:21:02Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T23:21:02Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T23:21:02Z]   nist: 0 hits / 0 attempts
+[2026-05-22T23:21:02Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-22T23:21:02Z] 
+[2026-05-22T23:21:02Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-22T23:21:02Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-22T23:21:14Z] 
+[2026-05-22T23:21:14Z] ════════════════════════════════════════════════════════
+[2026-05-22T23:21:14Z] verify_claims.sh v2 complete
+[2026-05-22T23:21:14Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-22T23:21:14Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-22T23:21:14Z]   Dry run: false
+[2026-05-22T23:21:14Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-22T23:21:14Z] ════════════════════════════════════════════════════════
+[2026-05-22T23:51:59Z] ════════════════════════════════════════════════════════
+[2026-05-22T23:51:59Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-22T23:51:59Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-22T23:51:59Z] Run ts     : 2026-05-22T23:51:59Z
+[2026-05-22T23:51:59Z] ════════════════════════════════════════════════════════
+[2026-05-22T23:51:59Z] 
+[2026-05-22T23:51:59Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-22T23:52:00Z] 
+[2026-05-22T23:52:00Z] Pass 1 source tallies:
+[2026-05-22T23:52:00Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T23:52:00Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T23:52:00Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T23:52:00Z]   nist: 0 hits / 0 attempts
+[2026-05-22T23:52:00Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-22T23:52:00Z] 
+[2026-05-22T23:52:00Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-22T23:52:01Z] 
+[2026-05-22T23:52:01Z] Pass 2 source tallies:
+[2026-05-22T23:52:01Z]   arxiv: 0 hits / 0 attempts
+[2026-05-22T23:52:01Z]   crossref: 0 hits / 0 attempts
+[2026-05-22T23:52:01Z]   inspire: 0 hits / 0 attempts
+[2026-05-22T23:52:01Z]   nist: 0 hits / 0 attempts
+[2026-05-22T23:52:01Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-22T23:52:01Z] 
+[2026-05-22T23:52:01Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-22T23:52:01Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-22T23:52:12Z] 
+[2026-05-22T23:52:12Z] ════════════════════════════════════════════════════════
+[2026-05-22T23:52:12Z] verify_claims.sh v2 complete
+[2026-05-22T23:52:12Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-22T23:52:12Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-22T23:52:12Z]   Dry run: false
+[2026-05-22T23:52:12Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-22T23:52:12Z] ════════════════════════════════════════════════════════
+[2026-05-23T00:21:59Z] ════════════════════════════════════════════════════════
+[2026-05-23T00:21:59Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-23T00:21:59Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-23T00:21:59Z] Run ts     : 2026-05-23T00:21:59Z
+[2026-05-23T00:21:59Z] ════════════════════════════════════════════════════════
+[2026-05-23T00:21:59Z] 
+[2026-05-23T00:21:59Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-23T00:22:01Z] 
+[2026-05-23T00:22:01Z] Pass 1 source tallies:
+[2026-05-23T00:22:01Z]   arxiv: 0 hits / 0 attempts
+[2026-05-23T00:22:01Z]   crossref: 0 hits / 0 attempts
+[2026-05-23T00:22:01Z]   inspire: 0 hits / 0 attempts
+[2026-05-23T00:22:01Z]   nist: 0 hits / 0 attempts
+[2026-05-23T00:22:01Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-23T00:22:01Z] 
+[2026-05-23T00:22:01Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-23T00:22:01Z] 
+[2026-05-23T00:22:01Z] Pass 2 source tallies:
+[2026-05-23T00:22:01Z]   arxiv: 0 hits / 0 attempts
+[2026-05-23T00:22:01Z]   crossref: 0 hits / 0 attempts
+[2026-05-23T00:22:01Z]   inspire: 0 hits / 0 attempts
+[2026-05-23T00:22:01Z]   nist: 0 hits / 0 attempts
+[2026-05-23T00:22:01Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-23T00:22:01Z] 
+[2026-05-23T00:22:01Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-23T00:22:02Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-23T00:22:13Z] 
+[2026-05-23T00:22:13Z] ════════════════════════════════════════════════════════
+[2026-05-23T00:22:13Z] verify_claims.sh v2 complete
+[2026-05-23T00:22:13Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-23T00:22:13Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-23T00:22:13Z]   Dry run: false
+[2026-05-23T00:22:13Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-23T00:22:13Z] ════════════════════════════════════════════════════════
+[2026-05-23T00:52:59Z] ════════════════════════════════════════════════════════
+[2026-05-23T00:52:59Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-23T00:52:59Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-23T00:52:59Z] Run ts     : 2026-05-23T00:52:59Z
+[2026-05-23T00:52:59Z] ════════════════════════════════════════════════════════
+[2026-05-23T00:52:59Z] 
+[2026-05-23T00:52:59Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-23T00:53:00Z] 
+[2026-05-23T00:53:00Z] Pass 1 source tallies:
+[2026-05-23T00:53:00Z]   arxiv: 0 hits / 0 attempts
+[2026-05-23T00:53:00Z]   crossref: 0 hits / 0 attempts
+[2026-05-23T00:53:00Z]   inspire: 0 hits / 0 attempts
+[2026-05-23T00:53:00Z]   nist: 0 hits / 0 attempts
+[2026-05-23T00:53:00Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-23T00:53:00Z] 
+[2026-05-23T00:53:00Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-23T00:53:01Z] 
+[2026-05-23T00:53:01Z] Pass 2 source tallies:
+[2026-05-23T00:53:01Z]   arxiv: 0 hits / 0 attempts
+[2026-05-23T00:53:01Z]   crossref: 0 hits / 0 attempts
+[2026-05-23T00:53:01Z]   inspire: 0 hits / 0 attempts
+[2026-05-23T00:53:01Z]   nist: 0 hits / 0 attempts
+[2026-05-23T00:53:01Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-23T00:53:01Z] 
+[2026-05-23T00:53:01Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-23T00:53:01Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-23T00:53:12Z] 
+[2026-05-23T00:53:12Z] ════════════════════════════════════════════════════════
+[2026-05-23T00:53:12Z] verify_claims.sh v2 complete
+[2026-05-23T00:53:12Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-23T00:53:12Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-23T00:53:12Z]   Dry run: false
+[2026-05-23T00:53:12Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-23T00:53:12Z] ════════════════════════════════════════════════════════
+[2026-05-23T01:23:00Z] ════════════════════════════════════════════════════════
+[2026-05-23T01:23:00Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-23T01:23:00Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-23T01:23:00Z] Run ts     : 2026-05-23T01:23:00Z
+[2026-05-23T01:23:00Z] ════════════════════════════════════════════════════════
+[2026-05-23T01:23:00Z] 
+[2026-05-23T01:23:00Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-23T01:23:01Z] 
+[2026-05-23T01:23:01Z] Pass 1 source tallies:
+[2026-05-23T01:23:01Z]   arxiv: 0 hits / 0 attempts
+[2026-05-23T01:23:01Z]   crossref: 0 hits / 0 attempts
+[2026-05-23T01:23:01Z]   inspire: 0 hits / 0 attempts
+[2026-05-23T01:23:01Z]   nist: 0 hits / 0 attempts
+[2026-05-23T01:23:01Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-23T01:23:01Z] 
+[2026-05-23T01:23:01Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-23T01:23:02Z] 
+[2026-05-23T01:23:02Z] Pass 2 source tallies:
+[2026-05-23T01:23:02Z]   arxiv: 0 hits / 0 attempts
+[2026-05-23T01:23:02Z]   crossref: 0 hits / 0 attempts
+[2026-05-23T01:23:02Z]   inspire: 0 hits / 0 attempts
+[2026-05-23T01:23:02Z]   nist: 0 hits / 0 attempts
+[2026-05-23T01:23:02Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-23T01:23:02Z] 
+[2026-05-23T01:23:02Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-23T01:23:02Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-23T01:23:14Z] 
+[2026-05-23T01:23:14Z] ════════════════════════════════════════════════════════
+[2026-05-23T01:23:14Z] verify_claims.sh v2 complete
+[2026-05-23T01:23:14Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-23T01:23:14Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-23T01:23:14Z]   Dry run: false
+[2026-05-23T01:23:14Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-23T01:23:14Z] ════════════════════════════════════════════════════════
+[2026-05-23T01:53:29Z] ════════════════════════════════════════════════════════
+[2026-05-23T01:53:29Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-23T01:53:29Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-23T01:53:29Z] Run ts     : 2026-05-23T01:53:29Z
+[2026-05-23T01:53:29Z] ════════════════════════════════════════════════════════
+[2026-05-23T01:53:29Z] 
+[2026-05-23T01:53:29Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-23T01:53:31Z] 
+[2026-05-23T01:53:31Z] Pass 1 source tallies:
+[2026-05-23T01:53:31Z]   arxiv: 0 hits / 0 attempts
+[2026-05-23T01:53:31Z]   crossref: 0 hits / 0 attempts
+[2026-05-23T01:53:31Z]   inspire: 0 hits / 0 attempts
+[2026-05-23T01:53:31Z]   nist: 0 hits / 0 attempts
+[2026-05-23T01:53:31Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-23T01:53:31Z] 
+[2026-05-23T01:53:31Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-23T01:53:32Z] 
+[2026-05-23T01:53:32Z] Pass 2 source tallies:
+[2026-05-23T01:53:32Z]   arxiv: 0 hits / 0 attempts
+[2026-05-23T01:53:32Z]   crossref: 0 hits / 0 attempts
+[2026-05-23T01:53:32Z]   inspire: 0 hits / 0 attempts
+[2026-05-23T01:53:32Z]   nist: 0 hits / 0 attempts
+[2026-05-23T01:53:32Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-23T01:53:32Z] 
+[2026-05-23T01:53:32Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-23T01:53:32Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-23T01:53:44Z] 
+[2026-05-23T01:53:44Z] ════════════════════════════════════════════════════════
+[2026-05-23T01:53:44Z] verify_claims.sh v2 complete
+[2026-05-23T01:53:44Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-23T01:53:44Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-23T01:53:44Z]   Dry run: false
+[2026-05-23T01:53:44Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-23T01:53:44Z] ════════════════════════════════════════════════════════
+[2026-05-23T02:23:30Z] ════════════════════════════════════════════════════════
+[2026-05-23T02:23:30Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-23T02:23:30Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-23T02:23:30Z] Run ts     : 2026-05-23T02:23:30Z
+[2026-05-23T02:23:30Z] ════════════════════════════════════════════════════════
+[2026-05-23T02:23:30Z] 
+[2026-05-23T02:23:30Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-23T02:23:31Z] 
+[2026-05-23T02:23:31Z] Pass 1 source tallies:
+[2026-05-23T02:23:31Z]   arxiv: 0 hits / 0 attempts
+[2026-05-23T02:23:31Z]   crossref: 0 hits / 0 attempts
+[2026-05-23T02:23:31Z]   inspire: 0 hits / 0 attempts
+[2026-05-23T02:23:31Z]   nist: 0 hits / 0 attempts
+[2026-05-23T02:23:31Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-23T02:23:31Z] 
+[2026-05-23T02:23:31Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-23T02:23:31Z] 
+[2026-05-23T02:23:31Z] Pass 2 source tallies:
+[2026-05-23T02:23:31Z]   arxiv: 0 hits / 0 attempts
+[2026-05-23T02:23:31Z]   crossref: 0 hits / 0 attempts
+[2026-05-23T02:23:31Z]   inspire: 0 hits / 0 attempts
+[2026-05-23T02:23:31Z]   nist: 0 hits / 0 attempts
+[2026-05-23T02:23:31Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-23T02:23:31Z] 
+[2026-05-23T02:23:31Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-23T02:23:31Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-23T02:23:43Z] 
+[2026-05-23T02:23:43Z] ════════════════════════════════════════════════════════
+[2026-05-23T02:23:43Z] verify_claims.sh v2 complete
+[2026-05-23T02:23:43Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-23T02:23:43Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-23T02:23:43Z]   Dry run: false
+[2026-05-23T02:23:43Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-23T02:23:43Z] ════════════════════════════════════════════════════════
+[2026-05-23T02:53:59Z] ════════════════════════════════════════════════════════
+[2026-05-23T02:53:59Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-23T02:53:59Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-23T02:53:59Z] Run ts     : 2026-05-23T02:53:59Z
+[2026-05-23T02:53:59Z] ════════════════════════════════════════════════════════
+[2026-05-23T02:53:59Z] 
+[2026-05-23T02:53:59Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-23T02:54:00Z] 
+[2026-05-23T02:54:00Z] Pass 1 source tallies:
+[2026-05-23T02:54:00Z]   arxiv: 0 hits / 0 attempts
+[2026-05-23T02:54:00Z]   crossref: 0 hits / 0 attempts
+[2026-05-23T02:54:00Z]   inspire: 0 hits / 0 attempts
+[2026-05-23T02:54:00Z]   nist: 0 hits / 0 attempts
+[2026-05-23T02:54:00Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-23T02:54:00Z] 
+[2026-05-23T02:54:00Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-23T02:54:01Z] 
+[2026-05-23T02:54:01Z] Pass 2 source tallies:
+[2026-05-23T02:54:01Z]   arxiv: 0 hits / 0 attempts
+[2026-05-23T02:54:01Z]   crossref: 0 hits / 0 attempts
+[2026-05-23T02:54:01Z]   inspire: 0 hits / 0 attempts
+[2026-05-23T02:54:01Z]   nist: 0 hits / 0 attempts
+[2026-05-23T02:54:01Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-23T02:54:01Z] 
+[2026-05-23T02:54:01Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-23T02:54:01Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-23T02:54:13Z] 
+[2026-05-23T02:54:13Z] ════════════════════════════════════════════════════════
+[2026-05-23T02:54:13Z] verify_claims.sh v2 complete
+[2026-05-23T02:54:13Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-23T02:54:13Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-23T02:54:13Z]   Dry run: false
+[2026-05-23T02:54:13Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-23T02:54:13Z] ════════════════════════════════════════════════════════
+[2026-05-23T03:23:59Z] ════════════════════════════════════════════════════════
+[2026-05-23T03:23:59Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-23T03:23:59Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-23T03:23:59Z] Run ts     : 2026-05-23T03:23:59Z
+[2026-05-23T03:23:59Z] ════════════════════════════════════════════════════════
+[2026-05-23T03:23:59Z] 
+[2026-05-23T03:23:59Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-23T03:24:00Z] 
+[2026-05-23T03:24:00Z] Pass 1 source tallies:
+[2026-05-23T03:24:00Z]   arxiv: 0 hits / 0 attempts
+[2026-05-23T03:24:00Z]   crossref: 0 hits / 0 attempts
+[2026-05-23T03:24:00Z]   inspire: 0 hits / 0 attempts
+[2026-05-23T03:24:00Z]   nist: 0 hits / 0 attempts
+[2026-05-23T03:24:00Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-23T03:24:00Z] 
+[2026-05-23T03:24:00Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-23T03:24:01Z] 
+[2026-05-23T03:24:01Z] Pass 2 source tallies:
+[2026-05-23T03:24:01Z]   arxiv: 0 hits / 0 attempts
+[2026-05-23T03:24:01Z]   crossref: 0 hits / 0 attempts
+[2026-05-23T03:24:01Z]   inspire: 0 hits / 0 attempts
+[2026-05-23T03:24:01Z]   nist: 0 hits / 0 attempts
+[2026-05-23T03:24:01Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-23T03:24:01Z] 
+[2026-05-23T03:24:01Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-23T03:24:01Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-23T03:24:12Z] 
+[2026-05-23T03:24:12Z] ════════════════════════════════════════════════════════
+[2026-05-23T03:24:12Z] verify_claims.sh v2 complete
+[2026-05-23T03:24:12Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-23T03:24:12Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-23T03:24:12Z]   Dry run: false
+[2026-05-23T03:24:12Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-23T03:24:12Z] ════════════════════════════════════════════════════════
+[2026-05-23T03:54:00Z] ════════════════════════════════════════════════════════
+[2026-05-23T03:54:00Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-23T03:54:00Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-23T03:54:00Z] Run ts     : 2026-05-23T03:54:00Z
+[2026-05-23T03:54:00Z] ════════════════════════════════════════════════════════
+[2026-05-23T03:54:00Z] 
+[2026-05-23T03:54:00Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-23T03:54:01Z] 
+[2026-05-23T03:54:01Z] Pass 1 source tallies:
+[2026-05-23T03:54:01Z]   arxiv: 0 hits / 0 attempts
+[2026-05-23T03:54:01Z]   crossref: 0 hits / 0 attempts
+[2026-05-23T03:54:01Z]   inspire: 0 hits / 0 attempts
+[2026-05-23T03:54:01Z]   nist: 0 hits / 0 attempts
+[2026-05-23T03:54:01Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-23T03:54:01Z] 
+[2026-05-23T03:54:01Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-23T03:54:02Z] 
+[2026-05-23T03:54:02Z] Pass 2 source tallies:
+[2026-05-23T03:54:02Z]   arxiv: 0 hits / 0 attempts
+[2026-05-23T03:54:02Z]   crossref: 0 hits / 0 attempts
+[2026-05-23T03:54:02Z]   inspire: 0 hits / 0 attempts
+[2026-05-23T03:54:02Z]   nist: 0 hits / 0 attempts
+[2026-05-23T03:54:02Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-23T03:54:02Z] 
+[2026-05-23T03:54:02Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-23T03:54:02Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-23T03:54:14Z] 
+[2026-05-23T03:54:14Z] ════════════════════════════════════════════════════════
+[2026-05-23T03:54:14Z] verify_claims.sh v2 complete
+[2026-05-23T03:54:14Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-23T03:54:14Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-23T03:54:14Z]   Dry run: false
+[2026-05-23T03:54:14Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-23T03:54:14Z] ════════════════════════════════════════════════════════
+[2026-05-23T04:24:59Z] ════════════════════════════════════════════════════════
+[2026-05-23T04:24:59Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-23T04:24:59Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-23T04:24:59Z] Run ts     : 2026-05-23T04:24:59Z
+[2026-05-23T04:24:59Z] ════════════════════════════════════════════════════════
+[2026-05-23T04:24:59Z] 
+[2026-05-23T04:24:59Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-23T04:25:01Z] 
+[2026-05-23T04:25:01Z] Pass 1 source tallies:
+[2026-05-23T04:25:01Z]   arxiv: 0 hits / 0 attempts
+[2026-05-23T04:25:01Z]   crossref: 0 hits / 0 attempts
+[2026-05-23T04:25:01Z]   inspire: 0 hits / 0 attempts
+[2026-05-23T04:25:01Z]   nist: 0 hits / 0 attempts
+[2026-05-23T04:25:01Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-23T04:25:01Z] 
+[2026-05-23T04:25:01Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-23T04:25:01Z] 
+[2026-05-23T04:25:01Z] Pass 2 source tallies:
+[2026-05-23T04:25:01Z]   arxiv: 0 hits / 0 attempts
+[2026-05-23T04:25:01Z]   crossref: 0 hits / 0 attempts
+[2026-05-23T04:25:01Z]   inspire: 0 hits / 0 attempts
+[2026-05-23T04:25:01Z]   nist: 0 hits / 0 attempts
+[2026-05-23T04:25:01Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-23T04:25:01Z] 
+[2026-05-23T04:25:01Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-23T04:25:02Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-23T04:25:13Z] 
+[2026-05-23T04:25:13Z] ════════════════════════════════════════════════════════
+[2026-05-23T04:25:13Z] verify_claims.sh v2 complete
+[2026-05-23T04:25:13Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-23T04:25:13Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-23T04:25:13Z]   Dry run: false
+[2026-05-23T04:25:13Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-23T04:25:13Z] ════════════════════════════════════════════════════════
+[2026-05-23T04:55:59Z] ════════════════════════════════════════════════════════
+[2026-05-23T04:55:59Z] verify_claims.sh v2 started (dry_run=false)
+[2026-05-23T04:55:59Z] Staged dir : /home/rick/kestrel-memory/knowledge/staged
+[2026-05-23T04:55:59Z] Run ts     : 2026-05-23T04:55:59Z
+[2026-05-23T04:55:59Z] ════════════════════════════════════════════════════════
+[2026-05-23T04:55:59Z] 
+[2026-05-23T04:55:59Z] ── PASS 1: claim → reinforced_claim ──────────────────────
+[2026-05-23T04:56:00Z] 
+[2026-05-23T04:56:00Z] Pass 1 source tallies:
+[2026-05-23T04:56:00Z]   arxiv: 0 hits / 0 attempts
+[2026-05-23T04:56:00Z]   crossref: 0 hits / 0 attempts
+[2026-05-23T04:56:00Z]   inspire: 0 hits / 0 attempts
+[2026-05-23T04:56:00Z]   nist: 0 hits / 0 attempts
+[2026-05-23T04:56:00Z] Pass 1 complete: 0/0 promoted to reinforced_claim
+[2026-05-23T04:56:00Z] 
+[2026-05-23T04:56:00Z] ── PASS 2: reinforced_claim → fact_candidate ─────────────
+[2026-05-23T04:56:01Z] 
+[2026-05-23T04:56:01Z] Pass 2 source tallies:
+[2026-05-23T04:56:01Z]   arxiv: 0 hits / 0 attempts
+[2026-05-23T04:56:01Z]   crossref: 0 hits / 0 attempts
+[2026-05-23T04:56:01Z]   inspire: 0 hits / 0 attempts
+[2026-05-23T04:56:01Z]   nist: 0 hits / 0 attempts
+[2026-05-23T04:56:01Z] Pass 2 complete: 0/0 promoted to fact_candidate
+[2026-05-23T04:56:01Z] 
+[2026-05-23T04:56:01Z] ── Running run_promotion_queue.sh ────────────────────────
+
+=== Promotion Queue Run: 2026-05-23T04:56:01Z ===
+Staged dir : /home/rick/kestrel-memory/knowledge/staged
+Gate file  : /home/rick/.kestrel-node/runtime/state/promotion_gate.json
+Queued     : 0
+Skipped (already queued): 19
+Total eligible_items now : 19
+
+=== 3-Gate Promotion Evaluation ===
+  [NO_URL  ] grb_qdl_results_conclusion_excerpt_2026_04_12
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ibm_and_trapped_ion_technology_essay
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_5d78295e772cca77
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_a100188c8b6ca658
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d2cf7aeb0baba4c2
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_25027f1aa9f08a8c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_6eb939f5f9a47cf5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_1a9cd1de7c2fe21a
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_77b7ac61dc53fc95
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_eb9e427711adbb61
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_62681f640ed4cee3
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_d60faf034debf5e5
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_540c2668494562e4
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_ad13c3886726314c
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_f03d38b92e13abd8
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] ingest_766e0d57c93d8a5b
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NEEDS_ALL] ingest_1328b0138cdecf46
+              → arxiv:2403.02240 | no gates satisfied yet; sources: ['openalex']
+  [NO_URL  ] ingest_20fe9196c6ba6a93
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+  [NO_URL  ] tg_url_20260502T054314Z
+              → no arxiv ID detected; Gate 1 cannot be satisfied via truth gate
+
+=== Promotion Summary ===
+Promoted (all 3 gates passed):        0
+Has 2 academic APIs, needs w3m:       1
+Has w3m, needs 2nd academic source:   0
+No arxiv URL (non-academic items):    18
+
+Gate flags updated: auto_promote=true, requires_host_approval=false
+[2026-05-23T04:56:12Z] 
+[2026-05-23T04:56:12Z] ════════════════════════════════════════════════════════
+[2026-05-23T04:56:12Z] verify_claims.sh v2 complete
+[2026-05-23T04:56:12Z]   Pass 1: 0/0 claim → reinforced_claim
+[2026-05-23T04:56:12Z]   Pass 2: 0/0 reinforced_claim → fact_candidate
+[2026-05-23T04:56:12Z]   Dry run: false
+[2026-05-23T04:56:12Z]   Log: /home/rick/kestrel-memory/runtime/verify_claims.log
+[2026-05-23T04:56:12Z] ════════════════════════════════════════════════════════
