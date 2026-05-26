@@ -16,8 +16,8 @@ set -uo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/lib/sources.sh"
 
-STAGED="$HOME/kestrel-memory/knowledge/staged"
-RUNTIME="$HOME/kestrel-memory/runtime"
+STAGED="$HOME/kestrel/knowledge/knowledge/staged"
+RUNTIME="$HOME/kestrel/knowledge/runtime"
 LOG="$RUNTIME/verify_claims.log"
 PROMOTE_SCRIPT="$RUNTIME/run_promotion_queue.sh"
 
