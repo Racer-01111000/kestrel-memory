@@ -48,3 +48,11 @@ Authority:
 - The protected helper files and Kestrel's persona/identity are separate from all projects on this computer.
 - They should not be treated as project files, app code, or repo-owned assets.
 - Project work should avoid conflating runtime identity/protected host components with repository contents.
+
+## Inference architecture (updated 2026-06-03)
+
+- **Ollama / local inference: RETIRED.** `ollama serve` was stopped intentionally on 2026-06-03. No local model inference runs on NODE.
+- **Bedrock (Haiku 4.5) is the sole inference layer.** `global.anthropic.claude-haiku-4-5-20251001-v1:0` via AWS Bedrock on EC2.
+- **NODE role: CC memory and workspace only.** NODE remains Tailscale-reachable, SSH-accessible, filesystem intact. It stores kestrel-memory, git history, and CC workspace files.
+- **No pipeline inference workloads on NODE.** Ingest, validation, consume, and Bedrock drain all run on EC2.
+- **CC manages NODE memory and git commits.** Kestrel memory is maintained by CC via SSH; 12h auto-backup commits continue.
